@@ -1,0 +1,24 @@
+.root {
+  display: grid;
+  grid-gap: 10vmin;
+  grid-template-columns: 3fr 5fr;
+  grid-template-areas: "image content";
+  justify-content: space-between;
+
+  * {
+    font-family: "Montserrat", "sans-serif";
+  }
+}
+
+.root.imageRight {
+  grid-template-columns: 5fr 3fr;
+  grid-template-areas: "content image";
+}
+
+.image {
+  grid-area: image;
+}
+
+.content {
+  grid-area: content;
+}
