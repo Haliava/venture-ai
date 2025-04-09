@@ -1,4 +1,4 @@
-import { getApiFormFieldNameFromFieldDisplayName } from "@/shared/lib/utils";
+import { checkForFieldForErrors, getApiFormFieldNameFromFieldDisplayName } from "@/shared/lib/utils";
 import { StartupForm, StartupFormField } from "@/shared/types/form";
 import { AccordionContent, AccordionItem, AccordionTrigger } from "@/shared/ui/accordion";
 import { Icon } from "@/shared/ui/icon";
@@ -28,6 +28,7 @@ export const FormAccordion = ({
 
   const handleTextareaValueChange = (e: React.ChangeEvent<HTMLTextAreaElement>) => {
     formik.setFieldValue(apiFieldName, e.target.value, true);
+    setIsValid(checkForFieldForErrors(e.target.value))
   }
 
   return (

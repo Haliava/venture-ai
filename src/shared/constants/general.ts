@@ -1,6 +1,6 @@
 import { Tab } from "../types/general";
 
-export const MIN_SYMBOL_COUNT = 0;
+export const MIN_SYMBOL_COUNT = 10;
 export const MAX_SYMBOL_COUNT = 1000;
 export const MAX_TAG_LENGTH = 20;
 
