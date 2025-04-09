@@ -12,6 +12,7 @@ export const StarsRating = ({ starCount = 5, rating, setRating, className }: Sta
     <div className="flex gap-3.5">
       {Array.from({length: starCount}).map((_, i) => (
         <Icon
+          key={i}
           className={`${i <= rating ? "fill-danger": "fill-check"} ${className}`}
           type="star"
           onClick={() => setRating(i)}
