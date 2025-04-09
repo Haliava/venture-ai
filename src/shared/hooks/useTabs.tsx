@@ -2,6 +2,7 @@ import { useState } from "react"
 import { TABS } from "../constants/general";
 
 export const useTabs = () => {
+  // @ts-ignore
   const [tabs, setTabs] = useState(TABS);
   const [activeTab, setActiveTab] = useState(tabs[0]);
 

@@ -10,7 +10,9 @@ import { ReactMediaRecorder } from "react-media-recorder";
 var saveData = (function () {
   var a = document.createElement("a");
   document.body.appendChild(a);
+  // @ts-ignore
   a.style = "display: none";
+  // @ts-ignore
   return function (data, fileName) {
       var json = JSON.stringify(data),
           blob = new Blob([json], {type: "audio/wav"}),

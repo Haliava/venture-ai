@@ -20,7 +20,7 @@ export function getApiFormFieldNameFromFieldDisplayName(displayName: FIELD_NAMES
   return Object.entries(fieldApiNameToDisplayName).find(entry => entry[1] === displayName)?.[0] as StartupFormFieldValue
 }
 
-export function checkForFieldForErrors(fieldValue) {
+export function checkForFieldForErrors(fieldValue: string) {
   if (fieldValue.length < MIN_SYMBOL_COUNT) {
     return false;
   }
