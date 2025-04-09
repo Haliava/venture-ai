@@ -13,7 +13,7 @@ import ClearFieldsButton from '@/features/clear-fields-button';
 import RecordAudio from '@/features/record-audio';
 
 export const Form = () => {
-  const { values: storeValues, submitForm } = useFormStore();
+  const { values: storeValues, setValues: setStoreValues, submitForm } = useFormStore();
   const [openAccordionItems, setOpenAccordionItems] = useState<string[]>([])
 
   const validateForm = (formValues: StartupForm) => {
@@ -44,7 +44,8 @@ export const Form = () => {
         const { setValues } = formik;
 
         const resetForm = () => {
-          setValues(defaultFormValues)
+          setValues(defaultFormValues);
+          setStoreValues(defaultFormValues);
         }
 
         return (
@@ -57,7 +58,7 @@ export const Form = () => {
               className="border-y-[1px] mb-4"
             >
               {FIELDS.map((item, i) => (
-                <FormAccordion num={i + 1} {...item} setValues={setOpenAccordionItems} />
+                <FormAccordion key={item.apiFieldName} num={i + 1} {...item} setValues={setOpenAccordionItems} />
               ))}
             </Accordion>
             <div className='flex flex-wrap items-center px-[5vw] gap-5'>

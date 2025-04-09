@@ -1,4 +1,5 @@
 import { checkForFieldForErrors, getApiFormFieldNameFromFieldDisplayName } from "@/shared/lib/utils";
+import { useFormStore } from "@/shared/store/form";
 import { StartupForm, StartupFormField } from "@/shared/types/form";
 import { AccordionContent, AccordionItem, AccordionTrigger } from "@/shared/ui/accordion";
 import { Icon } from "@/shared/ui/icon";
@@ -18,6 +19,7 @@ export const FormAccordion = ({
   required,
   setValues
 }: FormAccordionProps) => {
+  const { setFormValue } = useFormStore();
   const formik = useFormikContext<StartupForm>();
   const apiFieldName = getApiFormFieldNameFromFieldDisplayName(title);
   const [isValid, setIsValid] = useState(true);
@@ -28,6 +30,7 @@ export const FormAccordion = ({
 
   const handleTextareaValueChange = (e: React.ChangeEvent<HTMLTextAreaElement>) => {
     formik.setFieldValue(apiFieldName, e.target.value, true);
+    setFormValue(apiFieldName, e.target.value);
     setIsValid(checkForFieldForErrors(e.target.value))
   }
 
