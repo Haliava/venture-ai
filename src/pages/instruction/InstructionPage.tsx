@@ -6,6 +6,19 @@ import { TextWithBackground } from "@/shared/ui/TextWithBackground"
 import InfoCard from "@/widgets/info-card"
 import { useNavigate } from "react-router"
 
+import peopleImage from '@/shared/assets/images/people.webp'
+import dotWebImage from '@/shared/assets/images/dot-web.webp'
+import handshakeImage from '@/shared/assets/images/handshake.png'
+import walletImage from '@/shared/assets/images/wallet.webp'
+import targetImage from '@/shared/assets/images/target.webp'
+import lightbulbImage from '@/shared/assets/images/lightbulb.webp'
+import starImage from '@/shared/assets/images/star.webp'
+import puzzleImage from '@/shared/assets/images/puzzle.webp'
+import magnifyingGlassImage from '@/shared/assets/images/magnifying-glass.webp'
+import cogsImage from '@/shared/assets/images/cogs.webp'
+import ladderImage from '@/shared/assets/images/ladder.webp'
+import upTrendImage from '@/shared/assets/images/up-trend.webp'
+
 export const InstructionPage = () => {
   const navigate = useNavigate();
 
@@ -38,8 +51,8 @@ export const InstructionPage = () => {
           <p>Всего тегов должно быть от двух до пяти. Вписывайте их по очереди в поле ввода через клавишу  Enter. Вы можете удалить тег, нажав на него правой кнопкой мыши или зажимая его в мобильной версии.</p>
           <p>Теги должны быть короткими и состоять из 1-4 слов. Используйте понятные слова: «финтех», «образование», «маркетплейс», «ИИ», «стартап-инвестиции».</p>
           <div className="flex gap-2.5">
-            {['Венчурный рынок', 'ИИ', 'Инвестиции'].map(badge => (
-              <TealBadge content={badge} />
+            {['Венчурный рынок', 'ИИ', 'Инвестиции'].map((badge, i) => (
+              <TealBadge key={`${badge.slice(0, 3)}-${i}`} content={badge} />
             ))}
           </div>
         </div>
@@ -50,7 +63,7 @@ export const InstructionPage = () => {
           contentClassName="flex flex-col py-5"
           imagePosition="left"
           title="1. Идея проекта"
-          imageSrc="src/shared/assets/images/lightbulb.webp"
+          imageSrc={lightbulbImage}
         >
           <br />
           <p>В этом блоке нужно описать основную мысль бизнеса. Кратко&nbsp;и емко распишите суть проекта, дополняя ключевыми функциями.</p>
@@ -72,7 +85,7 @@ export const InstructionPage = () => {
           contentClassName="flex flex-col"
           imagePosition="right"
           title="2. УТП продукта"
-          imageSrc="src/shared/assets/images/star.webp"
+          imageSrc={starImage}
         >
           <br />
           <p>Опишите уникальное торговое предложение Вашего продукта. Чем он отличается от предложений конкурентов? Почему клиенты должны выбрать Ваш продукт, а&nbsp;не&nbsp;конкурентов?</p>
@@ -92,7 +105,7 @@ export const InstructionPage = () => {
           contentClassName="flex flex-col -ml-5"
           imagePosition="left"
           title="3. Проблема"
-          imageSrc="src/shared/assets/images/puzzle.webp"
+          imageSrc={puzzleImage}
         >
           <br />
           <p>Проблема — конкретная «боль» клиентов, которую решает Ваш продукт. Опишите ситуацию, где клиент испытывает дискомфорт.
@@ -110,7 +123,7 @@ export const InstructionPage = () => {
           contentClassName="flex flex-col"
           imagePosition="right"
           title="4. Решение"
-          imageSrc="src/shared/assets/images/magnifying-glass.webp"
+          imageSrc={magnifyingGlassImage}
         >
           <br />
           <p>Решение — это конкретный ответ на выявленную проблему или потребность, который направлен на достижение определенных целей и улучшение ситуации. Оно решает «боль» — недостаток, неэффективность или возможность улучшения, которые были выявлены в процессе анализа. Решение должно быть в измеримом циферном эквиваленте</p>
@@ -126,7 +139,7 @@ export const InstructionPage = () => {
           contentClassName="flex flex-col"
           imagePosition="left"
           title="5. Технология реализации продукта"
-          imageSrc="src/shared/assets/images/cogs.webp"
+          imageSrc={cogsImage}
         >
           <br />
           <p>Опишите какие технологии и инструменты используются для создания Вашего продукта.
@@ -144,7 +157,7 @@ export const InstructionPage = () => {
           contentClassName="flex flex-col"
           imagePosition="right"
           title="6. Целевая аудитория"
-          imageSrc="src/shared/assets/images/people.webp"
+          imageSrc={peopleImage}
         >
           <br />
           Опишите подробный портрет аудитории, для которой предназначен продукт.
@@ -162,7 +175,7 @@ export const InstructionPage = () => {
           contentClassName="flex flex-col"
           imagePosition="left"
           title="7. Дорожная карта"
-          imageSrc="src/shared/assets/images/ladder.webp"
+          imageSrc={ladderImage}
         >
           <br />
           Дорожная карта — это этапы развития проекта. Напишите 3-5 этапов и их даты, четко их сформировав. 
@@ -181,7 +194,7 @@ export const InstructionPage = () => {
           contentClassName="flex flex-col"
           imagePosition="right"
           title="8. Объем рынка"
-          imageSrc="src/shared/assets/images/up-trend.webp"
+          imageSrc={upTrendImage}
         >
           (PAM, TAM, SAM, SOM)
           <br />
@@ -202,7 +215,7 @@ export const InstructionPage = () => {
           contentClassName="flex flex-col"
           imagePosition="left"
           title="9. Анализ конкурентов"
-          imageSrc="src/shared/assets/images/target.webp"
+          imageSrc={targetImage}
         >
           <br />
           В этом блоке нужно перечислить 3-5 конкурентов, которые решают проблему, которую Вы описали в четвертом блоке. Опишите их сильные и слабые стороны. 
@@ -225,7 +238,7 @@ export const InstructionPage = () => {
           contentClassName="flex flex-col"
           imagePosition="right"
           title="10. Стратегия коммерциализации"
-          imageSrc="src/shared/assets/images/wallet.webp"
+          imageSrc={walletImage}
         >
           <br />
           Стратегия коммерциализации — это модель дохода и то,
@@ -246,7 +259,7 @@ export const InstructionPage = () => {
           contentClassName="flex flex-col"
           imagePosition="left"
           title="11. Команда проекта"
-          imageSrc="src/shared/assets/images/handshake.png"
+          imageSrc={handshakeImage}
         >
           <br />
           Команда — люди, которые стоят за стартапом. Назовите имя каждого участника и их роль
@@ -264,7 +277,7 @@ export const InstructionPage = () => {
           contentClassName="flex flex-col"
           imagePosition="right"
           title="12. Участие в научных работах, публикации в СМИ"
-          imageSrc="src/shared/assets/images/dot-web.webp"
+          imageSrc={dotWebImage}
         >
           <br />
           Если у команды есть экспертные статьи, 
