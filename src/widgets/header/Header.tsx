@@ -10,7 +10,7 @@ import { useNavigate } from "react-router";
 
 export const Header = () => {
   const navigate = useNavigate();
-  const { device: currentDevice, currentWidth } = useCurrentDevice();
+  const { device: currentDevice } = useCurrentDevice();
   const { tabs, activeTab, updateActiveTab } = useTabs();
   const { user } = useUserStore();
 
