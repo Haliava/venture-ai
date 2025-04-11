@@ -3,6 +3,7 @@
 
 @theme {
   --breakpoint-*: initial;
+  --breakpoint-xs: 320px;
   --breakpoint-sm: 512px;
   --breakpoint-md: 768px;
   --breakpoint-lg: 936px;
@@ -20,6 +21,21 @@
   --color-text-blue: rgba(5, 47, 109, 1);
   --color-blue-dark: rgba(104, 135, 181, 1);
   --color-ai-yellow: rgb(252, 201, 0);
+
+  --text-ai-regular: 1rem;
+  --text-ai-lg: 1.5rem;
+}
+
+@media screen and (min-width: 320px) {
+  html {
+    font-size: 10px;
+  }
+}
+
+@media screen and (min-width: 512px) {
+  html {
+    font-size: 14px;
+  }
 }
 
 :root {

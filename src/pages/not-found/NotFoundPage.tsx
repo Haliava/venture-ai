@@ -1,8 +1,8 @@
 export const NotFoundPage = () => {
   return (
-    <div className="*:font-semibold *:text-[20px] flex flex-col p-10">
+    <div className="*:font-semibold *:text-[1.33rem] flex flex-col p-10">
       <div>
-        <h1 className="[&&]:text-[36px]">Ошибка: 404</h1>
+        <h1 className="[&&]:text-[2.5rem]">Ошибка: 404</h1>
         <span className="flex gap-2">
           <p>Попробуйте перезагрузить</p>
           <p className="text-ai-yellow">страницу</p>

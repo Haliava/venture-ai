@@ -76,17 +76,17 @@ export const RecordAudio = () => {
       <DrawerTrigger asChild>
         <Button className="flex items-center h-max justify-center gap-2.5 bg-none border-2 py-2.5 px-8" variant="outline">
           <Icon className="size-8 fill-white" type="microphone" />
-          <p className="font-semibold text-[20px]">Начать запись аудио</p>
+          <p className="font-semibold text-ai-lg">Начать запись аудио</p>
         </Button>
       </DrawerTrigger>
       <DrawerContent className="bg-bg-accent border-none flex flex-col gap-4 items-center justify-center">
-        <DrawerHeader className="flex items-center justify-center">
-          <DrawerTitle className="font-semibold text-[20px] text-white">Запись аудиоистории</DrawerTitle>
-          <DrawerDescription className="font-medium text-[16px] text-check text-center flex flex-col items-center justify-center gap-5 mb-5">
+        <DrawerHeader className="relative flex items-center justify-center">
+          <DrawerTitle className="font-semibold text-[1.5rem] text-white">Запись аудиоистории</DrawerTitle>
+          <DrawerDescription className="font-medium text-[1rem] text-check text-center flex flex-col items-center justify-center gap-5 mb-5">
             Автоматически остановится при достижении длительности 10 минут.
           </DrawerDescription>
-          <CircularProgress className="relative w-[160px] h-[160px] -rotate-90" strokeWidth={5} value={recordingProgress} />
-          <div className="absolute top-[230px] *:font-medium *:text-[20px] flex gap-1.5">
+          <CircularProgress className="w-[16rem] h-[16rem] -rotate-90" strokeWidth={5} value={recordingProgress} />
+          <div className="absolute bottom-[8rem] *:font-medium *:text-ai-lg flex gap-1.5">
             <p>{displayTimerTime(elapsedSeconds)}</p>
             <p className="text-check">/</p>
             <p className="text-check">{TIMER_FOR_N_MINUTES}:00</p>
@@ -106,21 +106,25 @@ export const RecordAudio = () => {
                     className="flex gap-2.5 min-h-fit [&&]:px-8 [&&]:py-2 bg-danger"
                   >
                     <Icon type="circle" className="size-6" />
-                    <p className="font-semibold text-[20px]">Начать запись</p>
+                    <p className="font-semibold text-ai-lg">Начать запись</p>
                   </Button>
                 )}
-                <video src={mediaBlobUrl} controls loop />
                 {status !== STATUS.IDLE && status !== STATUS.STOPPED && (
                   <>
-                    <Button ref={stopRecordingButton} onClick={() => {
-                      stopRecording();
-                      setCurrentRecordingStatus(STATUS.STOPPED);
-                      if (mediaBlobUrl) {
-                        handleSendRecording(mediaBlobUrl);
-                      }
-                    }} variant="outline" className="flex gap-2 border-2 bg-[rgba(86, 86, 86, 1)] active:bg-none">
+                    <Button
+                      ref={stopRecordingButton}
+                      onClick={() => {
+                        stopRecording();
+                        setCurrentRecordingStatus(STATUS.STOPPED);
+                        if (mediaBlobUrl) {
+                          handleSendRecording(mediaBlobUrl);
+                        }
+                      }}
+                      variant="outline"
+                      className="flex h-max gap-2 border-2 bg-[rgba(86, 86, 86, 1)] active:bg-none"
+                    >
                       <Icon type="square" className="size-3.5" />
-                      <p className="font-semibold text-[20px]">Закончить запись</p>
+                      <p className="font-semibold text-ai-lg">Закончить запись</p>
                     </Button>
                     {status === STATUS.RECORDING && (
                       <Button
@@ -128,10 +132,10 @@ export const RecordAudio = () => {
                           pauseRecording();
                           setCurrentRecordingStatus(STATUS.PAUSED);
                         }}
-                        className="flex gap-2 border-2 bg-white active:bg-[rgba(217, 217, 217, 1)] [&&]:px-8 [&&]:py-2"
+                        className="flex h-max gap-2 border-2 bg-white active:bg-[rgba(217, 217, 217, 1)] [&&]:px-8 [&&]:py-2"
                       >
                         <Icon type="pause" className="size-5 fill-black" />
-                        <p className="text-black font-semibold text-[20px]">Пауза</p>
+                        <p className="text-black font-semibold text-ai-lg">Пауза</p>
                       </Button>
                     )}
                     {status === STATUS.PAUSED && (
@@ -140,10 +144,10 @@ export const RecordAudio = () => {
                           resumeRecording();
                           setCurrentRecordingStatus(STATUS.RECORDING);
                         }}
-                        className="flex gap-2 border-2 bg-white active:bg-[rgba(217, 217, 217, 1)] [&&]:px-8 [&&]:py-2"
+                        className="flex h-max gap-2 border-2 bg-white active:bg-[rgba(217, 217, 217, 1)] [&&]:px-8 [&&]:py-2"
                       >
                         <Icon type="triangle" className="size-5" />
-                        <p className="text-black font-semibold text-[20px]">Продолжить</p>
+                        <p className="text-black font-semibold text-ai-lg">Продолжить</p>
                       </Button>
                     )}
                   </>

@@ -24,12 +24,12 @@ export const InputTags = ({ className }: {className?: string}) => {
   return (
     <div className={`flex flex-col gap-4 px-[5vw] ${formik.values.tags.length ? 'mb-5': ''} ${className}`}>
       <div className="flex items-center h-min gap-2">
-        <p className="text-[32px] font-semibold h-min">Теги:</p>
+        <p className="text-ai-lg font-semibold h-min">Теги:</p>
         <Input ref={inputRef} className="border-none" onKeyDown={handleEnterNewTag} />
       </div>
       <div className="flex gap-2 flex-wrap">
         {formik.values.tags.map((tag, i) => (
-          <Badge key={`${tag}-${i}`} className="line-clamp-1 bg-help text-text-blue text-[16px] px-7 rounded-full font-semibold">
+          <Badge key={`${tag}-${i}`} className="line-clamp-1 bg-help text-[1rem] text-text-blue px-7 rounded-full font-semibold">
             {squishText(tag)}
           </Badge>
         ))}

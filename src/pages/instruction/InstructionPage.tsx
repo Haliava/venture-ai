@@ -23,7 +23,7 @@ export const InstructionPage = () => {
   const navigate = useNavigate();
 
   return (
-    <div className="rounded-3xl p-5 flex flex-col gap-8 font-normal text-[14px]">
+    <div className="rounded-3xl p-5 flex flex-col gap-8 font-normal text-ai-regular">
       <div className="flex flex-col gap-3.5">
         <h3 className="text-[24px] font-bold">Инструкция по заполнению</h3>
         <p className="py-4">
@@ -301,7 +301,7 @@ export const InstructionPage = () => {
           Так же вы можете менять названия проектов и черновиков, добавлять описание и обложки, делиться ими и удалять.
         </p>
         <Button onClick={() => navigate('/')}>
-          <p className="underline font-bold text-[24px]">Вернуться на главный экран</p>
+          <p className="underline font-bold text-ai-lg">Вернуться на главный экран</p>
         </Button>
       </div>
     </div>

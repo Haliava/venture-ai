@@ -36,7 +36,7 @@ export const FormAccordion = ({
 
   return (
     <AccordionItem className="px-[5vw]" value={title}>
-      <AccordionTrigger className="text-2xl font-semibold flex items-center">
+      <AccordionTrigger className="text-ai-lg py-4 font-semibold flex items-center">
         <div className="flex flex-row justify-between w-full">
           <p>{`${num}. ${title}${required ? '*': ''}`}</p>
           <Icon
@@ -47,14 +47,14 @@ export const FormAccordion = ({
       </AccordionTrigger>
       <AccordionContent>
         <div className="flex flex-col gap-3.5">
-          <p className="text-check text-[14px] font-medium">{description}</p>
+          <p className="text-check text-ai-regular font-medium">{description}</p>
           <div>
             <Textarea
               className={`${formik.errors[apiFieldName] ? 'border-danger' : 'border-none'} active:border-none h-[18vh]`}
               value={formik.values[apiFieldName]}
               onChange={handleTextareaValueChange}
             />
-            {formik.errors[apiFieldName] && <p className="text-danger text-[14px] font-medium">{formik.errors[apiFieldName]}</p>}
+            {formik.errors[apiFieldName] && <p className="text-danger text-ai-regular font-medium">{formik.errors[apiFieldName]}</p>}
           </div>
           <div className="flex justify-end">
             <Icon type="arrow" className="size-8" onClick={handleChevronClick} />

@@ -10,7 +10,7 @@ import { useNavigate } from "react-router";
 
 export const Header = () => {
   const navigate = useNavigate();
-  const currentDevice = useCurrentDevice();
+  const { device: currentDevice, currentWidth } = useCurrentDevice();
   const { tabs, activeTab, updateActiveTab } = useTabs();
   const { user } = useUserStore();
 
@@ -19,10 +19,10 @@ export const Header = () => {
   }
 
   return (
-    <div className="sticky top-0 h-[12vh] flex justify-between items-end bg-header mb-2 py-1 px-5 md:h-min md:py-3 md:px-20 md:gap-20 md:items-center">
-      <div onClick={() => navigate('/')} className="flex grow h-min max-w-[50%] flex-row gap-3 items-center">
-        <Icon type="briefcase" className="h-9 w-auto md:h-14" />
-        <Icon type="title" className="h-5 w-auto md:h-9" />
+    <div className="sticky top-0 flex justify-between items-end bg-header mb-2 py-1 pt-2 px-5 md:py-3 md:px-20 md:gap-20 md:items-center">
+      <div onClick={() => navigate('/')} className="flex grow max-w-[50%] flex-row gap-3 items-center">
+        <Icon type="briefcase" className="w-auto sm:h-9 md:h-14 xs:h-9" />
+        <Icon type="title" className="w-auto sm:h-5 md:h-9 xs:h-5" />
       </div>
       {currentDevice === Device.WEB && (
         <Tabs className="flex w-full" defaultValue={activeTab.href} onValueChange={handleSelectTab}>
@@ -37,24 +37,26 @@ export const Header = () => {
       )}
       {currentDevice !== Device.WEB && (
         <Popover>
-          <PopoverTrigger asChild className="flex align-middle text-[20px]">
+          <PopoverTrigger asChild className="flex align-middle text-ai-lg">
             <Button variant="ghost">
-              <p className="font-normal">Мой профиль</p>
+              <p className="font-normal text-ai-lg">Профиль</p>
               <Icon type="person" className="size-6" />
             </Button>
           </PopoverTrigger>
           <PopoverContent className="absolute -left-50 flex flex-col gap-5">
             <div className="flex flex-col items-center gap-3">
-              {user?.avatar && <img className="w-[75px] h-auto" src={user?.avatar} />}
-              {!user?.avatar && <Icon className="w-[75px] h-auto" type="avatar" />}
+              {user?.avatar && <img className="size-[35%]" src={user?.avatar} />}
+              {!user?.avatar && <Icon className="size-[35%]" type="avatar" />}
               <div className="flex flex-col items-center gap-2">
-                <p className="font-bold text-[16px]">{user.name}</p>
-                <p className="text-[16px]">{user.email}</p>
+                <p className="font-bold text-ai-regular">{user.name}</p>
+                <p className="text-ai-regular">{user.email}</p>
               </div>
             </div>
             <div className="flex flex-col gap-3">
               {tabs.map(tab => (
-                <Button className="bg-white shadow-none text-check hover:text-black active:text-black" key={tab.text} onClick={() => navigate(tab.href)}>{tab.text}</Button>
+                <Button className="bg-white shadow-none text-check hover:text-black active:text-black" key={tab.text} onClick={() => navigate(tab.href)}>
+                  <p className="text-ai-regular">{tab.text}</p>
+                </Button>
               ))}
             </div>
           </PopoverContent>

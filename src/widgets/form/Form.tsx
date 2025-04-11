@@ -55,20 +55,20 @@ export const Form = () => {
               type="multiple"
               value={openAccordionItems}
               onValueChange={handleAccordionValueChange}
-              className="border-y-[1px] mb-4"
+              className="border-y-[1px] mb-5"
             >
               {FIELDS.map((item, i) => (
                 <FormAccordion key={item.apiFieldName} num={i + 1} {...item} setValues={setOpenAccordionItems} />
               ))}
             </Accordion>
             <div className='flex flex-wrap items-center px-[5vw] gap-5'>
-              <Button type="submit" className='bg-danger py-[24px] px-[17px] text-[20px] rounded-[10px]'>
-                <p className='font-bold text-[20px]'>Анализировать</p>
+              <Button type="submit" className='bg-danger py-[1.5rem] px-[1rem] text-ai-lg rounded-[10px]'>
+                <p className='font-bold text-ai-lg'>Анализировать</p>
               </Button>
               <ClearFieldsButton resetForm={resetForm} />
               <RecordAudio />
             </div>
-            <FeedbackForm className="mt-5" starClassName="w-[35px] h-auto" />
+            <FeedbackForm className="mt-5" starClassName="size-12" />
           </div>
         )
       }}

@@ -1,6 +1,6 @@
 export const UnderConstructionPage = () => {
   return (
-    <div className="*:font-semibold *:text-[20px] flex flex-col p-10">
+    <div className="*:font-semibold *:text-ai-lg flex flex-col p-10">
       <div className="flex flex-col gap-3">
         <p>Ой! Эта страница сейчас находится в&nbsp;разработке</p>
         <span className="flex gap-2">
