@@ -25,7 +25,7 @@ export const InstructionPage = () => {
   return (
     <div className="rounded-3xl p-5 flex flex-col gap-8 font-normal text-ai-regular">
       <div className="flex flex-col gap-3.5">
-        <h3 className="text-[24px] font-bold">Инструкция по заполнению</h3>
+        <h3 className="text-ai-lg font-bold">Инструкция по заполнению</h3>
         <p className="py-4">
           От количества и качества информации, которую Вы дадите аналитику, будет зависеть итог анализа.
           <br />Поэтому важно внимательно ознакомиться с инструкцией для заполнения каждого из блоков.
@@ -45,7 +45,7 @@ export const InstructionPage = () => {
         <Separator className="data-[orientation=horizontal]:w-[100vw] -ml-5" />
       </div>
       <div className="flex flex-col gap-8">
-        <h3 className="font-semibold text-[20px]">0. Теги проекта</h3>
+        <h3 className="font-semibold text-ai-lg">0. Теги проекта</h3>
         <div className="flex flex-col gap-5">
           <p>Теги — это ключевые слова-ассоциации, описывающие Ваш стартап. Они помогают ИИ лучше понять тему проекта и сравнить его с аналогами.</p>
           <p>Всего тегов должно быть от двух до пяти. Вписывайте их по очереди в поле ввода через клавишу  Enter. Вы можете удалить тег, нажав на него правой кнопкой мыши или зажимая его в мобильной версии.</p>
