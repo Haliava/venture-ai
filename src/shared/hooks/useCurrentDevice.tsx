@@ -6,7 +6,7 @@ export const useCurrentDevice = () => {
   const [currentWidth, setCurrentWidth] = useState(window.innerWidth);
 
   useEffect(() => {
-    setDevice(window.innerWidth <= 800 ? Device.MOBILE : Device.WEB);
+    setDevice(window.innerWidth <= 1000 ? Device.MOBILE : Device.WEB);
     setCurrentWidth(window.innerWidth);
   }, [window.innerWidth]);
 

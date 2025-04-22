@@ -10,11 +10,13 @@
   --breakpoint-xl: 1116px;
 
   --color-bg: rgb(23, 23, 23);
+  --color-bg-grey: rgba(37, 37, 37, 1);
   --color-bg-accent: rgb(59, 59, 59);
   --color-help: rgb(220, 232, 254);
   --color-check: rgb(141, 141, 141);
   --color-success: rgb(22, 219, 19);
-  --color-danger: rgba(203, 84, 8, 1);
+  --color-danger: rgba(255, 100, 0, 1);
+  --color-danger-secondary: rgba(203, 84, 8, 1);
   --color-primary: rgb(255, 100, 0);
   --color-header: rgb(58, 65, 75);
   --color-text-main: rgba(255, 255, 255, 1);
@@ -23,18 +25,32 @@
   --color-ai-yellow: rgb(252, 201, 0);
 
   --text-ai-regular: 1rem;
+  --text-ai-md: 1.25rem;
   --text-ai-lg: 1.5rem;
+  --text-ai-xl: 2rem;
 }
 
 @media screen and (min-width: 320px) {
   html {
-    font-size: 10px;
+    font-size: 11px;
   }
 }
 
 @media screen and (min-width: 512px) {
   html {
     font-size: 14px;
+  }
+}
+
+@media screen and (min-width: 812px) {
+  html {
+    font-size: 18px;
+  }
+}
+
+@media screen and (min-width: 1512px) {
+  html {
+    font-size: 22px;
   }
 }
 

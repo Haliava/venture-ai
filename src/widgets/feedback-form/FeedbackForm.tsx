@@ -12,7 +12,7 @@ export const FeedbackForm = ({ className, starClassName }: {className?: string; 
   }
 
   return (
-    <div className={`flex flex-col items-center gap-4 ${className}`}>
+    <div className={`flex flex-col items-center gap-4 ${className} m-auto w-full`}>
       {step !== 2 && (
         <>
           <p className="font-semibold text-ai-lg">Вам нравится Venture AI?</p>
@@ -22,15 +22,15 @@ export const FeedbackForm = ({ className, starClassName }: {className?: string; 
       {step === 0 && (
         <>
           <StarsRating rating={rating} setRating={setRating} className={starClassName} />
-          <Button onClick={() => setStep(1)} className={`mt-3 px-[40px] py-[7px] ${rating >= 0 ? 'bg-danger': 'bg-check'}`}>
+          <Button onClick={() => setStep(1)} className={`mt-3 px-[40px] py-[7px] ${rating >= 0 ? 'bg-danger hover:bg-danger-secondary': 'bg-check'}`}>
             <p className="text-ai-regular font-semibold">Отправить</p>
           </Button>
         </>
       )}
       {step === 1 && (
         <>
-          <Textarea className="border-none m-auto min-h-30 w-[90vw]" />
-          <Button onClick={handleSendFeedback} className={`mt-3 px-[40px] py-[7px] ${rating >= 0 ? 'bg-danger': 'bg-check'}`}>
+          <Textarea className="border-none m-auto min-h-30 w-[90vw] lg:w-[40vw]" />
+          <Button onClick={handleSendFeedback} className={`mt-3 px-[40px] py-[7px] ${rating >= 0 ? 'bg-danger hover:bg-danger-secondary': 'bg-check'}`}>
             <p className="text-ai-regular font-semibold">Отправить отзыв</p>
           </Button>
         </> 

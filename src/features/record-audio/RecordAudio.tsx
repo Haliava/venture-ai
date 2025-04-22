@@ -1,4 +1,6 @@
 import { STATUS, TIMER_FOR_N_MINUTES } from "@/shared/constants/audio";
+import { SCREEN_LG } from "@/shared/constants/general";
+import { useCurrentDevice } from "@/shared/hooks/useCurrentDevice";
 import { displayTimerTime } from "@/shared/lib/utils";
 import { Button } from "@/shared/ui/button"
 import CircularProgress from "@/shared/ui/CircularProgress";
@@ -24,13 +26,15 @@ var saveData = (function () {
   };
 }());
 
-export const RecordAudio = () => {
+export const RecordAudio = ({ className }: { className?: string }) => {
+  const { currentWidth } = useCurrentDevice();
   const [currentRecordingStatus, setCurrentRecordingStatus] = useState<STATUS>();
   const [recordingProgress, setRecordingProgress] = useState(0);
   const [elapsedSeconds, setElapsedSeconds] = useState(0);
   const timerDisplayTimeInterval = useRef<NodeJS.Timeout | null>(null);
   const timerInterval = useRef<NodeJS.Timeout | null>(null);
   const stopRecordingButton = useRef<HTMLButtonElement | null>(null);
+  const [isScreenLarge, setIsScreenLarge] = useState(currentWidth >= SCREEN_LG)
 
   const handleSendRecording = (recordingBlob: string) => {
     console.log(recordingBlob);
@@ -71,12 +75,19 @@ export const RecordAudio = () => {
     }
   }, [elapsedSeconds])
 
+  useEffect(() => {
+    setIsScreenLarge(currentWidth >= SCREEN_LG)
+  }, [currentWidth])
+
   return (
     <Drawer>
-      <DrawerTrigger asChild>
-        <Button className="flex items-center h-max justify-center gap-2.5 bg-none border-2 py-2.5 px-8" variant="outline">
-          <Icon className="size-8 fill-white" type="microphone" />
-          <p className="font-semibold text-ai-lg">Начать запись аудио</p>
+      <DrawerTrigger className={className} asChild>
+        <Button
+          className="flex items-center h-max justify-center gap-2.5 bg-none border-2 py-2.5 px-8 lg:border-none bg-bg-grey hover:border-check hover:border-2 hover:bg-bg-grey"
+          {...(!isScreenLarge && {variant: 'outline'})}
+        >
+          <Icon className="size-8 fill-white hover:bg-check" type="microphone" />
+          {!isScreenLarge && <p className="font-semibold text-ai-lg">Начать запись аудио</p>}
         </Button>
       </DrawerTrigger>
       <DrawerContent className="bg-bg-accent border-none flex flex-col gap-4 items-center justify-center">
@@ -92,7 +103,7 @@ export const RecordAudio = () => {
             <p className="text-check">{TIMER_FOR_N_MINUTES}:00</p>
           </div>
         </DrawerHeader>
-        <div className="min-h-[40vmin]">
+        <div className="min-h-[40vmin] lg:min-h-[20vmin]">
           <ReactMediaRecorder
             audio
             render={({ status, startRecording, stopRecording, pauseRecording, resumeRecording, mediaBlobUrl }) => (
@@ -106,7 +117,7 @@ export const RecordAudio = () => {
                     className="flex gap-2.5 min-h-fit [&&]:px-8 [&&]:py-2 bg-danger"
                   >
                     <Icon type="circle" className="size-6" />
-                    <p className="font-semibold text-ai-lg">Начать запись</p>
+                    <p className="font-semibold text-ai-lg lg:font-medium">Начать запись</p>
                   </Button>
                 )}
                 {status !== STATUS.IDLE && status !== STATUS.STOPPED && (
@@ -124,7 +135,7 @@ export const RecordAudio = () => {
                       className="flex h-max gap-2 border-2 bg-[rgba(86, 86, 86, 1)] active:bg-none"
                     >
                       <Icon type="square" className="size-3.5" />
-                      <p className="font-semibold text-ai-lg">Закончить запись</p>
+                      <p className="font-semibold text-ai-lg lg:font-medium">Закончить запись</p>
                     </Button>
                     {status === STATUS.RECORDING && (
                       <Button
@@ -135,7 +146,7 @@ export const RecordAudio = () => {
                         className="flex h-max gap-2 border-2 bg-white active:bg-[rgba(217, 217, 217, 1)] [&&]:px-8 [&&]:py-2"
                       >
                         <Icon type="pause" className="size-5 fill-black" />
-                        <p className="text-black font-semibold text-ai-lg">Пауза</p>
+                        <p className="text-black font-semibold text-ai-lg lg:font-medium">Пауза</p>
                       </Button>
                     )}
                     {status === STATUS.PAUSED && (
@@ -147,7 +158,7 @@ export const RecordAudio = () => {
                         className="flex h-max gap-2 border-2 bg-white active:bg-[rgba(217, 217, 217, 1)] [&&]:px-8 [&&]:py-2"
                       >
                         <Icon type="triangle" className="size-5" />
-                        <p className="text-black font-semibold text-ai-lg">Продолжить</p>
+                        <p className="text-black font-semibold text-ai-lg lg:font-medium">Продолжить</p>
                       </Button>
                     )}
                   </>

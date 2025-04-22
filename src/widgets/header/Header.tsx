@@ -15,21 +15,22 @@ export const Header = () => {
   const { user } = useUserStore();
 
   const handleSelectTab = (value: string) => {
+    navigate(value);
     updateActiveTab(value);
   }
 
   return (
-    <div className="sticky top-0 flex justify-between items-end bg-header mb-2 py-1 pt-2 px-5 md:py-3 md:px-20 md:gap-20 md:items-center">
+    <div className="sticky top-0 flex justify-between items-end bg-header mb-2 py-1 pt-2 px-5 md:py-3 md:px-20 md:gap-20 lg:px-10 md:items-center xl:mb-10">
       <div onClick={() => navigate('/')} className="flex grow max-w-[50%] flex-row gap-3 items-center">
-        <Icon type="briefcase" className="w-auto sm:h-9 md:h-14 xs:h-9" />
-        <Icon type="title" className="w-auto sm:h-5 md:h-9 xs:h-5" />
+        <Icon type="briefcase" className="w-auto xs:h-9 sm:h-9 md:h-14 lg:h-8" />
+        <Icon type="title" className="w-auto xs:h-5 sm:h-5 md:h-9 lg:h-5" />
       </div>
       {currentDevice === Device.WEB && (
         <Tabs className="flex w-full" defaultValue={activeTab.href} onValueChange={handleSelectTab}>
           <TabsList className="flex w-full justify-between bg-header">
             {tabs.map(tab => (
-              <TabsTrigger className="text-white active:text-white p-[10px]" key={tab.text} value={tab.href}>
-                <p className="text-white text-[32px]">{tab.text}</p>
+              <TabsTrigger className="text-white active:text-white border-none h-max p-[7px]" key={tab.text} value={tab.href}>
+                <p className="text-white text-ai">{tab.text}</p>
               </TabsTrigger>
             ))}
           </TabsList>

@@ -12,7 +12,7 @@ import { useState } from 'react';
 import ClearFieldsButton from '@/features/clear-fields-button';
 import RecordAudio from '@/features/record-audio';
 
-export const Form = () => {
+export const Form = ({ className }: { className?: string }) => {
   const { values: storeValues, setValues: setStoreValues, submitForm } = useFormStore();
   const [openAccordionItems, setOpenAccordionItems] = useState<string[]>([])
 
@@ -49,7 +49,7 @@ export const Form = () => {
         }
 
         return (
-          <div>
+          <div className={`${className} lg:rounded-[1.5rem] lg:bg-bg-grey`}>
             <InputTags />
             <Accordion
               type="multiple"
@@ -61,14 +61,14 @@ export const Form = () => {
                 <FormAccordion key={item.apiFieldName} num={i + 1} {...item} setValues={setOpenAccordionItems} />
               ))}
             </Accordion>
-            <div className='flex flex-wrap items-center px-[5vw] gap-5'>
-              <Button type="submit" className='bg-danger py-[1.5rem] px-[1rem] text-ai-lg rounded-[10px]'>
-                <p className='font-bold text-ai-lg'>Анализировать</p>
+            <div className='relative flex flex-wrap items-center px-[5vw] gap-5 lg:flex lg:px-0'>
+              <Button type="submit" className='bg-danger hover:bg-danger-secondary py-[1.5rem] px-[1rem] text-ai-lg rounded-[10px]'>
+                <p className='font-bold text-ai-lg lg:text-ai-md lg:font-medium'>Анализировать</p>
               </Button>
               <ClearFieldsButton resetForm={resetForm} />
-              <RecordAudio />
+              <RecordAudio className="lg:absolute lg:right-0" />
             </div>
-            <FeedbackForm className="mt-5" starClassName="size-12" />
+            <FeedbackForm className="mt-5 lg:absolute lg:left-0 lg:m-auto lg:py-[5vmin]" starClassName="size-12" />
           </div>
         )
       }}

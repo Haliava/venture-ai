@@ -35,7 +35,7 @@ export const FormAccordion = ({
   }
 
   return (
-    <AccordionItem className="px-[5vw]" value={title}>
+    <AccordionItem className="px-[5vw] lg:px-2" value={title}>
       <AccordionTrigger className="text-ai-lg py-4 font-semibold flex items-center">
         <div className="flex flex-row justify-between w-full">
           <p>{`${num}. ${title}${required ? '*': ''}`}</p>

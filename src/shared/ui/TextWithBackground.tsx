@@ -5,9 +5,9 @@ export type TextWithBackgroundProps = {
   children?: ReactNode;
 } & HTMLAttributes<HTMLSpanElement>
 
-export const TextWithBackground = ({bgColor, children, ...props}: TextWithBackgroundProps) => {
+export const TextWithBackground = ({bgColor, children, className, ...props}: TextWithBackgroundProps) => {
   return (
-    <span {...props} className={`bg-${bgColor ? bgColor: 'bg-accent'} rounded-xl p-3.5`} >
+    <span {...props} className={`${className} bg-${bgColor ? bgColor: 'bg-accent'} rounded-xl p-3.5`} >
       {children}
     </span>
   )
