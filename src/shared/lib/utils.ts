@@ -1,6 +1,6 @@
 import { clsx, type ClassValue } from "clsx"
 import { twMerge } from "tailwind-merge"
-import { MAX_SYMBOL_COUNT, MAX_TAG_LENGTH, MIN_SYMBOL_COUNT } from "../constants/general"
+import { constraints, MAX_TAG_LENGTH } from "../constants/general"
 import { ERROR_MESSAGES, fieldApiNameToDisplayName, FIELDS } from "../constants/form";
 import { FIELD_NAMES, StartupFormFieldValue } from "../types/form";
 
@@ -20,18 +20,6 @@ export function getApiFormFieldNameFromFieldDisplayName(displayName: FIELD_NAMES
   return Object.entries(fieldApiNameToDisplayName).find(entry => entry[1] === displayName)?.[0] as StartupFormFieldValue
 }
 
-export function checkForFieldForErrors(fieldValue: string) {
-  if (fieldValue.length < MIN_SYMBOL_COUNT) {
-    return false;
-  }
-
-  if (fieldValue.length > MAX_SYMBOL_COUNT) {
-    return false;
-  }
-
-  return true;
-}
-
 export function formFieldErrors(apiFieldName: StartupFormFieldValue, value: string) {
   const errors = [];
   const fieldDescriptors = FIELDS.find(item => item.title === getFormFieldName(apiFieldName))
@@ -40,12 +28,12 @@ export function formFieldErrors(apiFieldName: StartupFormFieldValue, value: stri
     errors.push(ERROR_MESSAGES.REQUIRED)
   }
 
-  if (fieldDescriptors?.required && value.length < MIN_SYMBOL_COUNT) {
-    errors.push(ERROR_MESSAGES.TOO_SHORT)
+  if (fieldDescriptors?.required && value.length < constraints[apiFieldName].MIN_SYMBOL_COUNT) {
+    errors.push(ERROR_MESSAGES.TOO_SHORT(constraints[apiFieldName].MIN_SYMBOL_COUNT))
   }
 
-  if (value.length > MAX_SYMBOL_COUNT) {
-    errors.push(ERROR_MESSAGES.TOO_LONG)
+  if (value.length > constraints[apiFieldName].MAX_SYMBOL_COUNT) {
+    errors.push(ERROR_MESSAGES.TOO_LONG(constraints[apiFieldName].MAX_SYMBOL_COUNT))
   }
 
   return errors;

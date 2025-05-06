@@ -6,8 +6,8 @@
   --breakpoint-xs: 320px;
   --breakpoint-sm: 512px;
   --breakpoint-md: 768px;
-  --breakpoint-lg: 936px;
-  --breakpoint-xl: 1116px;
+  --breakpoint-lg: 1116px;
+  --breakpoint-xl: 1500px;
 
   --color-bg: rgb(23, 23, 23);
   --color-bg-grey: rgba(37, 37, 37, 1);
@@ -44,13 +44,13 @@
 
 @media screen and (min-width: 812px) {
   html {
-    font-size: 18px;
+    font-size: 16px;
   }
 }
 
 @media screen and (min-width: 1512px) {
   html {
-    font-size: 22px;
+    font-size: 18px;
   }
 }
 

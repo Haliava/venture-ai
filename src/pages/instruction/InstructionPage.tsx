@@ -26,7 +26,7 @@ export const InstructionPage = () => {
   const { device, currentWidth } = useCurrentDevice()
 
   return (
-    <div className="rounded-3xl p-5 flex flex-col gap-8 font-normal text-ai-md lg:mx-[10vmin] lg:bg-bg-grey lg:p-8 lg:mb-5 xl:mx-[30vmin] overflow-x-hidden">
+    <div className="rounded-3xl p-5 flex flex-col gap-8 font-normal text-ai-md lg:mx-[10vmin] lg:bg-bg-grey lg:p-8 lg:mb-5 xl:mx-[40vmin] overflow-x-hidden">
       <div className="flex flex-col gap-3.5">
         <h3 className="xs:text-ai-lg text-ai-xl font-bold">Инструкция по заполнению</h3>
         <p className="py-4">
@@ -41,7 +41,7 @@ export const InstructionPage = () => {
         <p>
           Здесь предоставлены разъяснения и советы по заполнению каждого из блоков снаглядными примерами. Сверьтесь с этими рекомендациями до того, как нажмете на кнопку «Анализировать».
           <br /><br />Теги и первые четыре поля обязательны для заполнения. Вы не сможете анализировать проект, пока не заполните их в соответствии с правилами.
-          <br /><br />1. В поле не может быть менее {MIN_SYMBOL_COUNT} и более {MAX_SYMBOL_COUNT} символов.
+          <br /><br />1. В поле не может быть менее {MIN_SYMBOL_COUNT} и более {MAX_SYMBOL_COUNT} символов. Эти ограничения отличаются для разных полей.
           <br />2. Недопустимо использование специальных символов. в их числе скобки, тире, эмодзи....
           <br />3. Вы можете очистить все поля, но восстановить информацию после этого будет невозможно
         </p>
@@ -569,7 +569,7 @@ export const InstructionPage = () => {
         <p>
           Так же вы можете менять названия проектов и черновиков, добавлять описание и обложки, делиться ими и удалять.
         </p>
-        <Button className="hover:cursor-pointer" onClick={() => navigate('/')}>
+        <Button className="hover:cursor-pointer bg-bg-grey hover:bg-bg-grey" onClick={() => navigate('/')}>
           <p className="underline font-bold text-ai-lg">Вернуться на главный экран</p>
         </Button>
       </div>

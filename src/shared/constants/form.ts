@@ -1,5 +1,4 @@
 import { FIELD_API_NAMES, StartupFormFieldValue, StartupFormFieldValues } from "../types/form";
-import { MAX_SYMBOL_COUNT, MIN_SYMBOL_COUNT } from "./general";
 
 export const FIELDS = [
   { 
@@ -108,8 +107,8 @@ export const defaultFormValues: StartupFormFieldValues = {
   tags: [],
 }
 
-export enum ERROR_MESSAGES {
-  TOO_LONG = `В поле не должно быть больше ${MAX_SYMBOL_COUNT} символов.`,
-  TOO_SHORT = `В поле не должно быть меньше ${MIN_SYMBOL_COUNT} символов.`,
-  REQUIRED = 'Поле обязательно к заполнению',
+export const ERROR_MESSAGES = {
+  TOO_LONG: (MAX_SYMBOL_COUNT: number) => `В поле не должно быть больше ${MAX_SYMBOL_COUNT} символов.`,
+  TOO_SHORT: (MIN_SYMBOL_COUNT: number) => `В поле не должно быть меньше ${MIN_SYMBOL_COUNT} символов.`,
+  REQUIRED: 'Поле обязательно к заполнению',
 }

@@ -1,4 +1,4 @@
-import { checkForFieldForErrors, getApiFormFieldNameFromFieldDisplayName } from "@/shared/lib/utils";
+import { formFieldErrors, getApiFormFieldNameFromFieldDisplayName } from "@/shared/lib/utils";
 import { useFormStore } from "@/shared/store/form";
 import { StartupForm, StartupFormField } from "@/shared/types/form";
 import { AccordionContent, AccordionItem, AccordionTrigger } from "@/shared/ui/accordion";
@@ -31,7 +31,7 @@ export const FormAccordion = ({
   const handleTextareaValueChange = (e: React.ChangeEvent<HTMLTextAreaElement>) => {
     formik.setFieldValue(apiFieldName, e.target.value, true);
     setFormValue(apiFieldName, e.target.value);
-    setIsValid(checkForFieldForErrors(e.target.value))
+    setIsValid(formFieldErrors(apiFieldName, e.target.value).length <= 0);
   }
 
   return (
@@ -54,7 +54,11 @@ export const FormAccordion = ({
               value={formik.values[apiFieldName]}
               onChange={handleTextareaValueChange}
             />
-            {formik.errors[apiFieldName] && <p className="text-danger text-ai-regular font-medium">{formik.errors[apiFieldName]}</p>}
+            {Array.isArray(formik.errors[apiFieldName]) && formik.errors[apiFieldName]?.length > 0 && (
+              formik.errors[apiFieldName].map((error, i) => (
+                <p key={i} className="text-danger text-ai-regular font-medium">{error}</p>
+              ))
+            )}
           </div>
           <div className="flex justify-end">
             <Icon type="arrow" className="size-8" onClick={handleChevronClick} />

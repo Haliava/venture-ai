@@ -8,6 +8,7 @@ import { Drawer, DrawerContent, DrawerDescription, DrawerHeader, DrawerTitle, Dr
 import { Icon } from "@/shared/ui/icon"
 import { useEffect, useRef, useState } from "react";
 import { ReactMediaRecorder } from "react-media-recorder";
+import SpeechRecognition, { useSpeechRecognition } from 'react-speech-recognition';
 
 var saveData = (function () {
   var a = document.createElement("a");
@@ -34,10 +35,15 @@ export const RecordAudio = ({ className }: { className?: string }) => {
   const timerDisplayTimeInterval = useRef<NodeJS.Timeout | null>(null);
   const timerInterval = useRef<NodeJS.Timeout | null>(null);
   const stopRecordingButton = useRef<HTMLButtonElement | null>(null);
-  const [isScreenLarge, setIsScreenLarge] = useState(currentWidth >= SCREEN_LG)
+  const [isScreenLarge, setIsScreenLarge] = useState(currentWidth >= SCREEN_LG);
+  const {
+    transcript,
+    listening,
+    resetTranscript,
+  } = useSpeechRecognition();
 
   const handleSendRecording = (recordingBlob: string) => {
-    console.log(recordingBlob);
+    console.log(recordingBlob, transcript);
     saveData(recordingBlob, 'res.wav');
   }
 
@@ -90,7 +96,7 @@ export const RecordAudio = ({ className }: { className?: string }) => {
           {!isScreenLarge && <p className="font-semibold text-ai-lg">Начать запись аудио</p>}
         </Button>
       </DrawerTrigger>
-      <DrawerContent className="bg-bg-accent border-none flex flex-col gap-4 items-center justify-center">
+      <DrawerContent className="bg-bg-accent border-none flex flex-col gap-4 items-center justify-center lg:ml-[10vmin] lg:mr-[calc(10vmin+15px)] xl:ml-[40vmin] xl:mr-[calc(40vmin+15px)]">
         <DrawerHeader className="relative flex items-center justify-center">
           <DrawerTitle className="font-semibold text-[1.5rem] text-white">Запись аудиоистории</DrawerTitle>
           <DrawerDescription className="font-medium text-[1rem] text-check text-center flex flex-col items-center justify-center gap-5 mb-5">
@@ -103,7 +109,7 @@ export const RecordAudio = ({ className }: { className?: string }) => {
             <p className="text-check">{TIMER_FOR_N_MINUTES}:00</p>
           </div>
         </DrawerHeader>
-        <div className="min-h-[40vmin] lg:min-h-[20vmin]">
+        <div className="min-h-[30vmin] lg:min-h-[20vmin]">
           <ReactMediaRecorder
             audio
             render={({ status, startRecording, stopRecording, pauseRecording, resumeRecording, mediaBlobUrl }) => (
@@ -111,10 +117,11 @@ export const RecordAudio = ({ className }: { className?: string }) => {
                 {(status === STATUS.IDLE || status === STATUS.STOPPED) && (
                   <Button
                     onClick={() => {
+                      SpeechRecognition.startListening();
                       startRecording();
                       setCurrentRecordingStatus(STATUS.RECORDING);
                     }}
-                    className="flex gap-2.5 min-h-fit [&&]:px-8 [&&]:py-2 bg-danger"
+                    className="flex gap-2.5 min-h-fit [&&]:px-8 [&&]:py-2 bg-danger hover:bg-danger-secondary"
                   >
                     <Icon type="circle" className="size-6" />
                     <p className="font-semibold text-ai-lg lg:font-medium">Начать запись</p>
@@ -125,6 +132,7 @@ export const RecordAudio = ({ className }: { className?: string }) => {
                     <Button
                       ref={stopRecordingButton}
                       onClick={() => {
+                        SpeechRecognition.stopListening();
                         stopRecording();
                         setCurrentRecordingStatus(STATUS.STOPPED);
                         if (mediaBlobUrl) {

@@ -6,7 +6,6 @@ type FormStoreState = {
   values: StartupForm,
   setValues: (newValues: StartupFormFieldValues) => void,
   setFormValue: (fieldName: string, value: string | string[]) => void,
-  submitForm: () => void,
 }
 
 export const useFormStore = create<FormStoreState>((set, get) => ({
@@ -15,7 +14,4 @@ export const useFormStore = create<FormStoreState>((set, get) => ({
     set((state) => ({ values: {...state.values, ...newValues }})),
   setFormValue: (fieldName: string, value: string | string[]) =>
     set((state) => ({ values: { ...state.values, [fieldName]: value }})),
-  submitForm: () => {
-    alert(get().values);
-  }
 }))

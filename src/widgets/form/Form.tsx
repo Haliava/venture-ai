@@ -1,19 +1,21 @@
 import FormAccordion from '@/features/form-accordion';
 import InputTags from '@/features/input-tags';
-import { defaultFormValues, FIELDS } from '@/shared/constants/form';
+import { defaultFormValues, fieldApiNameToDisplayName, FIELDS } from '@/shared/constants/form';
 import { formFieldErrors } from '@/shared/lib/utils';
 import { useFormStore } from '@/shared/store/form';
 import { FIELD_API_NAMES, StartupForm, StartupFormFieldValues } from '@/shared/types/form';
 import { Accordion } from '@/shared/ui/accordion';
 import { Button } from '@/shared/ui/button';
-import { Formik } from 'formik';
+import { Formik, FormikHelpers } from 'formik';
 import FeedbackForm from '../feedback-form';
 import { useState } from 'react';
 import ClearFieldsButton from '@/features/clear-fields-button';
 import RecordAudio from '@/features/record-audio';
+import { useAnalyst } from '@/shared/hooks/useAnalyst';
 
 export const Form = ({ className }: { className?: string }) => {
-  const { values: storeValues, setValues: setStoreValues, submitForm } = useFormStore();
+  const { askAnalyst, isAnswerLoading } = useAnalyst();
+  const { values: storeValues, setValues: setStoreValues } = useFormStore();
   const [openAccordionItems, setOpenAccordionItems] = useState<string[]>([])
 
   const validateForm = (formValues: StartupForm) => {
@@ -29,6 +31,12 @@ export const Form = ({ className }: { className?: string }) => {
     return fieldErrors;
   }
 
+  const handleSubmitForm = (
+    values: StartupFormFieldValues,
+  ) => {
+    askAnalyst(values);
+  }
+
   const handleAccordionValueChange = (values: string[]) => {
     setOpenAccordionItems(values)
   }
@@ -36,8 +44,8 @@ export const Form = ({ className }: { className?: string }) => {
   return (
     <Formik
       initialValues={storeValues}
-      onSubmit={submitForm}
-      validate={validateForm}
+      onSubmit={handleSubmitForm}
+      validate={() => ({})}
       enableReinitialize
     >
       {(formik) => {
@@ -62,12 +70,36 @@ export const Form = ({ className }: { className?: string }) => {
               ))}
             </Accordion>
             <div className='relative flex flex-wrap items-center px-[5vw] gap-5 lg:flex lg:px-0'>
-              <Button type="submit" className='bg-danger hover:bg-danger-secondary py-[1.5rem] px-[1rem] text-ai-lg rounded-[10px]'>
+              <Button
+                onClick={() => {
+                  console.log(formik.errors)
+                  formik.submitForm()
+                }}
+                disabled={isAnswerLoading}
+                type="submit"
+                className='cursor-pointer bg-danger hover:bg-danger-secondary py-[1.5rem] px-[1rem] text-ai-lg rounded-[10px]'
+              >
                 <p className='font-bold text-ai-lg lg:text-ai-md lg:font-medium'>Анализировать</p>
               </Button>
               <ClearFieldsButton resetForm={resetForm} />
               <RecordAudio className="lg:absolute lg:right-0" />
             </div>
+            {Object.values(formik.errors).filter(Boolean).length > 0 && (
+              <div className='mt-5'>
+                {Object.entries(formik.errors).map(([k, v]) => {
+                  const errors = Array.isArray(v) ? v : [v];
+                  return (
+                    <>
+                      <p className='text-danger'>{fieldApiNameToDisplayName[k as keyof StartupFormFieldValues]}:</p>
+                      {errors.map(error => (
+                        <p className='text-danger'>{error}</p>
+                      ))}
+                      <br />
+                    </>
+                  )
+                })}
+              </div>
+            )}
             <FeedbackForm className="mt-5 lg:absolute lg:left-0 lg:m-auto lg:py-[5vmin]" starClassName="size-12" />
           </div>
         )
