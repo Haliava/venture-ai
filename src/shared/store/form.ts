@@ -8,7 +8,7 @@ type FormStoreState = {
   setFormValue: (fieldName: string, value: string | string[]) => void,
 }
 
-export const useFormStore = create<FormStoreState>((set, get) => ({
+export const useFormStore = create<FormStoreState>((set) => ({
   values: defaultFormValues,
   setValues: (newValues: Record<string, string | string[]>) =>
     set((state) => ({ values: {...state.values, ...newValues }})),

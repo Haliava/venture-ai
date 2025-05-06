@@ -6,7 +6,7 @@ import { useFormStore } from '@/shared/store/form';
 import { FIELD_API_NAMES, StartupForm, StartupFormFieldValues } from '@/shared/types/form';
 import { Accordion } from '@/shared/ui/accordion';
 import { Button } from '@/shared/ui/button';
-import { Formik, FormikHelpers } from 'formik';
+import { Formik } from 'formik';
 import FeedbackForm from '../feedback-form';
 import { useState } from 'react';
 import ClearFieldsButton from '@/features/clear-fields-button';
@@ -45,7 +45,7 @@ export const Form = ({ className }: { className?: string }) => {
     <Formik
       initialValues={storeValues}
       onSubmit={handleSubmitForm}
-      validate={() => ({})}
+      validate={validateForm}
       enableReinitialize
     >
       {(formik) => {

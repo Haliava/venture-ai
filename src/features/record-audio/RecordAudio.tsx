@@ -38,8 +38,6 @@ export const RecordAudio = ({ className }: { className?: string }) => {
   const [isScreenLarge, setIsScreenLarge] = useState(currentWidth >= SCREEN_LG);
   const {
     transcript,
-    listening,
-    resetTranscript,
   } = useSpeechRecognition();
 
   const handleSendRecording = (recordingBlob: string) => {
