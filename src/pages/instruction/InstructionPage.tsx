@@ -35,7 +35,7 @@ export const InstructionPage = () => {
           <br />В этой вкладке всегда можно подсмотреть наши рекомендации, соблюдая которые Вы получите максимум от AI-аналитика.
           <br /><br />Обращаем Ваше внимание на то, что ИИ является рекомендательным, а не заменяющим инструментом в анализе проекта. Venture AI очень старается, но изредка может давать сбои.
         </p>
-        <Separator className="data-[orientation=horizontal]:w-[100vw] -ml-5 lg:data-[orientation=horizontal]:w-[82vw] lg:w-1 xl:data-[orientation=horizontal]:w-[69vw] h-[1px]" />
+        <Separator />
       </div>
       <div className="flex flex-col gap-8">
         <p>
@@ -45,7 +45,7 @@ export const InstructionPage = () => {
           <br />2. Недопустимо использование специальных символов. в их числе скобки, тире, эмодзи....
           <br />3. Вы можете очистить все поля, но восстановить информацию после этого будет невозможно
         </p>
-        <Separator className="data-[orientation=horizontal]:w-[100vw] -ml-5 lg:data-[orientation=horizontal]:w-[82vw] lg:w-1 xl:data-[orientation=horizontal]:w-[69vw] h-[1px]" />
+        <Separator />
       </div>
       <div className="flex flex-col gap-8">
         <h3 className="font-semibold text-ai-lg">0. Теги проекта</h3>
@@ -59,7 +59,7 @@ export const InstructionPage = () => {
             ))}
           </div>
         </div>
-        <Separator className="data-[orientation=horizontal]:w-[100vw] -ml-5 lg:data-[orientation=horizontal]:w-[82vw] lg:w-1 xl:data-[orientation=horizontal]:w-[69vw] h-[1px]" />
+        <Separator />
       </div>
       <div className="flex flex-col gap-8">
         <InfoCard
@@ -82,7 +82,7 @@ export const InstructionPage = () => {
             <li>Сообщество и поддержка – Форумы и чаты для общения между пользователями. Групповые медитации для совместного практикования.</li>
           </ul>
         </TextWithBackground>
-        <Separator className="data-[orientation=horizontal]:w-[100vw] -ml-5 lg:data-[orientation=horizontal]:w-[82vw] lg:w-1 xl:data-[orientation=horizontal]:w-[69vw] h-[1px]" />
+        <Separator />
       </div>
       <div className="flex flex-col gap-8">
         <InfoCard
@@ -125,7 +125,7 @@ export const InstructionPage = () => {
             </TextWithBackground>
           </>
         )}
-        <Separator className="data-[orientation=horizontal]:w-[100vw] -ml-5 lg:data-[orientation=horizontal]:w-[82vw] lg:w-1 xl:data-[orientation=horizontal]:w-[69vw] h-[1px]" />
+        <Separator />
       </div>
       <div className="flex flex-col gap-8">
         {currentWidth <= SCREEN_MD && (
@@ -165,7 +165,7 @@ export const InstructionPage = () => {
             </InfoCard>
           </>
         )}
-        <Separator className="data-[orientation=horizontal]:w-[100vw] -ml-5 lg:data-[orientation=horizontal]:w-[82vw] lg:w-1 xl:data-[orientation=horizontal]:w-[69vw] h-[1px]" />
+        <Separator />
       </div>
       <div className="flex flex-col gap-8">
         {currentWidth <= SCREEN_MD && (
@@ -203,7 +203,7 @@ export const InstructionPage = () => {
           </>
         )}
         
-        <Separator className="data-[orientation=horizontal]:w-[100vw] -ml-5 lg:data-[orientation=horizontal]:w-[82vw] lg:w-1 xl:data-[orientation=horizontal]:w-[69vw] h-[1px]" />
+        <Separator />
       </div>
       <div className="flex flex-col">
         {currentWidth <= SCREEN_MD && (
@@ -252,7 +252,7 @@ export const InstructionPage = () => {
             )}
           </>
         )}
-        <Separator className="data-[orientation=horizontal]:w-[100vw] -ml-5 lg:data-[orientation=horizontal]:w-[82vw] lg:w-1 xl:data-[orientation=horizontal]:w-[69vw] mt-8" />
+        <Separator />
       </div>
       <div className="flex flex-col">
         {currentWidth <= SCREEN_MD && (
@@ -295,7 +295,7 @@ export const InstructionPage = () => {
           </>
         )}
         
-        <Separator className="data-[orientation=horizontal]:w-[100vw] -ml-5 lg:data-[orientation=horizontal]:w-[82vw] lg:w-1 xl:data-[orientation=horizontal]:w-[69vw] mt-8" />
+        <Separator />
       </div>
       <div className="flex flex-col">
         {currentWidth <= SCREEN_MD && (
@@ -340,7 +340,7 @@ export const InstructionPage = () => {
             </InfoCard>
           </>
         )}
-        <Separator className="data-[orientation=horizontal]:w-[100vw] -ml-5 lg:data-[orientation=horizontal]:w-[82vw] lg:w-1 xl:data-[orientation=horizontal]:w-[69vw] mt-8" />
+        <Separator />
       </div>
       <div className="flex flex-col">
         <h3 className="xs:text-[20px] text-ai-lg font-semibold">8. Объем рынка</h3>
@@ -372,7 +372,7 @@ export const InstructionPage = () => {
             <br />SOM: 500 тыс. клиентов в первый год
           </TextWithBackground>
         )}
-        <Separator className="data-[orientation=horizontal]:w-[100vw] -ml-5 lg:data-[orientation=horizontal]:w-[82vw] lg:w-1 xl:data-[orientation=horizontal]:w-[69vw] mt-8" />
+        <Separator />
       </div>
       <div className="flex flex-col">
         {currentWidth <= SCREEN_MD && (
@@ -412,7 +412,7 @@ export const InstructionPage = () => {
             <br />Слабые стороны: Высокая цена подписки, нет бесплатного тарифа.
           </TextWithBackground>
         )}
-        <Separator className="data-[orientation=horizontal]:w-[100vw] -ml-5 lg:data-[orientation=horizontal]:w-[82vw] lg:w-1 xl:data-[orientation=horizontal]:w-[69vw] mt-8" />
+        <Separator />
       </div>
       <div className="flex flex-col">
         {currentWidth <= SCREEN_MD && (
@@ -468,7 +468,7 @@ export const InstructionPage = () => {
             )}
           </>
         )}
-        <Separator className="data-[orientation=horizontal]:w-[100vw] -ml-5 lg:data-[orientation=horizontal]:w-[82vw] lg:w-1 xl:data-[orientation=horizontal]:w-[69vw] mt-8" />
+        <Separator />
       </div>
       <div className="flex flex-col">
         {currentWidth <= SCREEN_MD && (
@@ -511,7 +511,7 @@ export const InstructionPage = () => {
             </InfoCard>
           </>
         )}
-        <Separator className="data-[orientation=horizontal]:w-[100vw] -ml-5 lg:data-[orientation=horizontal]:w-[82vw] lg:w-1 xl:data-[orientation=horizontal]:w-[69vw] mt-8" />
+        <Separator />
       </div>
       <div className="flex flex-col">
         {currentWidth <= SCREEN_MD && (
@@ -560,7 +560,7 @@ export const InstructionPage = () => {
             </InfoCard>
           </>
         )}
-        <Separator className="data-[orientation=horizontal]:w-[100vw] -ml-5 lg:data-[orientation=horizontal]:w-[82vw] lg:w-1 xl:data-[orientation=horizontal]:w-[69vw] mt-8" />
+        <Separator />
       </div>
       <div className="flex flex-col gap-5 mb-10">
         <p>
