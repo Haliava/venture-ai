@@ -46,6 +46,9 @@ export const Form = ({ className }: { className?: string }) => {
       initialValues={storeValues}
       onSubmit={handleSubmitForm}
       validate={validateForm}
+      validateOnChange={false}
+      validateOnBlur={false}
+      validateOnMount={false}
       enableReinitialize
     >
       {(formik) => {

@@ -10,16 +10,7 @@ function Separator({
   ...props
 }: React.ComponentProps<typeof SeparatorPrimitive.Root>) {
   return (
-    <SeparatorPrimitive.Root
-      data-slot="separator-root"
-      decorative={decorative}
-      orientation={orientation}
-      className={cn(
-        "bg-border shrink-0 data-[orientation=horizontal]:h-px data-[orientation=horizontal]:w-full data-[orientation=vertical]:h-full data-[orientation=vertical]:w-px",
-        className
-      )}
-      {...props}
-    />
+    <span className="border border-white w-[100vw] -ml-5 mt-8 lg:w-[82vw] xl:w-[69vw]" />
   )
 }
 
