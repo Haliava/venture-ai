@@ -35,9 +35,11 @@ export const RecordAudio = ({ className }: { className?: string }) => {
   const timerDisplayTimeInterval = useRef<NodeJS.Timeout | null>(null);
   const timerInterval = useRef<NodeJS.Timeout | null>(null);
   const stopRecordingButton = useRef<HTMLButtonElement | null>(null);
+  const [hasMicAccess, setHasMicAccess] = useState(false);
   const [isScreenLarge, setIsScreenLarge] = useState(currentWidth >= SCREEN_LG);
   const {
     transcript,
+    isMicrophoneAvailable,
   } = useSpeechRecognition();
 
   const handleSendRecording = (recordingBlob: string) => {
@@ -83,6 +85,10 @@ export const RecordAudio = ({ className }: { className?: string }) => {
     setIsScreenLarge(currentWidth >= SCREEN_LG)
   }, [currentWidth])
 
+  useEffect(() => {
+    navigator.mediaDevices.enumerateDevices().then((res) => setHasMicAccess(!!res.find(device => device.kind === 'audioinput')))
+  }, [navigator.mediaDevices])
+
   return (
     <Drawer>
       <DrawerTrigger className={className} asChild>
@@ -114,7 +120,9 @@ export const RecordAudio = ({ className }: { className?: string }) => {
               <div className="flex flex-col gap-5">
                 {(status === STATUS.IDLE || status === STATUS.STOPPED) && (
                   <Button
+                    disabled={!hasMicAccess || !isMicrophoneAvailable}
                     onClick={() => {
+                      if (!isMicrophoneAvailable) return;
                       SpeechRecognition.startListening();
                       startRecording();
                       setCurrentRecordingStatus(STATUS.RECORDING);

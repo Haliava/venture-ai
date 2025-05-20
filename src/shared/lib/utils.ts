@@ -24,7 +24,6 @@ export function getApiFormFieldNameFromFieldDisplayName(displayName: FIELD_NAMES
 export function formFieldErrors(apiFieldName: StartupFormFieldValue, value: string) {
   const errors = [];
   const fieldDescriptors = FIELDS.find(item => item.title === getFormFieldName(apiFieldName))
-  console.log(constraints, apiFieldName)
 
   if (fieldDescriptors?.required && value.length <= 0) {
     errors.push(ERROR_MESSAGES.REQUIRED)

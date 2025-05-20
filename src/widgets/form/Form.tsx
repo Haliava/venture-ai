@@ -12,6 +12,7 @@ import { useState } from 'react';
 import ClearFieldsButton from '@/features/clear-fields-button';
 import RecordAudio from '@/features/record-audio';
 import { useAnalyst } from '@/shared/hooks/useAnalyst';
+import { toast } from 'sonner';
 
 export const Form = ({ className }: { className?: string }) => {
   const { askAnalyst, isAnswerLoading } = useAnalyst();
@@ -26,6 +27,10 @@ export const Form = ({ className }: { className?: string }) => {
       if (errors.length) {
         fieldErrors[key as FIELD_API_NAMES] = errors;
       }
+    })
+
+    Object.entries(fieldErrors).map(([k, v]) => {
+      toast.error(`${fieldApiNameToDisplayName[k as keyof StartupFormFieldValues]}: ${v.join(', ')}`)
     })
 
     return fieldErrors;

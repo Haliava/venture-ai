@@ -5,7 +5,7 @@ export const UnderConstructionPage = () => {
   const navigate = useNavigate();
 
   return (
-    <div className="*:font-semibold *:text-ai-lg flex flex-col p-10">
+    <div className="*:font-semibold *:text-ai-lg flex flex-col p-10 lg:flex-row lg:justify-center">
       <div className="flex flex-col gap-3">
         <p>Ой! Эта страница сейчас находится в&nbsp;разработке</p>
         <span className="flex gap-2">
@@ -14,7 +14,7 @@ export const UnderConstructionPage = () => {
           <p>страницу</p>
         </span>
       </div>
-      <img className="w-[50vmin] mt-10 mx-auto" src={cat} alt="unplugged" />
+      <img className="w-[20rem] lg:m-0 lg:ml-10 mt-10 mx-auto" src={cat} alt="unplugged" />
     </div>
   )
 }
