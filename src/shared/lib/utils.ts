@@ -30,7 +30,7 @@ export function formFieldErrors(apiFieldName: StartupFormFieldValue, value: stri
     errors.push(ERROR_MESSAGES.REQUIRED)
   }
 
-  if (value.length < constraints[apiFieldName].MIN_SYMBOL_COUNT) {
+  if (value.length > 0 && value.length < constraints[apiFieldName].MIN_SYMBOL_COUNT) {
     errors.push(ERROR_MESSAGES.TOO_SHORT(constraints[apiFieldName].MIN_SYMBOL_COUNT))
   }
 
