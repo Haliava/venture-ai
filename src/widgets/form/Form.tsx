@@ -8,7 +8,7 @@ import { Accordion } from '@/shared/ui/accordion';
 import { Button } from '@/shared/ui/button';
 import { Formik } from 'formik';
 import FeedbackForm from '../feedback-form';
-import { useEffect, useState } from 'react';
+import { useState } from 'react';
 import ClearFieldsButton from '@/features/clear-fields-button';
 import RecordAudio from '@/features/record-audio';
 import { useAnalyst } from '@/shared/hooks/useAnalyst';

@@ -7,7 +7,7 @@ export type ProjectPopover = {
   project: Pick<Project, 'id'>;
 }
 
-export const ProjectPopover = ({ project }: ProjectPopover) => {
+export const ProjectPopover = () => {
   const handleSaveAsPDF = () => {}
   const handleShare = () => {}
   const handleEditTitle = () => {}

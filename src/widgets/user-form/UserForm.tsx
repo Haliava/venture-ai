@@ -4,7 +4,7 @@ import { User } from "@/shared/types/user";
 import { Button } from "@/shared/ui/button";
 import { Input } from "@/shared/ui/input";
 import { Label } from "@/shared/ui/label";
-import { Formik, FormikHelpers } from "formik";
+import { Formik } from "formik";
 
 export const UserForm = ({ className }: { className?: string }) => {
   const { user } = useUserStore();
@@ -12,7 +12,7 @@ export const UserForm = ({ className }: { className?: string }) => {
   const handleUploadPhoto = () => {
   }
 
-  const handleUpdateUserData = (values: User, formikHelpers: FormikHelpers<User>) => {
+  const handleUpdateUserData = () => {
   }
 
   const validateForm = (formValues: User) => {
