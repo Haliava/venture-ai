@@ -1,4 +1,5 @@
 import fieldsWithQuestionmarks from './fields-with-questionmarks.svg?react';
+import magnifyingGlass from './magnifying-glass.svg?react';
 import microphone from './microphone.svg?react';
 import briefcase from './briefcase.svg?react';
 import checkmark from './checkmark.svg?react';
@@ -16,6 +17,7 @@ import star from './star.svg?react';
 
 export default {
   fieldsWithQuestionmarks,
+  magnifyingGlass,
   microphone,
   briefcase,
   checkmark,

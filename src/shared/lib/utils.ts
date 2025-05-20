@@ -1,8 +1,9 @@
 import { clsx, type ClassValue } from "clsx"
 import { twMerge } from "tailwind-merge"
-import { constraints, MAX_TAG_LENGTH } from "../constants/general"
+import { constraints, MAX_TAG_LENGTH, userFormConstraints } from "../constants/general"
 import { ERROR_MESSAGES, fieldApiNameToDisplayName, FIELDS } from "../constants/form";
 import { FIELD_NAMES, StartupFormFieldValue } from "../types/form";
+import { User } from "../types/user";
 
 export function cn(...inputs: ClassValue[]) {
   return twMerge(clsx(inputs))
@@ -23,17 +24,42 @@ export function getApiFormFieldNameFromFieldDisplayName(displayName: FIELD_NAMES
 export function formFieldErrors(apiFieldName: StartupFormFieldValue, value: string) {
   const errors = [];
   const fieldDescriptors = FIELDS.find(item => item.title === getFormFieldName(apiFieldName))
+  console.log(constraints, apiFieldName)
 
   if (fieldDescriptors?.required && value.length <= 0) {
     errors.push(ERROR_MESSAGES.REQUIRED)
   }
 
-  if (fieldDescriptors?.required && value.length < constraints[apiFieldName].MIN_SYMBOL_COUNT) {
+  if (value.length < constraints[apiFieldName].MIN_SYMBOL_COUNT) {
     errors.push(ERROR_MESSAGES.TOO_SHORT(constraints[apiFieldName].MIN_SYMBOL_COUNT))
   }
 
   if (value.length > constraints[apiFieldName].MAX_SYMBOL_COUNT) {
     errors.push(ERROR_MESSAGES.TOO_LONG(constraints[apiFieldName].MAX_SYMBOL_COUNT))
+  }
+
+  return errors;
+}
+
+export function userFormFieldErrors(fieldName: keyof User, value: string) {
+  const errors = [];
+  const filteredName = fieldName as keyof Omit<User, 'email' | 'avatar'>;
+
+  if (!(fieldName in userFormConstraints)) return [];
+
+  if (value.length < +(userFormConstraints[filteredName].MIN_SYMBOL_COUNT ?? -1)) {
+    errors.push(ERROR_MESSAGES.TOO_SHORT(+(userFormConstraints[filteredName].MIN_SYMBOL_COUNT || 0)))
+  }
+
+  if (value.length > +(userFormConstraints[filteredName].MAX_SYMBOL_COUNT ?? -1)) {
+    errors.push(ERROR_MESSAGES.TOO_LONG(+(userFormConstraints[filteredName].MAX_SYMBOL_COUNT || 0)))
+  }
+
+  if (
+    userFormConstraints[filteredName].APPROPRIATE_FORMAT &&
+    !(new RegExp(`${userFormConstraints[filteredName].APPROPRIATE_FORMAT}`)).test(value)
+  ) {
+    errors.push(ERROR_MESSAGES.WRONG_PHONE_FORMAT)
   }
 
   return errors;

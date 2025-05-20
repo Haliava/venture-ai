@@ -8,7 +8,7 @@ import { Accordion } from '@/shared/ui/accordion';
 import { Button } from '@/shared/ui/button';
 import { Formik } from 'formik';
 import FeedbackForm from '../feedback-form';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import ClearFieldsButton from '@/features/clear-fields-button';
 import RecordAudio from '@/features/record-audio';
 import { useAnalyst } from '@/shared/hooks/useAnalyst';
@@ -40,6 +40,11 @@ export const Form = ({ className }: { className?: string }) => {
   const handleAccordionValueChange = (values: string[]) => {
     setOpenAccordionItems(values)
   }
+
+  // useEffect(() => {
+  //   if (!localStorage.getItem('form-values')) return;
+  //   setStoreValues(JSON.parse(localStorage.getItem('form-values')!))
+  // }, [localStorage.getItem('form-values')])
 
   return (
     <Formik
@@ -103,7 +108,7 @@ export const Form = ({ className }: { className?: string }) => {
                 })}
               </div>
             )}
-            <FeedbackForm className="mt-5 lg:absolute lg:left-0 lg:m-auto lg:py-[5vmin]" starClassName="size-12" />
+            <FeedbackForm className="mt-5 lg:absolute lg:left-0 lg:m-auto lg:py-[5vmin]" starClassName="size-10" />
           </div>
         )
       }}

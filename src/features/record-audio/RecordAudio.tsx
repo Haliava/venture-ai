@@ -94,7 +94,7 @@ export const RecordAudio = ({ className }: { className?: string }) => {
           {!isScreenLarge && <p className="font-semibold text-ai-lg">Начать запись аудио</p>}
         </Button>
       </DrawerTrigger>
-      <DrawerContent className="bg-bg-accent border-none flex flex-col gap-4 items-center justify-center lg:ml-[10vmin] lg:mr-[calc(10vmin+15px)] xl:ml-[40vmin] xl:mr-[calc(40vmin+15px)]">
+      <DrawerContent className="bg-bg-accent border-none flex flex-col gap-4 items-center justify-center lg:ml-[20vmin] lg:mr-[calc(20vmin+15px)] xl:ml-[50vmin] xl:mr-[calc(50vmin+15px)]">
         <DrawerHeader className="relative flex items-center justify-center">
           <DrawerTitle className="font-semibold text-[1.5rem] text-white">Запись аудиоистории</DrawerTitle>
           <DrawerDescription className="font-medium text-[1rem] text-check text-center flex flex-col items-center justify-center gap-5 mb-5">

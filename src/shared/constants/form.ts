@@ -111,4 +111,5 @@ export const ERROR_MESSAGES = {
   TOO_LONG: (MAX_SYMBOL_COUNT: number) => `В поле не должно быть больше ${MAX_SYMBOL_COUNT} символов.`,
   TOO_SHORT: (MIN_SYMBOL_COUNT: number) => `В поле не должно быть меньше ${MIN_SYMBOL_COUNT} символов.`,
   REQUIRED: 'Поле обязательно к заполнению',
+  WRONG_PHONE_FORMAT: 'Введите номер телефона в формате +7 953 123 45 67',
 }

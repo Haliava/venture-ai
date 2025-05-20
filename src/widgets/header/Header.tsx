@@ -30,7 +30,7 @@ export const Header = () => {
           <TabsList className="flex w-full justify-between bg-header">
             {tabs.map(tab => (
               <TabsTrigger className="text-white active:text-white border-none h-max p-[7px]" key={tab.text} value={tab.href}>
-                <p className="text-white text-ai">{tab.text}</p>
+                <p className="text-white text-ai-md">{tab.text}</p>
               </TabsTrigger>
             ))}
           </TabsList>

@@ -26,7 +26,7 @@ export const InstructionPage = () => {
   const { device, currentWidth } = useCurrentDevice()
 
   return (
-    <div className="rounded-3xl p-5 flex flex-col gap-8 font-normal text-ai-md lg:mx-[10vmin] lg:bg-bg-grey lg:p-8 lg:mb-5 xl:mx-[40vmin] overflow-x-hidden">
+    <div className="rounded-3xl p-5 flex flex-col gap-8 font-normal text-ai-md lg:mx-[20vmin] lg:bg-bg-grey lg:p-8 lg:mb-5 xl:mx-[50vmin] overflow-x-hidden">
       <div className="flex flex-col gap-3.5">
         <h3 className="xs:text-ai-lg text-ai-xl font-bold">Инструкция по заполнению</h3>
         <p className="py-4">

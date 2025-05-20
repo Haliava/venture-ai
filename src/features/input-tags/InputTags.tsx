@@ -2,23 +2,37 @@ import { squishText } from "@/shared/lib/utils";
 import { useFormStore } from "@/shared/store/form";
 import { FIELD_API_NAMES, StartupForm } from "@/shared/types/form";
 import { Badge } from "@/shared/ui/badge";
+import { Button } from "@/shared/ui/button";
+import { Icon } from "@/shared/ui/icon";
 import { Input } from "@/shared/ui/input"
 import { useFormikContext } from "formik";
-import { useRef } from "react";
+import { useRef, useState } from "react";
 
 export const InputTags = ({ className }: {className?: string}) => {
   const { setFormValue } = useFormStore();
   const formik = useFormikContext<StartupForm>();
+  const [displayCross, setDisplayCross] = useState('');
   const inputRef = useRef<HTMLInputElement | null>(null);
 
   const handleEnterNewTag: React.KeyboardEventHandler<HTMLInputElement> = (e) => {
     const value = (e.target as HTMLInputElement).value;
 
-    if (value && e.key === 'Enter' && inputRef.current && document.activeElement === inputRef.current) {
+    if (
+        value &&
+        e.key === 'Enter' &&
+        inputRef.current &&
+        document.activeElement === inputRef.current &&
+        !formik.values.tags.includes(value)
+    ) {
       formik.setFieldValue(FIELD_API_NAMES.tags, [...formik.values.tags, value]);
       setFormValue(FIELD_API_NAMES.tags, [...formik.values.tags, value]);
       inputRef.current.value = '';
     }
+  }
+
+  const handleDeleteTag = (tagName: string) => {
+    formik.setFieldValue(FIELD_API_NAMES.tags, [...formik.values.tags.filter(tag => tag !== tagName)]);
+    setDisplayCross('');
   }
 
   return (
@@ -29,8 +43,20 @@ export const InputTags = ({ className }: {className?: string}) => {
       </div>
       <div className="flex gap-2 flex-wrap">
         {formik.values.tags.map((tag, i) => (
-          <Badge key={`${tag}-${i}`} className="line-clamp-1 bg-help text-[1rem] text-text-blue px-7 rounded-full font-semibold">
+          <Badge
+            key={`${tag}-${i}`}
+            onMouseOver={() => setDisplayCross(tag)}
+            onFocus={() => setDisplayCross(tag)}
+            onBlur={() => setDisplayCross('')}
+            onMouseLeave={() => setDisplayCross('')}
+            className="relative line-clamp-1 bg-help text-[1rem] text-text-blue px-7 rounded-full font-semibold flex gap-2 cursor-default select-none active:scale-105 hover:scale-105"
+          >
             {squishText(tag)}
+            {displayCross === tag && (
+              <Button onClick={() => handleDeleteTag(tag)} className="absolute right-2 [&&]:p-0 h-fit cursor-pointer">
+                <Icon type="plus" className="rotate-45 stroke-danger" />
+              </Button>
+            )}
           </Badge>
         ))}
       </div>

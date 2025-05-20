@@ -1,5 +1,6 @@
 import { StartupFormFieldValues } from "../types/form";
 import { Constraint, Tab } from "../types/general";
+import { User } from "../types/user";
 
 export const LOADING_LINES = [
   'Сканируем космос на признаки разумных инвестиций...',
@@ -21,7 +22,11 @@ export const LOADING_LINES = [
   'Переписываем прогноз, чтобы звучал оптимистично...',
 ]
 
-export const constraints: Record<keyof StartupFormFieldValues, Record<Constraint, number>> =  {
+export const constraints:
+  Record<
+    keyof StartupFormFieldValues,
+    Record<Constraint.MAX_SYMBOL_COUNT | Constraint.MIN_SYMBOL_COUNT, number>
+  > = {
   compeition: {
     [Constraint.MIN_SYMBOL_COUNT]: 300,
     [Constraint.MAX_SYMBOL_COUNT]: 2000,
@@ -74,6 +79,27 @@ export const constraints: Record<keyof StartupFormFieldValues, Record<Constraint
     [Constraint.MIN_SYMBOL_COUNT]: 300,
     [Constraint.MAX_SYMBOL_COUNT]: 2000,
   },
+}
+export const userFormConstraints:
+  Record<
+    keyof Omit<User, 'email' | 'avatar'>,
+    {[Key in Constraint.MAX_SYMBOL_COUNT | Constraint.MIN_SYMBOL_COUNT | Constraint.APPROPRIATE_FORMAT]: string | number | undefined}
+  > = {
+  name: {
+    [Constraint.MIN_SYMBOL_COUNT]: 2,
+    [Constraint.MAX_SYMBOL_COUNT]: 40,
+    [Constraint.APPROPRIATE_FORMAT]: undefined,
+  },
+  surname: {
+    [Constraint.MIN_SYMBOL_COUNT]: 2,
+    [Constraint.MAX_SYMBOL_COUNT]: 40,
+    [Constraint.APPROPRIATE_FORMAT]: undefined,
+  },
+  phone: {
+    [Constraint.MIN_SYMBOL_COUNT]: undefined,
+    [Constraint.MAX_SYMBOL_COUNT]: undefined,
+    [Constraint.APPROPRIATE_FORMAT]: '\+\d{11}',
+  }
 }
 export const MAX_TAG_LENGTH = 20;
 export const MIN_SYMBOL_COUNT = 10;

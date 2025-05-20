@@ -22,7 +22,11 @@ export const FeedbackForm = ({ className, starClassName }: {className?: string; 
       {step === 0 && (
         <>
           <StarsRating rating={rating} setRating={setRating} className={starClassName} />
-          <Button onClick={() => setStep(1)} className={`mt-3 px-[40px] py-[7px] ${rating >= 0 ? 'bg-danger hover:bg-danger-secondary': 'bg-check'}`}>
+          <Button
+            disabled={rating < 0}
+            onClick={() => setStep(1)}
+            className={`mt-3 px-[40px] py-[7px] ${rating >= 0 ? 'bg-danger hover:bg-danger-secondary': 'bg-check hover:bg-[rgb(170,170,170)]'}`}
+          >
             <p className="text-ai-regular font-semibold">Отправить</p>
           </Button>
         </>

@@ -38,7 +38,10 @@ export const FormAccordion = ({
     <AccordionItem className="px-[5vw] lg:px-2" value={title}>
       <AccordionTrigger className="text-ai-lg py-4 font-semibold flex items-center">
         <div className="flex flex-row justify-between w-full">
-          <p>{`${num}. ${title}${required ? '*': ''}`}</p>
+          <span className="flex self-center">
+            <p>{`${num}. ${title}`}</p>
+            <p className="text-danger">{required ? '*': ''}</p>
+          </span>
           <Icon
             type="checkmark"
             className={`self-center size-8 ${formik.values[apiFieldName].length > 0 && isValid ? 'fill-success' : 'fill-check'}`}
