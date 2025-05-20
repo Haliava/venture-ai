@@ -7,14 +7,14 @@ export type ProjectCardProps = {
 }
 
 export const ProjectCard = ({ project }: ProjectCardProps) => {
-  const { description, name, image } = project
+  const { description, name, image } = project;
 
   return (
     <Card className="bg-white rounded-[10px]">
       <CardHeader>
         <CardTitle className="flex justify-between p-1">
           <p className="text-ai-regular font-semibold text-text-blue">{name}</p>
-          <ProjectPopover project={project} />
+          <ProjectPopover />
         </CardTitle>
       </CardHeader>
       <CardContent>
