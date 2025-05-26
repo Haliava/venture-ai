@@ -1,0 +1,653 @@
+openapi: 3.0.0
+info:
+  title: API Venutre AI backend
+  description: API Venutre AI backend
+  version: 1.0.0
+servers:
+  - url: /api/v1
+    description: API Server
+
+components:
+  securitySchemes:
+    bearerAuth:
+      type: http
+      scheme: bearer
+      bearerFormat: JWT
+
+  schemas:
+    Error:
+      type: object
+      properties:
+        message:
+          type: string
+          description: Сообщение об ошибке
+
+    UserCreate:
+      type: object
+      required:
+        - email
+        - password
+      properties:
+        email:
+          type: string
+          format: email
+          description: Email пользователя
+        password:
+          type: string
+          description: Пароль пользователя (не менее 12 символов)
+          minLength: 12
+
+    UserUpdate:
+      type: object
+      properties:
+        email:
+          type: string
+          format: email
+          description: Email пользователя
+        password:
+          type: string
+          description: Пароль пользователя (не менее 12 символов)
+          minLength: 12
+
+    UserResponse:
+      type: object
+      properties:
+        uuid:
+          type: string
+          format: uuid
+          description: Уникальный идентификатор пользователя
+        email:
+          type: string
+          format: email
+          description: Email пользователя
+        created_at:
+          type: string
+          format: date-time
+          description: Дата создания пользователя
+        updated_at:
+          type: string
+          format: date-time
+          description: Дата последнего обновления пользователя
+
+    AuthResponse:
+      type: object
+      properties:
+        token:
+          type: string
+          description: JWT токен для авторизации
+        user:
+          $ref: '#/components/schemas/UserResponse'
+
+    TranscribeText:
+      type: string
+      description: Транскрибированный текст для перевода в описание проекта
+    
+    ProjectStatus:
+      type: string
+      enum:
+        - draft
+        - project
+      description: Статус проекта
+
+    KeywordList:
+      type: array
+      items:
+        type: string
+      minItems: 2
+      maxItems: 5
+      description: Список ключевых слов (от 2 до 5)
+
+    ProjectBase:
+      type: object
+      required:
+        - status
+        - uto
+        - idea
+        - problem
+        - solution
+        - keywords
+      properties:
+        status:
+          $ref: '#/components/schemas/ProjectStatus'
+        uto:
+          type: string
+          description: УТО проекта
+          minLength: 100
+          maxLength: 800
+        idea:
+          type: string
+          description: Идея проекта
+          minLength: 300
+          maxLength: 1500
+        problem:
+          type: string
+          description: Проблема, которую решает проект
+          minLength: 300
+          maxLength: 1500
+        solution:
+          type: string
+          description: Решение проблемы
+          minLength: 300
+          maxLength: 2000
+        keywords:
+          $ref: '#/components/schemas/KeywordList'
+        implementation:
+          type: string
+          description: Реализация проекта
+          minLength: 500
+          maxLength: 2500
+          nullable: true
+        target_audience:
+          type: string
+          description: Целевая аудитория
+          minLength: 300
+          maxLength: 1000
+          nullable: true
+        roadmap:
+          type: string
+          description: Дорожная карта проекта
+          minLength: 500
+          maxLength: 3000
+          nullable: true
+        market_volume:
+          type: string
+          description: Объем рынка
+          minLength: 300
+          maxLength: 2000
+          nullable: true
+        oppontents:
+          type: string
+          description: Конкуренты
+          minLength: 300
+          maxLength: 2000
+          nullable: true
+        strategy:
+          type: string
+          description: Стратегия
+          minLength: 300
+          maxLength: 2000
+          nullable: true
+        team:
+          type: string
+          description: Команда проекта
+          minLength: 200
+          maxLength: 1500
+          nullable: true
+        social:
+          type: string
+          description: Социальный аспект
+          minLength: 200
+          maxLength: 1500
+          nullable: true
+        summarize:
+          type: string
+          description: Резюме проекта
+          nullable: true
+
+    ProjectUpdate:
+      type: object
+      properties:
+        status:
+          $ref: '#/components/schemas/ProjectStatus'
+        uto:
+          type: string
+          description: УТО проекта
+          minLength: 100
+          maxLength: 800
+        idea:
+          type: string
+          description: Идея проекта
+          minLength: 300
+          maxLength: 1500
+        problem:
+          type: string
+          description: Проблема, которую решает проект
+          minLength: 300
+          maxLength: 1500
+        solution:
+          type: string
+          description: Решение проблемы
+          minLength: 300
+          maxLength: 2000
+        keywords:
+          $ref: '#/components/schemas/KeywordList'
+        implementation:
+          type: string
+          description: Реализация проекта
+          minLength: 500
+          maxLength: 2500
+          nullable: true
+        target_audience:
+          type: string
+          description: Целевая аудитория
+          minLength: 300
+          maxLength: 1000
+          nullable: true
+        roadmap:
+          type: string
+          description: Дорожная карта проекта
+          minLength: 500
+          maxLength: 3000
+          nullable: true
+        market_volume:
+          type: string
+          description: Объем рынка
+          minLength: 300
+          maxLength: 2000
+          nullable: true
+        oppontents:
+          type: string
+          description: Конкуренты
+          minLength: 300
+          maxLength: 2000
+          nullable: true
+        strategy:
+          type: string
+          description: Стратегия
+          minLength: 300
+          maxLength: 2000
+          nullable: true
+        team:
+          type: string
+          description: Команда проекта
+          minLength: 200
+          maxLength: 1500
+          nullable: true
+        social:
+          type: string
+          description: Социальный аспект
+          minLength: 200
+          maxLength: 1500
+          nullable: true
+        summarize:
+          type: string
+          description: Ответ от LLM по проекту
+          nullable: true
+
+    ProjectResponse:
+      allOf:
+        - $ref: '#/components/schemas/ProjectBase'
+        - type: object
+          properties:
+            id:
+              type: integer
+              description: Идентификатор проекта
+            user_uuid:
+              type: string
+              format: uuid
+              description: Идентификатор пользователя
+            created_at:
+              type: string
+              format: date-time
+              description: Дата создания проекта
+            updated_at:
+              type: string
+              format: date-time
+              description: Дата обновления проекта
+
+    LoginRequest:
+      type: object
+      required:
+        - email
+        - password
+      properties:
+        email:
+          type: string
+          format: email
+          description: Email пользователя
+        password:
+          type: string
+          description: Пароль пользователя
+
+paths:
+  /auth/register:
+    post:
+      summary: Регистрация нового пользователя
+      tags:
+        - Auth
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/UserCreate'
+      responses:
+        '200':
+          description: Успешная регистрация
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/AuthResponse'
+        '400':
+          description: Ошибка валидации
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '500':
+          description: Внутренняя ошибка сервера
+          
+  /auth/login:
+    post:
+      summary: Авторизация пользователя
+      tags:
+        - Auth
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/LoginRequest'
+      responses:
+        '200':
+          description: Успешная авторизация
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/AuthResponse'
+        '400':
+          description: Ошибка в запросе
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '401':
+          description: Неверный email или пароль
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '500':
+          description: Внутренняя ошибка сервера
+          
+  /users/me:
+    get:
+      summary: Получение информации о текущем пользователе
+      tags:
+        - Users
+      security:
+        - bearerAuth: []
+      responses:
+        '200':
+          description: Информация о пользователе
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/UserResponse'
+        '404':
+          description: Пользователь не найден
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '500':
+          description: Внутренняя ошибка сервера
+          
+    put:
+      summary: Обновление данных текущего пользователя
+      tags:
+        - Users
+      security:
+        - bearerAuth: []
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/UserUpdate'
+      responses:
+        '200':
+          description: Данные пользователя обновлены
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/UserResponse'
+        '400':
+          description: Ошибка валидации
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '404':
+          description: Пользователь не найден
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '500':
+          description: Внутренняя ошибка сервера
+          
+    delete:
+      summary: Удаление текущего пользователя
+      tags:
+        - Users
+      security:
+        - bearerAuth: []
+      responses:
+        '200':
+          description: Пользователь успешно удален
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '404':
+          description: Пользователь не найден
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '500':
+          description: Внутренняя ошибка сервера
+          
+  /projects:
+    post:
+      summary: Создание нового проекта
+      tags:
+        - Projects
+      security:
+        - bearerAuth: []
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/ProjectBase'
+      responses:
+        '200':
+          description: Проект успешно создан
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ProjectResponse'
+        '400':
+          description: Ошибка валидации
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '500':
+          description: Внутренняя ошибка сервера
+          
+    get:
+      summary: Получение списка проектов пользователя
+      tags:
+        - Projects
+      security:
+        - bearerAuth: []
+      parameters:
+        - name: limit
+          in: query
+          description: Ограничение количества проектов
+          schema:
+            type: integer
+            default: 100
+        - name: offset
+          in: query
+          description: Смещение от начала списка
+          schema:
+            type: integer
+            default: 0
+        - name: status
+          in: query
+          description: Фильтр по статусу проекта
+          schema:
+            $ref: '#/components/schemas/ProjectStatus'
+      responses:
+        '200':
+          description: Список проектов
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/ProjectResponse'
+        '400':
+          description: Ошибка в запросе
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '500':
+          description: Внутренняя ошибка сервера
+          
+  /projects/{project_id}:
+    get:
+      summary: Получение информации о проекте
+      tags:
+        - Projects
+      security:
+        - bearerAuth: []
+      parameters:
+        - name: project_id
+          in: path
+          required: true
+          description: Идентификатор проекта
+          schema:
+            type: integer
+      responses:
+        '200':
+          description: Информация о проекте
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ProjectResponse'
+        '403':
+          description: Доступ запрещен
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '404':
+          description: Проект не найден
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '500':
+          description: Внутренняя ошибка сервера
+          
+    put:
+      summary: Обновление проекта
+      tags:
+        - Projects
+      security:
+        - bearerAuth: []
+      parameters:
+        - name: project_id
+          in: path
+          required: true
+          description: Идентификатор проекта
+          schema:
+            type: integer
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/ProjectUpdate'
+      responses:
+        '200':
+          description: Проект успешно обновлен
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ProjectResponse'
+        '400':
+          description: Ошибка валидации
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '403':
+          description: Доступ запрещен
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '404':
+          description: Проект не найден
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '500':
+          description: Внутренняя ошибка сервера
+          
+    delete:
+      summary: Удаление проекта
+      tags:
+        - Projects
+      security:
+        - bearerAuth: []
+      parameters:
+        - name: project_id
+          in: path
+          required: true
+          description: Идентификатор проекта
+          schema:
+            type: integer
+      responses:
+        '200':
+          description: Проект успешно удален
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '403':
+          description: Доступ запрещен
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '404':
+          description: Проект не найден
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '500':
+          description: Внутренняя ошибка сервера
+    
+  /projects/transcribe:
+    post:
+      summary: Трансрибированный текст в 13 полей проекта
+      tags:
+        - projects
+      security:
+        - bearerAuth: []
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/TranscribeText'
+      responses:
+        '200':
+          description: Успешная транскрибация в проект (в ответе только поля при создании, без uuid)
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ProjectResponse'
+        '500':
+          description: Внутренняя ошибка сервера
+ 

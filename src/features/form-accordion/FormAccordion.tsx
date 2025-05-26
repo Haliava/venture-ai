@@ -29,7 +29,7 @@ export const FormAccordion = ({
   }
 
   const handleTextareaValueChange = (e: React.ChangeEvent<HTMLTextAreaElement>) => {
-    formik.setFieldValue(apiFieldName, e.target.value, true);
+    formik.setFieldValue(apiFieldName, e.target.value, false);
     setFormValue(apiFieldName, e.target.value);
     setIsValid(formFieldErrors(apiFieldName, e.target.value).length <= 0);
   }

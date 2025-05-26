@@ -59,7 +59,7 @@ export const UserForm = ({ className }: { className?: string }) => {
                 <div className="grid w-full items-center bg-field-bg rounded-lg px-2 pt-2">
                   <Label className="text-text-field-hint" htmlFor="name">Имя</Label>
                   <Input
-                    className="bg-field-bg! border-none shadow-none p-0"
+                    className="bg-field-bg! border-none shadow-none p-0 [&&]:focus:ring-0"
                     type="text"
                     id="name"
                     placeholder="Имя"
@@ -70,7 +70,7 @@ export const UserForm = ({ className }: { className?: string }) => {
                 <div className="grid w-full items-center bg-field-bg rounded-lg px-2 pt-2">
                   <Label className="text-text-field-hint" htmlFor="surname">Фамилия</Label>
                   <Input
-                    className="bg-field-bg! border-none shadow-none p-0"
+                    className="bg-field-bg! border-none shadow-none p-0 [&&]:focus:ring-0"
                     type="text"
                     id="surname"
                     placeholder="Фамилия"
@@ -81,7 +81,7 @@ export const UserForm = ({ className }: { className?: string }) => {
                 <div className="grid w-full items-center bg-field-bg rounded-lg px-2 pt-2">
                   <Label className="text-text-field-hint" htmlFor="email">Почта</Label>
                   <Input
-                    className="bg-field-bg! border-none shadow-none p-0"
+                    className="bg-field-bg! border-none shadow-none p-0 [&&]:focus:ring-0"
                     type="text"
                     id="email"
                     placeholder="example@gmail.com"
@@ -92,7 +92,7 @@ export const UserForm = ({ className }: { className?: string }) => {
                 <div className="grid w-full items-center bg-field-bg rounded-lg px-2 pt-2">
                   <Label className="text-text-field-hint" htmlFor="phone">Номер телефона</Label>
                   <Input
-                    className="bg-field-bg! border-none shadow-none p-0"
+                    className="bg-field-bg! border-none shadow-none p-0 [&&]:focus:ring-0"
                     type="text"
                     id="phone"
                     placeholder="+711111111"

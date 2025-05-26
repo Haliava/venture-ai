@@ -7,7 +7,7 @@ export const CommonLayout = () => {
     <div>
       <Header />
       <Outlet />
-      <Toaster />
+      <Toaster visibleToasts={12} />
     </div>
   )
 }
