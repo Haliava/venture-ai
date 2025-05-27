@@ -1,7 +1,7 @@
 import axios from "axios";
 import { BASE_API_URL } from "../constants/api";
 
-let refreshTokenPromise: null | Promise < any > ;
+// let refreshTokenPromise: null | Promise < any > ;
 
 export const axiosInstance = axios.create({
   baseURL: `${BASE_API_URL}/api/v1`,

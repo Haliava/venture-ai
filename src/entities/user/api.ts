@@ -1,5 +1,4 @@
 import { axiosInstance } from "@/shared/api/axiosInstance"
-import { BASE_API_URL } from "@/shared/constants/api"
 import { RegisterUserFields, UserData } from "@/shared/types/user"
 import { AxiosResponse } from "axios";
 
