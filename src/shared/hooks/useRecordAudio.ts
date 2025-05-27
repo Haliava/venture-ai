@@ -12,7 +12,7 @@ export const useRecordAudio = () => {
   const timerDisplayTimeInterval = useRef<NodeJS.Timeout | null>(null);
   const timerInterval = useRef<NodeJS.Timeout | null>(null);
   const stopRecordingButton = useRef<HTMLButtonElement | null>(null);
-  const [hasMicAccess, setHasMicAccess] = useState(false);
+  const [hasMicAccess, setHasMicAccess] = useState(true);
   const [isScreenLarge, setIsScreenLarge] = useState(currentWidth >= SCREEN_LG);
   const {
     transcript,
