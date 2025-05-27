@@ -47,7 +47,7 @@ export const useRecordAudio = () => {
   }
 
   const handleSendRecording = (recordingBlob: string) => {
-    console.log(recordingBlob, transcript);
+    console.log(transcript, recordingBlob);
   }
 
   const handleResumeRecording = (resumeRecording: () => void) => {
