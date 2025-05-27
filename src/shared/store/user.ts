@@ -6,6 +6,11 @@ type UserStoreState = {
   user: User,
 }
 
+type AuthStore = {
+  isLoggedIn: boolean;
+  setIsLoggedIn: (newState: boolean) => void;
+}
+
 export const useUserStore = create<UserStoreState>((set) => ({
   user: {
     email: 'example@gmail.com',
@@ -15,4 +20,9 @@ export const useUserStore = create<UserStoreState>((set) => ({
     avatar: defaultProfileImage,
   },
   setUser: (newUser: User) => set(() => ({ user: newUser })),
+}))
+
+export const useAuth = create<AuthStore>((set) => ({
+  isLoggedIn: false,
+  setIsLoggedIn: (newLoginState: boolean) => set(() => ({ isLoggedIn: newLoginState })),
 }))

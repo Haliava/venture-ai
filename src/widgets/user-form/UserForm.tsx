@@ -56,7 +56,7 @@ export const UserForm = ({ className }: { className?: string }) => {
               <p className="font-semibold text-ai-md">Учетные данные</p>
 
               <div className="flex flex-col gap-5 md:grow">
-                <div className="grid w-full items-center bg-field-bg rounded-lg px-2 pt-2">
+                {/* <div className="grid w-full items-center bg-field-bg rounded-lg px-2 pt-2">
                   <Label className="text-text-field-hint" htmlFor="name">Имя</Label>
                   <Input
                     className="bg-field-bg! border-none shadow-none p-0 [&&]:focus:ring-0"
@@ -77,7 +77,7 @@ export const UserForm = ({ className }: { className?: string }) => {
                     value={formik.values.surname}
                     onChange={(e) => formik.setFieldValue('surname', e.target.value, false)}
                   />
-                </div>
+                </div> */}
                 <div className="grid w-full items-center bg-field-bg rounded-lg px-2 pt-2">
                   <Label className="text-text-field-hint" htmlFor="email">Почта</Label>
                   <Input
@@ -90,6 +90,16 @@ export const UserForm = ({ className }: { className?: string }) => {
                   />
                 </div>
                 <div className="grid w-full items-center bg-field-bg rounded-lg px-2 pt-2">
+                  <Label className="text-text-field-hint" htmlFor="pass">Пароль</Label>
+                  <Input
+                    className="bg-field-bg! border-none shadow-none p-0 [&&]:focus:ring-0"
+                    type="password"
+                    id="pass"
+                    value={formik.values.phone}
+                    onChange={(e) => formik.setFieldValue('password', e.target.value, false)}
+                  />
+                </div>
+                {/* <div className="grid w-full items-center bg-field-bg rounded-lg px-2 pt-2">
                   <Label className="text-text-field-hint" htmlFor="phone">Номер телефона</Label>
                   <Input
                     className="bg-field-bg! border-none shadow-none p-0 [&&]:focus:ring-0"
@@ -99,7 +109,7 @@ export const UserForm = ({ className }: { className?: string }) => {
                     value={formik.values.phone}
                     onChange={(e) => formik.setFieldValue('phone', e.target.value, false)}
                   />
-                </div>
+                </div> */}
                 <Button className="min-h-fit max-w-fit cursor-pointer bg-danger hover:bg-danger-secondary px-[1.5rem] py-[0.75rem] text-ai-lg rounded-[10px]" type="submit">
                   <p className="font-medium text-ai-lg lg:text-ai-md lg:font-semibold">Сохранить</p>
                 </Button>

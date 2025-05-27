@@ -1,0 +1,10 @@
+stages:
+  - build
+
+build-job:
+  stage: build
+  script:
+    - docker build . -t venturefront
+  only:
+    refs:
+      - main

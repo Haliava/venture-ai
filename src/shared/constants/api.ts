@@ -1,1 +1,1 @@
-export const BASE_API_URL = 'ai-venture.ru'
+export const BASE_API_URL = 'https://ai-venture.ru'
