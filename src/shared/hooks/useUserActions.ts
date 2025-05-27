@@ -1,5 +1,5 @@
 import { getUserData, registerUser as registerUserAPI, loginUser as loginUserAPI, updateUserData } from "@/entities/user/api"
-import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query"
+import { useMutation, useQuery } from "@tanstack/react-query"
 import { useAuth } from "../store/user"
 import { queryClient } from "@/app/App";
 

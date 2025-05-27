@@ -99,6 +99,11 @@ export const userFormConstraints:
     [Constraint.MIN_SYMBOL_COUNT]: undefined,
     [Constraint.MAX_SYMBOL_COUNT]: undefined,
     [Constraint.APPROPRIATE_FORMAT]: '\+\d{11}',
+  },
+  password: {
+    [Constraint.MAX_SYMBOL_COUNT]: undefined,
+    [Constraint.MIN_SYMBOL_COUNT]: 8,
+    [Constraint.APPROPRIATE_FORMAT]: undefined,
   }
 }
 export const MAX_TAG_LENGTH = 20;
