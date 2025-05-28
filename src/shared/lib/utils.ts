@@ -42,7 +42,7 @@ export function formFieldErrors(apiFieldName: StartupFormFieldValue, value: stri
 
 export function userFormFieldErrors(fieldName: keyof User, value: string) {
   const errors = [];
-  const filteredName = fieldName as keyof Omit<User, 'email' | 'avatar'>;
+  const filteredName = fieldName as keyof Omit<User, 'email' | 'avatar' | 'phone'>;
 
   if (!(fieldName in userFormConstraints)) return [];
 
