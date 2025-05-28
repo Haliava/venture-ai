@@ -1,6 +1,6 @@
 import { useUserActions } from "@/shared/hooks/useUserActions";
 import { cn } from "@/shared/lib/utils";
-import { useAuth, useUserStore } from "@/shared/store/user";
+import { useAuth } from "@/shared/store/user";
 import { RegisterUserFields } from "@/shared/types/user";
 import { Button } from "@/shared/ui/button";
 import { Card, CardHeader, CardTitle, CardContent } from "@/shared/ui/card";
