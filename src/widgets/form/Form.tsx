@@ -13,7 +13,6 @@ import ClearFieldsButton from '@/features/clear-fields-button';
 import RecordAudio from '@/features/record-audio';
 import { useAnalyst } from '@/shared/hooks/useAnalyst';
 import { toast } from 'sonner';
-import { STORAGE } from '@/shared/constants/general';
 import AnalystResponse from '@/features/analyst-response';
 import LoadingWidget from '../loading-widget';
 
