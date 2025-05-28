@@ -298,6 +298,20 @@ components:
         password:
           type: string
           description: Пароль пользователя
+    Feedback:
+      type: object
+      required:
+        - rate
+        - comment
+      properties:
+        rate:
+          type: integer
+          description: Оценка от 1 до 5
+          minimum: 1
+          maximum: 5
+        comment:
+          type: string
+          description: Комментарии пользователя о сервисе
 
 paths:
   /auth/register:
@@ -627,12 +641,14 @@ paths:
                 $ref: '#/components/schemas/Error'
         '500':
           description: Внутренняя ошибка сервера
-    
+          
+          
+          
   /projects/transcribe:
     post:
       summary: Трансрибированный текст в 13 полей проекта
       tags:
-        - projects
+        - Projects
       security:
         - bearerAuth: []
       requestBody:
@@ -650,4 +666,22 @@ paths:
                 $ref: '#/components/schemas/ProjectResponse'
         '500':
           description: Внутренняя ошибка сервера
- 
+              
+  /feedback:
+    post:
+      summary: Отправка фидбека
+      tags:
+        - Feedback
+      security:
+        - bearerAuth: []
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Feedback'
+      responses:
+        '200':
+          description: Успешная отправка фидбека
+        '500':
+          description: Внутренняя ошибка сервера

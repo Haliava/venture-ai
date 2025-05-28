@@ -2,6 +2,11 @@ import { StartupFormFieldValues } from "../types/form";
 import { Constraint, Tab } from "../types/general";
 import { User } from "../types/user";
 
+export const BIG_NUM = 10e6
+export const STORAGE = {
+  SENT_FEEDBACK: 'sentFeedback',
+} as const;
+
 export const LOADING_LINES = [
   'Сканируем космос на признаки разумных инвестиций...',
   'Просчитываем вероятность, что это новый Uber, а не новый Juicero...',
@@ -82,7 +87,7 @@ export const constraints:
 }
 export const userFormConstraints:
   Record<
-    keyof Omit<User, 'email' | 'avatar'>,
+    keyof Omit<User, 'email' | 'avatar' | 'phone'>,
     {[Key in Constraint.MAX_SYMBOL_COUNT | Constraint.MIN_SYMBOL_COUNT | Constraint.APPROPRIATE_FORMAT]: string | number | undefined}
   > = {
   name: {
@@ -95,13 +100,8 @@ export const userFormConstraints:
     [Constraint.MAX_SYMBOL_COUNT]: 40,
     [Constraint.APPROPRIATE_FORMAT]: undefined,
   },
-  phone: {
-    [Constraint.MIN_SYMBOL_COUNT]: undefined,
-    [Constraint.MAX_SYMBOL_COUNT]: undefined,
-    [Constraint.APPROPRIATE_FORMAT]: '\+\d{11}',
-  },
   password: {
-    [Constraint.MAX_SYMBOL_COUNT]: undefined,
+    [Constraint.MAX_SYMBOL_COUNT]: BIG_NUM,
     [Constraint.MIN_SYMBOL_COUNT]: 8,
     [Constraint.APPROPRIATE_FORMAT]: undefined,
   }

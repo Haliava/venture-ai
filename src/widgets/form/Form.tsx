@@ -13,11 +13,14 @@ import ClearFieldsButton from '@/features/clear-fields-button';
 import RecordAudio from '@/features/record-audio';
 import { useAnalyst } from '@/shared/hooks/useAnalyst';
 import { toast } from 'sonner';
+import { STORAGE } from '@/shared/constants/general';
+import AnalystResponse from '@/features/analyst-response';
+import LoadingWidget from '../loading-widget';
 
 export const Form = ({ className }: { className?: string }) => {
-  const { askAnalyst, isAnswerLoading } = useAnalyst();
+  const { askAnalyst, isAnswerLoading, analystReply } = useAnalyst();
   const { values: storeValues, setValues: setStoreValues } = useFormStore();
-  const [openAccordionItems, setOpenAccordionItems] = useState<string[]>([])
+  const [openAccordionItems, setOpenAccordionItems] = useState<string[]>([]);
 
   const validateForm = (formValues: StartupForm) => {
     const fieldErrors: {[K in keyof Partial<StartupFormFieldValues>]: string[]} = {};
@@ -39,7 +42,8 @@ export const Form = ({ className }: { className?: string }) => {
   const handleSubmitForm = (
     values: StartupFormFieldValues,
   ) => {
-    askAnalyst(values);
+    const filteredValues = Object.entries(values).filter(([_, v]) => !!v)
+    askAnalyst(Object.fromEntries(filteredValues) as StartupFormFieldValues);
   }
 
   const handleAccordionValueChange = (values: string[]) => {
@@ -113,7 +117,15 @@ export const Form = ({ className }: { className?: string }) => {
                 })}
               </div>
             )}
-            <FeedbackForm className="mt-5 lg:absolute lg:left-0 lg:m-auto lg:py-[5vmin]" starClassName="size-10" />
+            {isAnswerLoading && (
+              <LoadingWidget className="mt-10" />
+            )}
+            {!isAnswerLoading && analystReply && (
+              <AnalystResponse className="mt-5" isLoading={isAnswerLoading} reply={analystReply} />
+            )}
+            {!isAnswerLoading && !analystReply && (
+              <FeedbackForm className="mt-5 lg:absolute lg:left-0 lg:m-auto lg:py-[5vmin]" starClassName="size-10" />
+            )}
           </div>
         )
       }}

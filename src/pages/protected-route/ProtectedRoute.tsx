@@ -1,6 +1,7 @@
-import { Outlet } from 'react-router'
+import { useAuth } from '@/shared/store/user';
+import { Navigate, Outlet } from 'react-router'
 
 export const ProtectedRoute = () => {
-  return <Outlet />;
-  // return isLoggedIn ? <Outlet /> : <Navigate to="/login" replace />;
+  const { isLoggedIn } = useAuth();
+  return isLoggedIn ? <Outlet /> : <Navigate to="/login" replace />;
 }

@@ -5,7 +5,7 @@ import { StartupFormFieldValues } from "../types/form"
 export const useAnalyst = () => {
   const { mutateAsync: askAnalyst, data: analystReply, isPending: isAnswerLoading } = useMutation({
     mutationKey: ['analyst', 'ask'],
-    mutationFn: (formValues: StartupFormFieldValues) => getAnalysis(formValues),
+    mutationFn: async (formValues: StartupFormFieldValues) => await getAnalysis(formValues).then(data => data.data.summarize),
   })
 
   return {

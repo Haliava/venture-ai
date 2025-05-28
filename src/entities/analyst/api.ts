@@ -1,14 +1,15 @@
 import { StartupFormFieldValues } from "@/shared/types/form"
-import axios, { AxiosResponse } from "axios"
+import { mapFormFieldsToAPI } from "./mappers"
+import { ReplyAPI } from "@/shared/types/analysis"
+import { axiosInstance } from "@/shared/api/axiosInstance"
 
 export const getAnalysis = (formValues: StartupFormFieldValues) => {
-  console.log(formValues)
-  return new Promise<string>((resolve) => {
-    setTimeout(() => resolve(`${formValues}\ **312321**`), 1000)
-  })
-  // return axios.post('/', formValues)
+  // return new Promise<string>((resolve) => {
+  //   setTimeout(() => resolve(`${Object.entries(formValues).map(([k, v]) => ''+k+v).join('\n')}\ **312321**`), 10000)
+  // })
+  return axiosInstance.post<ReplyAPI>('/projects', mapFormFieldsToAPI(formValues))
 }
 
 export const transforTranscriptionToFormFields = (transcription: string) => {
-  return axios.post<AxiosResponse<StartupFormFieldValues>>('/projects/transcribe', transcription);
+  return axiosInstance.post<StartupFormFieldValues>('/projects/transcribe', transcription);
 }

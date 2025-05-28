@@ -45,14 +45,14 @@ export const RecordAudio = ({ className }: { className?: string }) => {
           <DrawerDescription className="font-medium text-[1rem] text-check text-center flex flex-col items-center justify-center gap-5 mb-5">
             Автоматически остановится при достижении длительности 10 минут.
           </DrawerDescription>
-          <CircularProgress className="w-[16rem] h-[16rem] -rotate-90" strokeWidth={5} value={recordingProgress} />
-          <div className="absolute bottom-[8rem] *:font-medium *:text-ai-lg flex gap-1.5">
+          <CircularProgress className="w-[12rem] h-[12rem] -rotate-90" strokeWidth={5} value={recordingProgress} />
+          <div className="absolute bottom-[6rem] *:font-medium *:text-ai-lg flex gap-1.5">
             <p>{displayTimerTime(elapsedSeconds)}</p>
             <p className="text-check">/</p>
             <p className="text-check">{TIMER_FOR_N_MINUTES}:00</p>
           </div>
         </DrawerHeader>
-        <div className="min-h-[30vmin] lg:min-h-[20vmin]">
+        <div className="min-h-[15vmin]">
           <ReactMediaRecorder
             audio
             render={({

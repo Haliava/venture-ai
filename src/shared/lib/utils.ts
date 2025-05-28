@@ -55,7 +55,7 @@ export function userFormFieldErrors(fieldName: keyof User, value: string) {
   }
 
   if (
-    userFormConstraints[filteredName].APPROPRIATE_FORMAT &&
+    userFormConstraints[filteredName].APPROPRIATE_FORMAT && !!value &&
     !(new RegExp(`${userFormConstraints[filteredName].APPROPRIATE_FORMAT}`)).test(value)
   ) {
     errors.push(ERROR_MESSAGES.WRONG_PHONE_FORMAT)

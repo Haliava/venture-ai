@@ -1,4 +1,4 @@
-import { MIN_SYMBOL_COUNT, MAX_SYMBOL_COUNT, SCREEN_MD } from "@/shared/constants/general"
+import { SCREEN_MD } from "@/shared/constants/general"
 import { Button } from "@/shared/ui/button"
 import { Separator } from "@/shared/ui/separator"
 import { TealBadge } from "@/shared/ui/TealBadge"
@@ -41,7 +41,6 @@ export const InstructionPage = () => {
         <p>
           Здесь предоставлены разъяснения и советы по заполнению каждого из блоков снаглядными примерами. Сверьтесь с этими рекомендациями до того, как нажмете на кнопку «Анализировать».
           <br /><br />Теги и первые четыре поля обязательны для заполнения. Вы не сможете анализировать проект, пока не заполните их в соответствии с правилами.
-          <br /><br />1. В поле не может быть менее {MIN_SYMBOL_COUNT} и более {MAX_SYMBOL_COUNT} символов. Эти ограничения отличаются для разных полей.
           <br />2. Недопустимо использование специальных символов. в их числе скобки, тире, эмодзи....
           <br />3. Вы можете очистить все поля, но восстановить информацию после этого будет невозможно
         </p>

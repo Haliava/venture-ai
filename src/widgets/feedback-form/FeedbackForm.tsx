@@ -1,18 +1,29 @@
+import { sendFeedback } from "@/entities/feedback/api";
+import { STORAGE } from "@/shared/constants/general";
 import { Button } from "@/shared/ui/button"
 import { StarsRating } from "@/shared/ui/stars-rating"
 import { Textarea } from "@/shared/ui/textarea";
+import { useMutation } from "@tanstack/react-query";
 import { useState } from "react"
 
 export const FeedbackForm = ({ className, starClassName }: {className?: string; starClassName?: string}) => {
-  const [step, setStep] = useState(0);
-  const [rating, setRating] = useState(-1)
+  const [step, setStep] = useState(localStorage.getItem(STORAGE.SENT_FEEDBACK) ? 2 : 0);
+  const [rating, setRating] = useState(-1);
+  const [comment, setComment] = useState('');
+
+  const { mutate: sendUserFeedback } = useMutation({
+    mutationKey: ['feedback'],
+    mutationFn: sendFeedback,
+    onSuccess: () => localStorage.setItem(STORAGE.SENT_FEEDBACK, 'true'),
+  })
 
   const handleSendFeedback = () => {
+    sendUserFeedback({ rate: rating, comment })
     setStep(2);
   }
 
   return (
-    <div className={`flex flex-col items-center gap-4 ${className} m-auto w-full`}>
+    <div className={`flex flex-col items-center gap-4 m-auto w-full ${className}`}>
       {step !== 2 && (
         <>
           <p className="font-semibold text-ai-lg">Вам нравится Venture AI?</p>
@@ -33,7 +44,7 @@ export const FeedbackForm = ({ className, starClassName }: {className?: string; 
       )}
       {step === 1 && (
         <>
-          <Textarea className="border-none m-auto min-h-30 w-[90vw] lg:w-[40vw]" />
+          <Textarea value={comment} onChange={(e) => setComment(e.target.value)} className="border-none m-auto min-h-30 w-[90vw] lg:w-[40vw]" />
           <Button onClick={handleSendFeedback} className={`mt-3 px-[40px] py-[7px] ${rating >= 0 ? 'bg-danger hover:bg-danger-secondary': 'bg-check'}`}>
             <p className="text-ai-regular font-semibold">Отправить отзыв</p>
           </Button>

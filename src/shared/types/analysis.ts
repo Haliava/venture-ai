@@ -1,0 +1,17 @@
+export type ReplyAPI = {
+  status: string,
+  uto: string,
+  idea: string,
+  problem: string,
+  solution: string,
+  keywords: string[],
+  implementation: string,
+  target_audience: string,
+  roadmap: string,
+  market_volume: string,
+  oppontents: string,
+  strategy: string,
+  team: string,
+  social: string,
+  summarize?: string,
+}

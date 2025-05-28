@@ -1,11 +1,14 @@
 import { useUserActions } from "@/shared/hooks/useUserActions";
 import { cn } from "@/shared/lib/utils";
+import { useAuth, useUserStore } from "@/shared/store/user";
 import { RegisterUserFields } from "@/shared/types/user";
 import { Button } from "@/shared/ui/button";
 import { Card, CardHeader, CardTitle, CardContent } from "@/shared/ui/card";
 import { Input } from "@/shared/ui/input";
 import { Label } from "@radix-ui/react-label";
 import { useRef } from "react";
+import { useNavigate } from "react-router";
+import { toast } from "sonner";
 
 export const LoginForm = ({
   className,
@@ -13,14 +16,18 @@ export const LoginForm = ({
 }: React.ComponentPropsWithoutRef<"div">) => {
   const { loginUser, registerUser, isLoggingIn, isRegistring } = useUserActions();
   const registerButtonRef = useRef<null | HTMLButtonElement>(null);
+  const { setToken } = useAuth();
+  const navigate = useNavigate()
 
   const handleSubmit = (e: any, action = loginUser) => {
-    console.log(e)
     e.preventDefault()
     const formData = new FormData(e.target)
     const formFieldsValues = Object.fromEntries(formData) as RegisterUserFields;
 
-    action(formFieldsValues)
+    action(formFieldsValues).then(data => {
+      setToken(data.data.token)
+      navigate('/')
+    }).catch(e => toast.error(`ошибка входа/регистрации! ${e}`))
   }
 
   return (
@@ -50,7 +57,7 @@ export const LoginForm = ({
               </div>
               <div className="grid gap-2">
                 <Label htmlFor="password">Пароль</Label>
-                <Input id="password" name="password" type="password" required />
+                <Input id="password" name="password" type="password" minLength={12} required />
               </div>
               <Button type="submit" className="w-full" disabled={isLoggingIn || isRegistring}>
                 Вход
