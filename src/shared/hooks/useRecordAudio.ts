@@ -22,7 +22,6 @@ export const useRecordAudio = () => {
   const {
     transcript,
     isMicrophoneAvailable,
-    finalTranscript,
   } = useSpeechRecognition();
 
   const { mutate: transcribe, isPending: isLoadingTransription } = useMutation({
