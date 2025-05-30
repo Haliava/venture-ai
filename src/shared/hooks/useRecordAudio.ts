@@ -3,8 +3,13 @@ import SpeechRecognition, { useSpeechRecognition } from "react-speech-recognitio
 import { STATUS, TIMER_FOR_N_MINUTES } from "../constants/audio";
 import { SCREEN_LG } from "../constants/general";
 import { useCurrentDevice } from "./useCurrentDevice";
+import { useMutation } from "@tanstack/react-query";
+import { transformTranscriptionToFormFields } from "@/entities/analyst/api";
+import { useFormikContext } from "formik";
+import { StartupForm } from "../types/form";
 
 export const useRecordAudio = () => {
+  const { setValues } = useFormikContext<StartupForm>();
   const { currentWidth } = useCurrentDevice();
   const [currentRecordingStatus, setCurrentRecordingStatus] = useState<STATUS>();
   const [recordingProgress, setRecordingProgress] = useState(0);
@@ -17,7 +22,16 @@ export const useRecordAudio = () => {
   const {
     transcript,
     isMicrophoneAvailable,
+    finalTranscript,
   } = useSpeechRecognition();
+
+  const { mutate: transcribe, isPending: isLoadingTransription } = useMutation({
+    mutationKey: ['transcribe'],
+    mutationFn: (text: string) => transformTranscriptionToFormFields(text),
+    onSuccess: data => {
+      setValues(data.data)
+    }
+  })
 
   const handleStartRecording = async (startRecording: () => void) => {
     if (!isMicrophoneAvailable) return;
@@ -37,17 +51,18 @@ export const useRecordAudio = () => {
     setCurrentRecordingStatus(STATUS.PAUSED);
   }
 
-  const handleEndReording = (stopRecording: () => void, mediaBlobUrl: string | undefined) => {
+  const handleEndReording = (stopRecording: () => void) => {
     SpeechRecognition.stopListening();
     stopRecording();
     setCurrentRecordingStatus(STATUS.STOPPED);
-    if (mediaBlobUrl) {
-      handleSendRecording(mediaBlobUrl);
-    }
+    handleSendRecording();
   }
 
-  const handleSendRecording = (recordingBlob: string) => {
-    console.log(transcript, recordingBlob);
+  const handleSendRecording = () => {
+    console.log(transcript);
+    if (transcript) {
+      transcribe(transcript);
+    }
   }
 
   const handleResumeRecording = (resumeRecording: () => void) => {
@@ -104,5 +119,6 @@ export const useRecordAudio = () => {
     handlePauseRecording,
     handleResumeRecording,
     stopRecordingButton,
+    isLoadingTransription,
   }
 }

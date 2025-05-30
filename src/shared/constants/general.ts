@@ -62,7 +62,7 @@ export const constraints:
   },
   tags: {
     [Constraint.MIN_SYMBOL_COUNT]: 10,
-    [Constraint.MAX_SYMBOL_COUNT]: 1000,
+    [Constraint.MAX_SYMBOL_COUNT]: 100,
   },
   team: {
     [Constraint.MIN_SYMBOL_COUNT]: 200,

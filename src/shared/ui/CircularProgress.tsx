@@ -4,9 +4,10 @@ import { motion } from 'framer-motion';
 interface CircularProgressProps extends React.HTMLAttributes<HTMLDivElement> {
   value: number; // Something between 1 and 100
   strokeWidth: number;
+  disabled?: boolean;
 }
 
-const CircularProgress: React.FC<CircularProgressProps> = ({ value, strokeWidth, ...divProps }) => {
+const CircularProgress: React.FC<CircularProgressProps> = ({ value, strokeWidth, disabled, ...divProps }) => {
   const containerRef = useRef<HTMLDivElement | null>(null);
   const [size, setSize] = useState(0);
 
@@ -51,7 +52,7 @@ const CircularProgress: React.FC<CircularProgressProps> = ({ value, strokeWidth,
             cy={size / 2}
             r={radius}
             strokeLinecap="round"
-            className="fill-none stroke-danger"
+            className={`fill-none ${disabled ? 'stroke-checks' : 'troke-danger'}`}
             style={{
               strokeWidth,
               strokeDasharray: circumference,

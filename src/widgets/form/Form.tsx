@@ -25,7 +25,7 @@ export const Form = ({ className }: { className?: string }) => {
     const fieldErrors: {[K in keyof Partial<StartupFormFieldValues>]: string[]} = {};
 
     Object.entries(formValues).map(([key, value]) => {
-      const errors = formFieldErrors(key as keyof StartupFormFieldValues, Array.isArray(value) ? value.join(','): value);
+      const errors = formFieldErrors(key as keyof StartupFormFieldValues, value);
       if (errors.length) {
         fieldErrors[key as FIELD_API_NAMES] = errors;
       }
@@ -97,8 +97,8 @@ export const Form = ({ className }: { className?: string }) => {
               >
                 <p className='font-bold text-ai-lg lg:text-ai-md lg:font-medium'>Анализировать</p>
               </Button>
-              <ClearFieldsButton resetForm={resetForm} />
-              <RecordAudio className="lg:absolute lg:right-0" />
+              <ClearFieldsButton disabled={isAnswerLoading} resetForm={resetForm} />
+              <RecordAudio disabled={isAnswerLoading} className="lg:absolute lg:right-0" />
             </div>
             {Object.values(formik.errors).filter(Boolean).length > 0 && (
               <div className='mt-5'>

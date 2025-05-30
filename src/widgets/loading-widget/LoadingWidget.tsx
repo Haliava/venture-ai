@@ -16,7 +16,7 @@ export const LoadingWidget = ({ className }: { className?: string }) => {
   }
 
   useEffect(() => {
-    const loadingInterval = setInterval(handleAdvanceLoadingLine, 2000);
+    const loadingInterval = setInterval(handleAdvanceLoadingLine, 3000);
     return () => {
       clearInterval(loadingInterval);
     }

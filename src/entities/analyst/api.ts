@@ -10,6 +10,6 @@ export const getAnalysis = (formValues: StartupFormFieldValues) => {
   return axiosInstance.post<ReplyAPI>('/projects', mapFormFieldsToAPI(formValues))
 }
 
-export const transforTranscriptionToFormFields = (transcription: string) => {
+export const transformTranscriptionToFormFields = (transcription: string) => {
   return axiosInstance.post<StartupFormFieldValues>('/projects/transcribe', transcription);
 }

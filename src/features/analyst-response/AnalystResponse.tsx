@@ -1,11 +1,10 @@
 import { useAnalyst } from "@/shared/hooks/useAnalyst";
 import { Button } from "@/shared/ui/button";
 import LoadingWidget from "@/widgets/loading-widget";
-import html2canvas from "html2canvas";
-import jsPDF from "jspdf";
 import { useEffect, useRef } from "react";
 import Markdown from 'react-markdown';
 import remarkGfm from 'remark-gfm';
+import { generatePDF } from "@/shared/lib/utils";
 
 export type AnalystResponseProps = {
   isLoading?: boolean;
@@ -17,64 +16,7 @@ export const AnalystResponse = ({ isLoading, reply, className }: AnalystResponse
   const { isAnswerLoading, analystReply } = useAnalyst();
   const mdRef = useRef<null | HTMLDivElement>(null);
 const handleSavePDF = () => {
-  if ((!analystReply && !reply) || !mdRef.current) return;
-  
-  html2canvas(mdRef.current, { scale: 2 }).then(canvas => {
-    const imgData = canvas.toDataURL('image/jpeg', 0.95);
-    const pdf = new jsPDF();
-    const margin = 5; // Page margins in points
-    const pageWidth = pdf.internal.pageSize.getWidth();
-    const pageHeight = pdf.internal.pageSize.getHeight();
-    const availableWidth = pageWidth - (2 * margin);
-    
-    // Calculate scaled dimensions
-    const imgWidth = canvas.width;
-    const imgHeight = canvas.height;
-    const scaleFactor = availableWidth / imgWidth;
-    const scaledHeight = imgHeight * scaleFactor;
-
-    // Handle single page
-    if (scaledHeight <= pageHeight) {
-      pdf.addImage(
-        imgData,
-        'JPEG',
-        margin,
-        margin,
-        availableWidth,
-        scaledHeight,
-        'FAST',
-        'FAST'
-      );
-    } 
-    // Handle multi-page
-    else {
-      let positionY = 0;
-      
-      while (positionY < scaledHeight) {
-        const remainingHeight = scaledHeight - positionY;
-        const viewportHeight = Math.min(pageHeight - 2 * margin, remainingHeight);
-        
-        pdf.addImage(
-          imgData,
-          'JPEG',
-          margin,
-          margin - positionY,
-          availableWidth,
-          scaledHeight,
-          'FAST',
-          'FAST'
-        );
-        
-        positionY += pageHeight - 2 * margin;
-        
-        if (positionY < scaledHeight) {
-          pdf.addPage();
-        }
-      }
-    }
-    
-    pdf.save("startup-analysis.pdf");
-  });
+  if ((analystReply || reply) && mdRef.current) generatePDF(mdRef.current)
 };
 
   useEffect(() => {

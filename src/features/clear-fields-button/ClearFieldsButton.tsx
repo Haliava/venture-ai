@@ -2,13 +2,14 @@ import { Button } from "@/shared/ui/button"
 import { DialogHeader, DialogFooter, Dialog, DialogTrigger, DialogContent, DialogTitle, DialogDescription, DialogClose } from "@/shared/ui/dialog"
 
 export type ClearFieldsButtonProps = {
-  resetForm: () => void
+  resetForm: () => void;
+  disabled?: boolean;
 }
 
-export const ClearFieldsButton = ({resetForm}: ClearFieldsButtonProps) => {
+export const ClearFieldsButton = ({ resetForm, disabled }: ClearFieldsButtonProps) => {
   return (
     <Dialog>
-      <DialogTrigger>
+      <DialogTrigger disabled={disabled}>
         <p className="underline font-semibold text-ai-lg">Очистить все поля</p>
       </DialogTrigger>
       <DialogContent className="m-auto p-0 text-black w-[90vw]">
