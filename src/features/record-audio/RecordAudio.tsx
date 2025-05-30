@@ -32,7 +32,7 @@ export const RecordAudio = ({ className }: { className?: string }) => {
     <Drawer>
       <DrawerTrigger className={className} asChild>
         <Button
-          className="flex items-center h-max justify-center gap-2.5 bg-none border-2 py-2.5 px-8 [&&]:pr-1 lg:border-none bg-bg-grey hover:border-check hover:border-2 hover:bg-bg-grey"
+          className="flex items-center h-max justify-center gap-2.5 bg-none border-2 py-2.5 px-8 [&&]:pr-5 lg:[&&]:pr-1 lg:border-none bg-bg-grey hover:border-check hover:border-2 hover:bg-bg-grey"
           {...(!isScreenLarge && {variant: 'outline'})}
         >
           <Icon className="size-10 fill-white hover:bg-check" type="microphone" />

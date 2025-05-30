@@ -1,0 +1,2757 @@
+{
+    "openapi": "3.1.0",
+    "info": {
+        "title": "FastAPI",
+        "version": "0.1.0"
+    },
+    "paths": {
+        "/products/": {
+            "post": {
+                "tags": [
+                    "Product"
+                ],
+                "summary": "Create a new product",
+                "description": "Create a new product.",
+                "operationId": "create_product_products__post",
+                "security": [
+                    {
+                        "OAuth2PasswordBearer": []
+                    }
+                ],
+                "requestBody": {
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "$ref": "#/components/schemas/CreateProductIn"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "201": {
+                        "description": "Successful Response",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/CreateProductOut"
+                                }
+                            }
+                        }
+                    },
+                    "422": {
+                        "description": "Validation Error",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/HTTPValidationError"
+                                }
+                            }
+                        }
+                    }
+                }
+            },
+            "get": {
+                "tags": [
+                    "Product"
+                ],
+                "summary": "Retrieve a list of products",
+                "description": "Retrieve a list of products with pagination and filtering.\n    \n    **Filters**:\n    - status: Filter by product status (active, archived, draft)\n    - min_price: Minimum product price\n    - max_price: Maximum product price\n    - search: Search in product names and descriptions\n    \n    **Pagination**:\n    - page: Page number (default 1)\n    - limit: Items per page (default 12)",
+                "operationId": "list_produces_products__get",
+                "parameters": [
+                    {
+                        "name": "status",
+                        "in": "query",
+                        "required": false,
+                        "schema": {
+                            "anyOf": [
+                                {
+                                    "type": "string"
+                                },
+                                {
+                                    "type": "null"
+                                }
+                            ],
+                            "description": "Filter by status (active, archived, draft)",
+                            "title": "Status"
+                        },
+                        "description": "Filter by status (active, archived, draft)"
+                    },
+                    {
+                        "name": "min_price",
+                        "in": "query",
+                        "required": false,
+                        "schema": {
+                            "anyOf": [
+                                {
+                                    "type": "number"
+                                },
+                                {
+                                    "type": "null"
+                                }
+                            ],
+                            "description": "Minimum product price",
+                            "title": "Min Price"
+                        },
+                        "description": "Minimum product price"
+                    },
+                    {
+                        "name": "max_price",
+                        "in": "query",
+                        "required": false,
+                        "schema": {
+                            "anyOf": [
+                                {
+                                    "type": "number"
+                                },
+                                {
+                                    "type": "null"
+                                }
+                            ],
+                            "description": "Maximum product price",
+                            "title": "Max Price"
+                        },
+                        "description": "Maximum product price"
+                    },
+                    {
+                        "name": "search",
+                        "in": "query",
+                        "required": false,
+                        "schema": {
+                            "anyOf": [
+                                {
+                                    "type": "string"
+                                },
+                                {
+                                    "type": "null"
+                                }
+                            ],
+                            "description": "Search in product names and descriptions",
+                            "title": "Search"
+                        },
+                        "description": "Search in product names and descriptions"
+                    },
+                    {
+                        "name": "page",
+                        "in": "query",
+                        "required": false,
+                        "schema": {
+                            "type": "integer",
+                            "minimum": 1,
+                            "description": "Page number",
+                            "default": 1,
+                            "title": "Page"
+                        },
+                        "description": "Page number"
+                    },
+                    {
+                        "name": "limit",
+                        "in": "query",
+                        "required": false,
+                        "schema": {
+                            "type": "integer",
+                            "maximum": 100,
+                            "minimum": 1,
+                            "description": "Items per page",
+                            "default": 12,
+                            "title": "Limit"
+                        },
+                        "description": "Items per page"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Successful Response",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/ListProductOut"
+                                }
+                            }
+                        }
+                    },
+                    "422": {
+                        "description": "Validation Error",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/HTTPValidationError"
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/products/{product_id}": {
+            "get": {
+                "tags": [
+                    "Product"
+                ],
+                "summary": "Retrieve a single product",
+                "description": "Retrieve a single product.",
+                "operationId": "retrieve_product_products__product_id__get",
+                "parameters": [
+                    {
+                        "name": "product_id",
+                        "in": "path",
+                        "required": true,
+                        "schema": {
+                            "type": "integer",
+                            "title": "Product Id"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Successful Response",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/RetrieveProductOut"
+                                }
+                            }
+                        }
+                    },
+                    "422": {
+                        "description": "Validation Error",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/HTTPValidationError"
+                                }
+                            }
+                        }
+                    }
+                }
+            },
+            "delete": {
+                "tags": [
+                    "Product"
+                ],
+                "summary": "Deletes an existing product",
+                "description": "Deletes an existing product.",
+                "operationId": "delete_product_products__product_id__delete",
+                "security": [
+                    {
+                        "OAuth2PasswordBearer": []
+                    }
+                ],
+                "parameters": [
+                    {
+                        "name": "product_id",
+                        "in": "path",
+                        "required": true,
+                        "schema": {
+                            "type": "integer",
+                            "title": "Product Id"
+                        }
+                    }
+                ],
+                "responses": {
+                    "204": {
+                        "description": "Successful Response"
+                    },
+                    "422": {
+                        "description": "Validation Error",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/HTTPValidationError"
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/products/variants/{variant_id}": {
+            "put": {
+                "tags": [
+                    "Product Variant"
+                ],
+                "summary": "Updates an existing product variant",
+                "description": "Modify an existing Product Variant.",
+                "operationId": "update_variant_products_variants__variant_id__put",
+                "security": [
+                    {
+                        "OAuth2PasswordBearer": []
+                    }
+                ],
+                "parameters": [
+                    {
+                        "name": "variant_id",
+                        "in": "path",
+                        "required": true,
+                        "schema": {
+                            "type": "integer",
+                            "title": "Variant Id"
+                        }
+                    }
+                ],
+                "requestBody": {
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "$ref": "#/components/schemas/UpdateVariantIn"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "Successful Response",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/UpdateVariantOut"
+                                }
+                            }
+                        }
+                    },
+                    "422": {
+                        "description": "Validation Error",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/HTTPValidationError"
+                                }
+                            }
+                        }
+                    }
+                }
+            },
+            "get": {
+                "tags": [
+                    "Product Variant"
+                ],
+                "summary": "Retrieve a single product variant",
+                "description": "Retrieves a single product variant.",
+                "operationId": "retrieve_variant_products_variants__variant_id__get",
+                "parameters": [
+                    {
+                        "name": "variant_id",
+                        "in": "path",
+                        "required": true,
+                        "schema": {
+                            "type": "integer",
+                            "title": "Variant Id"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Successful Response",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/RetrieveVariantOut"
+                                }
+                            }
+                        }
+                    },
+                    "422": {
+                        "description": "Validation Error",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/HTTPValidationError"
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/products/{product_id}/variants": {
+            "get": {
+                "tags": [
+                    "Product Variant"
+                ],
+                "summary": "Retrieves a list of product variants",
+                "description": "Retrieves a list of product variants.",
+                "operationId": "list_variants_products__product_id__variants_get",
+                "parameters": [
+                    {
+                        "name": "product_id",
+                        "in": "path",
+                        "required": true,
+                        "schema": {
+                            "type": "integer",
+                            "title": "Product Id"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Successful Response",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/ListVariantsOut"
+                                }
+                            }
+                        }
+                    },
+                    "422": {
+                        "description": "Validation Error",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/HTTPValidationError"
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/products/{product_id}/media": {
+            "post": {
+                "tags": [
+                    "Product Image"
+                ],
+                "summary": "Create a new product image",
+                "description": "Create a new product image.",
+                "operationId": "create_product_media_products__product_id__media_post",
+                "security": [
+                    {
+                        "OAuth2PasswordBearer": []
+                    }
+                ],
+                "parameters": [
+                    {
+                        "name": "product_id",
+                        "in": "path",
+                        "required": true,
+                        "schema": {
+                            "type": "integer",
+                            "title": "Product Id"
+                        }
+                    }
+                ],
+                "requestBody": {
+                    "required": true,
+                    "content": {
+                        "multipart/form-data": {
+                            "schema": {
+                                "$ref": "#/components/schemas/Body_create_product_media_products__product_id__media_post"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "201": {
+                        "description": "Successful Response",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/CreateProductMediaOut"
+                                }
+                            }
+                        }
+                    },
+                    "422": {
+                        "description": "Validation Error",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/HTTPValidationError"
+                                }
+                            }
+                        }
+                    }
+                }
+            },
+            "get": {
+                "tags": [
+                    "Product Image"
+                ],
+                "summary": "Receive a list of all Product Images",
+                "description": "Receive a list of all Product Images.",
+                "operationId": "list_product_media_products__product_id__media_get",
+                "parameters": [
+                    {
+                        "name": "product_id",
+                        "in": "path",
+                        "required": true,
+                        "schema": {
+                            "type": "integer",
+                            "title": "Product Id"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Successful Response",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/RetrieveProductMediaOut"
+                                }
+                            }
+                        }
+                    },
+                    "422": {
+                        "description": "Validation Error",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/HTTPValidationError"
+                                }
+                            }
+                        }
+                    }
+                }
+            },
+            "delete": {
+                "tags": [
+                    "Product Image"
+                ],
+                "summary": "Delete image from a product",
+                "description": "Delete image from a product.",
+                "operationId": "delete_product_media_products__product_id__media_delete",
+                "security": [
+                    {
+                        "OAuth2PasswordBearer": []
+                    }
+                ],
+                "parameters": [
+                    {
+                        "name": "product_id",
+                        "in": "path",
+                        "required": true,
+                        "schema": {
+                            "type": "integer",
+                            "title": "Product Id"
+                        }
+                    },
+                    {
+                        "name": "media_ids",
+                        "in": "query",
+                        "required": true,
+                        "schema": {
+                            "type": "string",
+                            "title": "Media Ids"
+                        }
+                    }
+                ],
+                "responses": {
+                    "204": {
+                        "description": "Successful Response"
+                    },
+                    "422": {
+                        "description": "Validation Error",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/HTTPValidationError"
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/products/media/{media_id}": {
+            "get": {
+                "tags": [
+                    "Product Image"
+                ],
+                "summary": "Retrieve a single product image",
+                "description": "Get a single product image by id.",
+                "operationId": "retrieve_single_media_products_media__media_id__get",
+                "parameters": [
+                    {
+                        "name": "media_id",
+                        "in": "path",
+                        "required": true,
+                        "schema": {
+                            "type": "integer",
+                            "title": "Media Id"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Successful Response",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/RetrieveMediaOut"
+                                }
+                            }
+                        }
+                    },
+                    "422": {
+                        "description": "Validation Error",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/HTTPValidationError"
+                                }
+                            }
+                        }
+                    }
+                }
+            },
+            "put": {
+                "tags": [
+                    "Product Image"
+                ],
+                "summary": "Updates an existing image",
+                "description": "Updates an existing image.",
+                "operationId": "update_media_products_media__media_id__put",
+                "security": [
+                    {
+                        "OAuth2PasswordBearer": []
+                    }
+                ],
+                "parameters": [
+                    {
+                        "name": "media_id",
+                        "in": "path",
+                        "required": true,
+                        "schema": {
+                            "type": "integer",
+                            "title": "Media Id"
+                        }
+                    }
+                ],
+                "requestBody": {
+                    "required": true,
+                    "content": {
+                        "multipart/form-data": {
+                            "schema": {
+                                "$ref": "#/components/schemas/Body_update_media_products_media__media_id__put"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "Successful Response",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/UpdateMediaOut"
+                                }
+                            }
+                        }
+                    },
+                    "422": {
+                        "description": "Validation Error",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/HTTPValidationError"
+                                }
+                            }
+                        }
+                    }
+                }
+            },
+            "delete": {
+                "tags": [
+                    "Product Image"
+                ],
+                "summary": "Delete a media file",
+                "description": "Delete a media file.",
+                "operationId": "delete_media_file_products_media__media_id__delete",
+                "security": [
+                    {
+                        "OAuth2PasswordBearer": []
+                    }
+                ],
+                "parameters": [
+                    {
+                        "name": "media_id",
+                        "in": "path",
+                        "required": true,
+                        "schema": {
+                            "type": "integer",
+                            "title": "Media Id"
+                        }
+                    }
+                ],
+                "responses": {
+                    "204": {
+                        "description": "Successful Response"
+                    },
+                    "422": {
+                        "description": "Validation Error",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/HTTPValidationError"
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/search/": {
+            "get": {
+                "tags": [
+                    "Search"
+                ],
+                "summary": "Search",
+                "operationId": "search_search__get",
+                "parameters": [
+                    {
+                        "name": "q",
+                        "in": "query",
+                        "required": true,
+                        "schema": {
+                            "type": "string",
+                            "minLength": 2,
+                            "description": "Search query",
+                            "title": "Q"
+                        },
+                        "description": "Search query"
+                    },
+                    {
+                        "name": "category",
+                        "in": "query",
+                        "required": false,
+                        "schema": {
+                            "type": "string",
+                            "description": "Filter by category",
+                            "title": "Category"
+                        },
+                        "description": "Filter by category"
+                    },
+                    {
+                        "name": "min_rating",
+                        "in": "query",
+                        "required": false,
+                        "schema": {
+                            "type": "number",
+                            "maximum": 5.0,
+                            "minimum": 0.0,
+                            "description": "Minimum rating filter",
+                            "title": "Min Rating"
+                        },
+                        "description": "Minimum rating filter"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Successful Response",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "array",
+                                    "items": {
+                                        "type": "object"
+                                    },
+                                    "title": "Response Search Search  Get"
+                                }
+                            }
+                        }
+                    },
+                    "422": {
+                        "description": "Validation Error",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/HTTPValidationError"
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/accounts/register": {
+            "post": {
+                "tags": [
+                    "Authentication"
+                ],
+                "summary": "Register a new user",
+                "description": "## Register a new user by email and password, then send an OTP code to the user's email address.\n    \nGenerate an account activation code for a user whose account is not yet enabled.\n\nThe account activation code generated by this endpoint is designed for one-time use and will expire after 5 minutes. \nIf a new POST request is made to this endpoint, a new code will be generated if the previous code has expired. The newly\n generated code will be valid for another 5 minutes, while the previous code will no longer be valid.\n\nFollowing the registration request, this endpoint will send an OTP code to the user's email address. It is essential to \nverify this OTP code using the `/accounts/register/verify` endpoint. Verification confirms the user's email address and \nactivates their account.\n \nPlease note that users cannot log in to their accounts until their email addresses are verified.",
+                "operationId": "register_accounts_register_post",
+                "requestBody": {
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "$ref": "#/components/schemas/RegisterIn"
+                            },
+                            "examples": {
+                                "default": {
+                                    "summary": "Default",
+                                    "value": {
+                                        "email": "user@example.com",
+                                        "password": "string",
+                                        "password_confirm": "string"
+                                    }
+                                },
+                                "with-email": {
+                                    "summary": "Register a new user with email verification (OTP)",
+                                    "description": "\n\n> `email:\"user@example.com\"` The unique email address of the user. Attempting to assign the same email address to users\nreturns an error.\n> \n>`password:\"<Password1>\"` The password.\n> \n> `password:\"<Password1>\"` The password that's confirmed.  \n    \nFor a valid password you should:\n* Use numbers _**0-9**_ in the password.\n* Use lowercase characters _**a-z**_ in the password.\n* Use uppercase characters _**A-Z**_ in the password.\n* **Optional:** Use special characters __!?@#$%^&*()+{}[]<>/__ in the password.",
+                                    "value": {
+                                        "email": "user@example.com",
+                                        "password": "NewPassword123",
+                                        "password_confirm": "NewPassword123"
+                                    }
+                                }
+                            }
+                        }
+                    },
+                    "required": true
+                },
+                "responses": {
+                    "201": {
+                        "description": "Successful Response",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/RegisterOut"
+                                }
+                            }
+                        }
+                    },
+                    "422": {
+                        "description": "Validation Error",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/HTTPValidationError"
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/accounts/register/verify": {
+            "patch": {
+                "tags": [
+                    "Authentication"
+                ],
+                "summary": "Verify user registration",
+                "description": "Verify a new user registration by confirming the provided OTP.",
+                "operationId": "verify_registration_accounts_register_verify_patch",
+                "requestBody": {
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "$ref": "#/components/schemas/RegisterVerifyIn"
+                            }
+                        }
+                    },
+                    "required": true
+                },
+                "responses": {
+                    "200": {
+                        "description": "Successful Response",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/RegisterVerifyOut"
+                                }
+                            }
+                        }
+                    },
+                    "422": {
+                        "description": "Validation Error",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/HTTPValidationError"
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/accounts/login": {
+            "post": {
+                "tags": [
+                    "Authentication"
+                ],
+                "summary": "Login a user",
+                "description": "Login a user with valid credentials, if user account is active.",
+                "operationId": "login_accounts_login_post",
+                "requestBody": {
+                    "content": {
+                        "application/x-www-form-urlencoded": {
+                            "schema": {
+                                "$ref": "#/components/schemas/Body_login_accounts_login_post"
+                            }
+                        }
+                    },
+                    "required": true
+                },
+                "responses": {
+                    "200": {
+                        "description": "Successful Response",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/LoginOut"
+                                }
+                            }
+                        }
+                    },
+                    "422": {
+                        "description": "Validation Error",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/HTTPValidationError"
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/accounts/logout": {
+            "post": {
+                "tags": [
+                    "Authentication"
+                ],
+                "summary": "Logout user",
+                "description": "Logout the currently authenticated user. Revokes the user's access token and invalidates the session.",
+                "operationId": "logout_accounts_logout_post",
+                "responses": {
+                    "204": {
+                        "description": "Successful Response"
+                    }
+                },
+                "security": [
+                    {
+                        "OAuth2PasswordBearer": []
+                    }
+                ]
+            }
+        },
+        "/accounts/reset-password": {
+            "post": {
+                "tags": [
+                    "Authentication"
+                ],
+                "summary": "Reset password",
+                "description": "Initiate a password reset request by sending a verification email to the user's registered email address.",
+                "operationId": "reset_password_accounts_reset_password_post",
+                "requestBody": {
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "$ref": "#/components/schemas/PasswordResetIn"
+                            }
+                        }
+                    },
+                    "required": true
+                },
+                "responses": {
+                    "200": {
+                        "description": "Successful Response",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/PasswordResetOut"
+                                }
+                            }
+                        }
+                    },
+                    "422": {
+                        "description": "Validation Error",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/HTTPValidationError"
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/accounts/reset-password/verify": {
+            "patch": {
+                "tags": [
+                    "Authentication"
+                ],
+                "summary": "Verify reset password",
+                "description": "Verify the password reset request by confirming the provided OTP sent to the user's registered email address. If the change is successful, the user will need to login again.",
+                "operationId": "verify_reset_password_accounts_reset_password_verify_patch",
+                "requestBody": {
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "$ref": "#/components/schemas/PasswordResetVerifyIn"
+                            }
+                        }
+                    },
+                    "required": true
+                },
+                "responses": {
+                    "200": {
+                        "description": "Successful Response",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/PasswordResetVerifyOut"
+                                }
+                            }
+                        }
+                    },
+                    "422": {
+                        "description": "Validation Error",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/HTTPValidationError"
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/accounts/otp": {
+            "post": {
+                "tags": [
+                    "Authentication"
+                ],
+                "summary": "Resend OTP",
+                "description": "Allows the user to request a new OTP (One-Time Password) for registration, password reset,\n    or email change verification.\n\n### Usage Guidelines:\n- For **registration** and **password reset**, provide the user's **primary email address**.\n- For **email change**, provide the **primary email address** too, (not the new unverified email).",
+                "operationId": "resend_otp_accounts_otp_post",
+                "requestBody": {
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "$ref": "#/components/schemas/OTPResendIn"
+                            },
+                            "examples": {
+                                "default": {
+                                    "summary": "Default",
+                                    "description": "\n- `request_type`: Specifies the purpose of the OTP request. Allowed values are \"register\", \"reset-password\", \n  or \"change-email\".\n- `email`: The user's primary email address.\n",
+                                    "value": {
+                                        "request_type": "string",
+                                        "email": "user@example.com"
+                                    }
+                                },
+                                "register": {
+                                    "summary": "Resend OTP for User Registration",
+                                    "value": {
+                                        "request_type": "register",
+                                        "email": "user@example.com"
+                                    }
+                                },
+                                "reset-password": {
+                                    "summary": "Resend OTP for Password Reset",
+                                    "value": {
+                                        "request_type": "reset-password",
+                                        "email": "user@example.com"
+                                    }
+                                },
+                                "change-email": {
+                                    "summary": "Resend OTP for Email Change",
+                                    "value": {
+                                        "request_type": "change-email",
+                                        "email": "user@example.com"
+                                    }
+                                }
+                            }
+                        }
+                    },
+                    "required": true
+                },
+                "responses": {
+                    "204": {
+                        "description": "Successful Response"
+                    },
+                    "422": {
+                        "description": "Validation Error",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/HTTPValidationError"
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/accounts/me": {
+            "get": {
+                "tags": [
+                    "Users"
+                ],
+                "summary": "Retrieve current user",
+                "description": "Retrieve current user if user is active.",
+                "operationId": "retrieve_me_accounts_me_get",
+                "responses": {
+                    "200": {
+                        "description": "Successful Response",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/CurrentUserOut"
+                                }
+                            }
+                        }
+                    }
+                },
+                "security": [
+                    {
+                        "OAuth2PasswordBearer": []
+                    }
+                ]
+            },
+            "put": {
+                "tags": [
+                    "Users"
+                ],
+                "summary": "Update current user",
+                "description": "Update current user.",
+                "operationId": "update_me_accounts_me_put",
+                "requestBody": {
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "$ref": "#/components/schemas/UpdateUserSchema"
+                            }
+                        }
+                    },
+                    "required": true
+                },
+                "responses": {
+                    "200": {
+                        "description": "Successful Response",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/CurrentUserOut"
+                                }
+                            }
+                        }
+                    },
+                    "422": {
+                        "description": "Validation Error",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/HTTPValidationError"
+                                }
+                            }
+                        }
+                    }
+                },
+                "security": [
+                    {
+                        "OAuth2PasswordBearer": []
+                    }
+                ]
+            }
+        },
+        "/accounts/me/password": {
+            "patch": {
+                "tags": [
+                    "Users"
+                ],
+                "summary": "Change current user password",
+                "description": "Change the password for the current user. If the change is successful, the user will need to login again.",
+                "operationId": "change_password_accounts_me_password_patch",
+                "requestBody": {
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "$ref": "#/components/schemas/PasswordChangeIn"
+                            },
+                            "examples": {
+                                "valid": {
+                                    "summary": "Valid Password",
+                                    "description": "For a valid password you should:\n* Use numbers _**0-9**_ in the password.\n* Use lowercase characters _**a-z**_ in the password.\n* Use uppercase characters _**A-Z**_ in the password.\n* **Optional:** Use special characters __!?@#$%^&*()+{}[]<>/__ in the password.\n                        ",
+                                    "value": {
+                                        "current_password": "Password123",
+                                        "password": "NewPassword123",
+                                        "password_confirm": "NewPassword123"
+                                    }
+                                }
+                            }
+                        }
+                    },
+                    "required": true
+                },
+                "responses": {
+                    "200": {
+                        "description": "Successful Response",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/PasswordChangeOut"
+                                }
+                            }
+                        }
+                    },
+                    "422": {
+                        "description": "Validation Error",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/HTTPValidationError"
+                                }
+                            }
+                        }
+                    }
+                },
+                "security": [
+                    {
+                        "OAuth2PasswordBearer": []
+                    }
+                ]
+            }
+        },
+        "/accounts/me/email": {
+            "post": {
+                "tags": [
+                    "Users"
+                ],
+                "summary": "Change current user email",
+                "description": "## Change the email address for the current user.\n\nAfter the new email is set, an OTP code will be sent to the new email address for verification purposes.",
+                "operationId": "change_email_accounts_me_email_post",
+                "requestBody": {
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "$ref": "#/components/schemas/EmailChangeIn"
+                            }
+                        }
+                    },
+                    "required": true
+                },
+                "responses": {
+                    "200": {
+                        "description": "Successful Response",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/EmailChangeOut"
+                                }
+                            }
+                        }
+                    },
+                    "422": {
+                        "description": "Validation Error",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/HTTPValidationError"
+                                }
+                            }
+                        }
+                    }
+                },
+                "security": [
+                    {
+                        "OAuth2PasswordBearer": []
+                    }
+                ]
+            }
+        },
+        "/accounts/me/email/verify": {
+            "patch": {
+                "tags": [
+                    "Users"
+                ],
+                "summary": "Verify change current user email",
+                "description": "## Verify the email address change for the current user.\n\nValidating the OTP code sent to the user's new email address. If the OTP is valid, the new\nemail address will be saved as the user's main email address.",
+                "operationId": "verify_change_email_accounts_me_email_verify_patch",
+                "requestBody": {
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "$ref": "#/components/schemas/EmailChangeVerifyIn"
+                            }
+                        }
+                    },
+                    "required": true
+                },
+                "responses": {
+                    "200": {
+                        "description": "Successful Response",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/EmailChangeVerifyOut"
+                                }
+                            }
+                        }
+                    },
+                    "422": {
+                        "description": "Validation Error",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/HTTPValidationError"
+                                }
+                            }
+                        }
+                    }
+                },
+                "security": [
+                    {
+                        "OAuth2PasswordBearer": []
+                    }
+                ]
+            }
+        },
+        "/accounts/{user_id}": {
+            "get": {
+                "tags": [
+                    "Users"
+                ],
+                "summary": "Retrieve a single user",
+                "description": "Retrieve a single user by ID. Only admins can read the users data.",
+                "operationId": "retrieve_user_accounts__user_id__get",
+                "security": [
+                    {
+                        "OAuth2PasswordBearer": []
+                    }
+                ],
+                "parameters": [
+                    {
+                        "name": "user_id",
+                        "in": "path",
+                        "required": true,
+                        "schema": {
+                            "type": "integer",
+                            "title": "User Id"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Successful Response",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/CurrentUserOut"
+                                }
+                            }
+                        }
+                    },
+                    "422": {
+                        "description": "Validation Error",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/HTTPValidationError"
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/orders/": {
+            "post": {
+                "tags": [
+                    "Orders"
+                ],
+                "summary": "Create Order",
+                "description": "\u0421\u043e\u0437\u0434\u0430\u043d\u0438\u0435 \u043d\u043e\u0432\u043e\u0433\u043e \u0437\u0430\u043a\u0430\u0437\u0430",
+                "operationId": "create_order_orders__post",
+                "requestBody": {
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "items": {
+                                    "$ref": "#/components/schemas/OrderItemCreate"
+                                },
+                                "type": "array",
+                                "title": "Items"
+                            }
+                        }
+                    },
+                    "required": true
+                },
+                "responses": {
+                    "201": {
+                        "description": "Successful Response",
+                        "content": {
+                            "application/json": {
+                                "schema": {}
+                            }
+                        }
+                    },
+                    "422": {
+                        "description": "Validation Error",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/HTTPValidationError"
+                                }
+                            }
+                        }
+                    }
+                },
+                "security": [
+                    {
+                        "OAuth2PasswordBearer": []
+                    }
+                ]
+            }
+        },
+        "/orders/{order_id}/pay": {
+            "post": {
+                "tags": [
+                    "Orders"
+                ],
+                "summary": "Pay Order",
+                "description": "\u041e\u043f\u043b\u0430\u0442\u0430 \u0437\u0430\u043a\u0430\u0437\u0430",
+                "operationId": "pay_order_orders__order_id__pay_post",
+                "security": [
+                    {
+                        "OAuth2PasswordBearer": []
+                    }
+                ],
+                "parameters": [
+                    {
+                        "name": "order_id",
+                        "in": "path",
+                        "required": true,
+                        "schema": {
+                            "type": "integer",
+                            "title": "Order Id"
+                        }
+                    }
+                ],
+                "requestBody": {
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "$ref": "#/components/schemas/PaymentCreate"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "Successful Response",
+                        "content": {
+                            "application/json": {
+                                "schema": {}
+                            }
+                        }
+                    },
+                    "422": {
+                        "description": "Validation Error",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/HTTPValidationError"
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/orders/{order_id}": {
+            "get": {
+                "tags": [
+                    "Orders"
+                ],
+                "summary": "Get Order",
+                "description": "\u041f\u043e\u043b\u0443\u0447\u0435\u043d\u0438\u0435 \u0438\u043d\u0444\u043e\u0440\u043c\u0430\u0446\u0438\u0438 \u043e \u0437\u0430\u043a\u0430\u0437\u0435",
+                "operationId": "get_order_orders__order_id__get",
+                "security": [
+                    {
+                        "OAuth2PasswordBearer": []
+                    }
+                ],
+                "parameters": [
+                    {
+                        "name": "order_id",
+                        "in": "path",
+                        "required": true,
+                        "schema": {
+                            "type": "integer",
+                            "title": "Order Id"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Successful Response",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/OrderDetail"
+                                }
+                            }
+                        }
+                    },
+                    "422": {
+                        "description": "Validation Error",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/HTTPValidationError"
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    },
+    "components": {
+        "schemas": {
+            "Body_create_product_media_products__product_id__media_post": {
+                "properties": {
+                    "x_files": {
+                        "items": {
+                            "type": "string",
+                            "format": "binary"
+                        },
+                        "type": "array",
+                        "title": "X Files"
+                    },
+                    "alt": {
+                        "anyOf": [
+                            {
+                                "type": "string"
+                            },
+                            {
+                                "type": "null"
+                            }
+                        ],
+                        "title": "Alt"
+                    }
+                },
+                "type": "object",
+                "required": [
+                    "x_files"
+                ],
+                "title": "Body_create_product_media_products__product_id__media_post"
+            },
+            "Body_login_accounts_login_post": {
+                "properties": {
+                    "grant_type": {
+                        "anyOf": [
+                            {
+                                "type": "string",
+                                "pattern": "password"
+                            },
+                            {
+                                "type": "null"
+                            }
+                        ],
+                        "title": "Grant Type"
+                    },
+                    "username": {
+                        "type": "string",
+                        "title": "Username"
+                    },
+                    "password": {
+                        "type": "string",
+                        "title": "Password"
+                    },
+                    "scope": {
+                        "type": "string",
+                        "title": "Scope",
+                        "default": ""
+                    },
+                    "client_id": {
+                        "anyOf": [
+                            {
+                                "type": "string"
+                            },
+                            {
+                                "type": "null"
+                            }
+                        ],
+                        "title": "Client Id"
+                    },
+                    "client_secret": {
+                        "anyOf": [
+                            {
+                                "type": "string"
+                            },
+                            {
+                                "type": "null"
+                            }
+                        ],
+                        "title": "Client Secret"
+                    }
+                },
+                "type": "object",
+                "required": [
+                    "username",
+                    "password"
+                ],
+                "title": "Body_login_accounts_login_post"
+            },
+            "Body_update_media_products_media__media_id__put": {
+                "properties": {
+                    "file": {
+                        "type": "string",
+                        "format": "binary",
+                        "title": "File"
+                    },
+                    "alt": {
+                        "anyOf": [
+                            {
+                                "type": "string"
+                            },
+                            {
+                                "type": "null"
+                            }
+                        ],
+                        "title": "Alt"
+                    }
+                },
+                "type": "object",
+                "required": [
+                    "file"
+                ],
+                "title": "Body_update_media_products_media__media_id__put"
+            },
+            "CreateProductIn": {
+                "properties": {
+                    "product_name": {
+                        "type": "string",
+                        "maxLength": 255,
+                        "minLength": 1,
+                        "title": "Product Name"
+                    },
+                    "description": {
+                        "anyOf": [
+                            {
+                                "type": "string"
+                            },
+                            {
+                                "type": "null"
+                            }
+                        ],
+                        "title": "Description"
+                    },
+                    "status": {
+                        "anyOf": [
+                            {
+                                "type": "string"
+                            },
+                            {
+                                "type": "null"
+                            }
+                        ],
+                        "title": "Status"
+                    },
+                    "price": {
+                        "type": "number",
+                        "title": "Price",
+                        "default": 0
+                    },
+                    "stock": {
+                        "type": "integer",
+                        "title": "Stock",
+                        "default": 0
+                    },
+                    "options": {
+                        "anyOf": [
+                            {
+                                "items": {
+                                    "$ref": "#/components/schemas/OptionIn"
+                                },
+                                "type": "array"
+                            },
+                            {
+                                "type": "null"
+                            }
+                        ],
+                        "title": "Options"
+                    }
+                },
+                "type": "object",
+                "required": [
+                    "product_name"
+                ],
+                "title": "CreateProductIn"
+            },
+            "CreateProductMediaOut": {
+                "properties": {
+                    "media": {
+                        "items": {
+                            "$ref": "#/components/schemas/ProductMediaSchema"
+                        },
+                        "type": "array",
+                        "title": "Media"
+                    }
+                },
+                "type": "object",
+                "required": [
+                    "media"
+                ],
+                "title": "CreateProductMediaOut"
+            },
+            "CreateProductOut": {
+                "properties": {
+                    "product": {
+                        "$ref": "#/components/schemas/ProductSchema"
+                    }
+                },
+                "type": "object",
+                "required": [
+                    "product"
+                ],
+                "title": "CreateProductOut"
+            },
+            "CurrentUserOut": {
+                "properties": {
+                    "user": {
+                        "$ref": "#/components/schemas/UserSchema"
+                    }
+                },
+                "type": "object",
+                "required": [
+                    "user"
+                ],
+                "title": "CurrentUserOut"
+            },
+            "EmailChangeIn": {
+                "properties": {
+                    "new_email": {
+                        "type": "string",
+                        "format": "email",
+                        "title": "New Email"
+                    }
+                },
+                "type": "object",
+                "required": [
+                    "new_email"
+                ],
+                "title": "EmailChangeIn"
+            },
+            "EmailChangeOut": {
+                "properties": {
+                    "message": {
+                        "type": "string",
+                        "title": "Message"
+                    }
+                },
+                "type": "object",
+                "required": [
+                    "message"
+                ],
+                "title": "EmailChangeOut"
+            },
+            "EmailChangeVerifyIn": {
+                "properties": {
+                    "otp": {
+                        "type": "string",
+                        "title": "Otp"
+                    }
+                },
+                "type": "object",
+                "required": [
+                    "otp"
+                ],
+                "title": "EmailChangeVerifyIn"
+            },
+            "EmailChangeVerifyOut": {
+                "properties": {
+                    "message": {
+                        "type": "string",
+                        "title": "Message"
+                    }
+                },
+                "type": "object",
+                "required": [
+                    "message"
+                ],
+                "title": "EmailChangeVerifyOut"
+            },
+            "HTTPValidationError": {
+                "properties": {
+                    "detail": {
+                        "items": {
+                            "$ref": "#/components/schemas/ValidationError"
+                        },
+                        "type": "array",
+                        "title": "Detail"
+                    }
+                },
+                "type": "object",
+                "title": "HTTPValidationError"
+            },
+            "ListProductOut": {
+                "properties": {
+                    "products": {
+                        "$ref": "#/components/schemas/PaginatedProductList"
+                    }
+                },
+                "type": "object",
+                "required": [
+                    "products"
+                ],
+                "title": "ListProductOut"
+            },
+            "ListVariantsOut": {
+                "properties": {
+                    "variants": {
+                        "items": {
+                            "$ref": "#/components/schemas/VariantSchema"
+                        },
+                        "type": "array",
+                        "title": "Variants"
+                    }
+                },
+                "type": "object",
+                "required": [
+                    "variants"
+                ],
+                "title": "ListVariantsOut"
+            },
+            "LoginOut": {
+                "properties": {
+                    "access_token": {
+                        "type": "string",
+                        "title": "Access Token"
+                    },
+                    "token_type": {
+                        "type": "string",
+                        "title": "Token Type"
+                    }
+                },
+                "type": "object",
+                "required": [
+                    "access_token",
+                    "token_type"
+                ],
+                "title": "LoginOut"
+            },
+            "OTPResendIn": {
+                "properties": {
+                    "request_type": {
+                        "type": "string",
+                        "title": "Request Type"
+                    },
+                    "email": {
+                        "type": "string",
+                        "format": "email",
+                        "title": "Email"
+                    }
+                },
+                "type": "object",
+                "required": [
+                    "request_type",
+                    "email"
+                ],
+                "title": "OTPResendIn"
+            },
+            "OptionIn": {
+                "properties": {
+                    "option_name": {
+                        "type": "string",
+                        "minLength": 1,
+                        "title": "Option Name"
+                    },
+                    "items": {
+                        "items": {
+                            "type": "string"
+                        },
+                        "type": "array",
+                        "title": "Items"
+                    }
+                },
+                "type": "object",
+                "required": [
+                    "option_name",
+                    "items"
+                ],
+                "title": "OptionIn"
+            },
+            "OptionItemOut": {
+                "properties": {
+                    "item_id": {
+                        "type": "integer",
+                        "title": "Item Id"
+                    },
+                    "item_name": {
+                        "type": "string",
+                        "title": "Item Name"
+                    }
+                },
+                "type": "object",
+                "required": [
+                    "item_id",
+                    "item_name"
+                ],
+                "title": "OptionItemOut"
+            },
+            "OptionOut": {
+                "properties": {
+                    "options_id": {
+                        "type": "integer",
+                        "title": "Options Id"
+                    },
+                    "option_name": {
+                        "type": "string",
+                        "title": "Option Name"
+                    },
+                    "items": {
+                        "items": {
+                            "$ref": "#/components/schemas/OptionItemOut"
+                        },
+                        "type": "array",
+                        "title": "Items"
+                    }
+                },
+                "type": "object",
+                "required": [
+                    "options_id",
+                    "option_name",
+                    "items"
+                ],
+                "title": "OptionOut"
+            },
+            "OrderDetail": {
+                "properties": {
+                    "id": {
+                        "type": "integer",
+                        "title": "Id"
+                    },
+                    "status": {
+                        "type": "string",
+                        "title": "Status"
+                    },
+                    "total_amount": {
+                        "type": "number",
+                        "title": "Total Amount"
+                    },
+                    "created_at": {
+                        "type": "string",
+                        "format": "date-time",
+                        "title": "Created At"
+                    },
+                    "items": {
+                        "items": {
+                            "$ref": "#/components/schemas/OrderItemDetail"
+                        },
+                        "type": "array",
+                        "title": "Items"
+                    }
+                },
+                "type": "object",
+                "required": [
+                    "id",
+                    "status",
+                    "total_amount",
+                    "created_at",
+                    "items"
+                ],
+                "title": "OrderDetail"
+            },
+            "OrderItemCreate": {
+                "properties": {
+                    "variant_id": {
+                        "type": "integer",
+                        "title": "Variant Id"
+                    },
+                    "quantity": {
+                        "type": "integer",
+                        "maximum": 100.0,
+                        "exclusiveMinimum": 0.0,
+                        "title": "Quantity"
+                    }
+                },
+                "type": "object",
+                "required": [
+                    "variant_id",
+                    "quantity"
+                ],
+                "title": "OrderItemCreate"
+            },
+            "OrderItemDetail": {
+                "properties": {
+                    "product_name": {
+                        "type": "string",
+                        "title": "Product Name"
+                    },
+                    "variant_info": {
+                        "type": "string",
+                        "title": "Variant Info"
+                    },
+                    "quantity": {
+                        "type": "integer",
+                        "title": "Quantity"
+                    },
+                    "price": {
+                        "type": "number",
+                        "title": "Price"
+                    },
+                    "seller_id": {
+                        "type": "integer",
+                        "title": "Seller Id"
+                    }
+                },
+                "type": "object",
+                "required": [
+                    "product_name",
+                    "variant_info",
+                    "quantity",
+                    "price",
+                    "seller_id"
+                ],
+                "title": "OrderItemDetail"
+            },
+            "PaginatedProductList": {
+                "properties": {
+                    "items": {
+                        "items": {
+                            "$ref": "#/components/schemas/ProductSchema"
+                        },
+                        "type": "array",
+                        "title": "Items"
+                    },
+                    "total": {
+                        "type": "integer",
+                        "title": "Total"
+                    },
+                    "page": {
+                        "type": "integer",
+                        "title": "Page"
+                    },
+                    "limit": {
+                        "type": "integer",
+                        "title": "Limit"
+                    },
+                    "pages": {
+                        "type": "integer",
+                        "title": "Pages"
+                    }
+                },
+                "type": "object",
+                "required": [
+                    "items",
+                    "total",
+                    "page",
+                    "limit",
+                    "pages"
+                ],
+                "title": "PaginatedProductList"
+            },
+            "PasswordChangeIn": {
+                "properties": {
+                    "password": {
+                        "type": "string",
+                        "title": "Password"
+                    },
+                    "password_confirm": {
+                        "type": "string",
+                        "title": "Password Confirm"
+                    },
+                    "current_password": {
+                        "type": "string",
+                        "title": "Current Password"
+                    }
+                },
+                "type": "object",
+                "required": [
+                    "password",
+                    "password_confirm",
+                    "current_password"
+                ],
+                "title": "PasswordChangeIn"
+            },
+            "PasswordChangeOut": {
+                "properties": {
+                    "message": {
+                        "type": "string",
+                        "title": "Message"
+                    }
+                },
+                "type": "object",
+                "required": [
+                    "message"
+                ],
+                "title": "PasswordChangeOut"
+            },
+            "PasswordResetIn": {
+                "properties": {
+                    "email": {
+                        "type": "string",
+                        "format": "email",
+                        "title": "Email"
+                    }
+                },
+                "type": "object",
+                "required": [
+                    "email"
+                ],
+                "title": "PasswordResetIn"
+            },
+            "PasswordResetOut": {
+                "properties": {
+                    "message": {
+                        "type": "string",
+                        "title": "Message"
+                    }
+                },
+                "type": "object",
+                "required": [
+                    "message"
+                ],
+                "title": "PasswordResetOut"
+            },
+            "PasswordResetVerifyIn": {
+                "properties": {
+                    "password": {
+                        "type": "string",
+                        "title": "Password"
+                    },
+                    "password_confirm": {
+                        "type": "string",
+                        "title": "Password Confirm"
+                    },
+                    "email": {
+                        "type": "string",
+                        "format": "email",
+                        "title": "Email"
+                    },
+                    "otp": {
+                        "type": "string",
+                        "title": "Otp"
+                    }
+                },
+                "type": "object",
+                "required": [
+                    "password",
+                    "password_confirm",
+                    "email",
+                    "otp"
+                ],
+                "title": "PasswordResetVerifyIn"
+            },
+            "PasswordResetVerifyOut": {
+                "properties": {
+                    "message": {
+                        "type": "string",
+                        "title": "Message"
+                    }
+                },
+                "type": "object",
+                "required": [
+                    "message"
+                ],
+                "title": "PasswordResetVerifyOut"
+            },
+            "PaymentCreate": {
+                "properties": {
+                    "method": {
+                        "type": "string",
+                        "pattern": "^(card|paypal)$",
+                        "title": "Method"
+                    },
+                    "card_token": {
+                        "anyOf": [
+                            {
+                                "type": "string"
+                            },
+                            {
+                                "type": "null"
+                            }
+                        ],
+                        "title": "Card Token"
+                    }
+                },
+                "type": "object",
+                "required": [
+                    "method",
+                    "card_token"
+                ],
+                "title": "PaymentCreate"
+            },
+            "ProductMediaSchema": {
+                "properties": {
+                    "media_id": {
+                        "type": "integer",
+                        "title": "Media Id"
+                    },
+                    "product_id": {
+                        "type": "integer",
+                        "title": "Product Id"
+                    },
+                    "alt": {
+                        "type": "string",
+                        "title": "Alt"
+                    },
+                    "src": {
+                        "type": "string",
+                        "title": "Src"
+                    },
+                    "type": {
+                        "type": "string",
+                        "title": "Type"
+                    },
+                    "updated_at": {
+                        "anyOf": [
+                            {
+                                "type": "string"
+                            },
+                            {
+                                "type": "null"
+                            }
+                        ],
+                        "title": "Updated At"
+                    },
+                    "created_at": {
+                        "type": "string",
+                        "title": "Created At"
+                    }
+                },
+                "type": "object",
+                "required": [
+                    "media_id",
+                    "product_id",
+                    "alt",
+                    "src",
+                    "type",
+                    "updated_at",
+                    "created_at"
+                ],
+                "title": "ProductMediaSchema"
+            },
+            "ProductSchema": {
+                "properties": {
+                    "product_id": {
+                        "type": "integer",
+                        "title": "Product Id"
+                    },
+                    "product_name": {
+                        "type": "string",
+                        "maxLength": 255,
+                        "title": "Product Name"
+                    },
+                    "description": {
+                        "anyOf": [
+                            {
+                                "type": "string"
+                            },
+                            {
+                                "type": "null"
+                            }
+                        ],
+                        "title": "Description"
+                    },
+                    "status": {
+                        "anyOf": [
+                            {
+                                "type": "string"
+                            },
+                            {
+                                "type": "null"
+                            }
+                        ],
+                        "title": "Status"
+                    },
+                    "created_at": {
+                        "type": "string",
+                        "title": "Created At"
+                    },
+                    "updated_at": {
+                        "anyOf": [
+                            {
+                                "type": "string"
+                            },
+                            {
+                                "type": "null"
+                            }
+                        ],
+                        "title": "Updated At"
+                    },
+                    "published_at": {
+                        "anyOf": [
+                            {
+                                "type": "string"
+                            },
+                            {
+                                "type": "null"
+                            }
+                        ],
+                        "title": "Published At"
+                    },
+                    "options": {
+                        "anyOf": [
+                            {
+                                "items": {
+                                    "$ref": "#/components/schemas/OptionOut"
+                                },
+                                "type": "array"
+                            },
+                            {
+                                "type": "null"
+                            }
+                        ],
+                        "title": "Options"
+                    },
+                    "variants": {
+                        "anyOf": [
+                            {
+                                "items": {
+                                    "$ref": "#/components/schemas/VariantSchema"
+                                },
+                                "type": "array"
+                            },
+                            {
+                                "type": "null"
+                            }
+                        ],
+                        "title": "Variants"
+                    },
+                    "media": {
+                        "anyOf": [
+                            {
+                                "items": {
+                                    "$ref": "#/components/schemas/ProductMediaSchema"
+                                },
+                                "type": "array"
+                            },
+                            {
+                                "type": "null"
+                            }
+                        ],
+                        "title": "Media"
+                    }
+                },
+                "type": "object",
+                "required": [
+                    "product_id",
+                    "product_name",
+                    "description",
+                    "status",
+                    "created_at",
+                    "updated_at",
+                    "published_at"
+                ],
+                "title": "ProductSchema"
+            },
+            "RegisterIn": {
+                "properties": {
+                    "password": {
+                        "type": "string",
+                        "title": "Password"
+                    },
+                    "password_confirm": {
+                        "type": "string",
+                        "title": "Password Confirm"
+                    },
+                    "email": {
+                        "type": "string",
+                        "format": "email",
+                        "title": "Email"
+                    }
+                },
+                "type": "object",
+                "required": [
+                    "password",
+                    "password_confirm",
+                    "email"
+                ],
+                "title": "RegisterIn"
+            },
+            "RegisterOut": {
+                "properties": {
+                    "email": {
+                        "type": "string",
+                        "format": "email",
+                        "title": "Email"
+                    },
+                    "message": {
+                        "type": "string",
+                        "title": "Message"
+                    }
+                },
+                "type": "object",
+                "required": [
+                    "email",
+                    "message"
+                ],
+                "title": "RegisterOut"
+            },
+            "RegisterVerifyIn": {
+                "properties": {
+                    "email": {
+                        "type": "string",
+                        "format": "email",
+                        "title": "Email"
+                    },
+                    "otp": {
+                        "type": "string",
+                        "title": "Otp"
+                    }
+                },
+                "type": "object",
+                "required": [
+                    "email",
+                    "otp"
+                ],
+                "title": "RegisterVerifyIn"
+            },
+            "RegisterVerifyOut": {
+                "properties": {
+                    "access_token": {
+                        "type": "string",
+                        "title": "Access Token"
+                    },
+                    "message": {
+                        "type": "string",
+                        "title": "Message"
+                    }
+                },
+                "type": "object",
+                "required": [
+                    "access_token",
+                    "message"
+                ],
+                "title": "RegisterVerifyOut"
+            },
+            "RetrieveMediaOut": {
+                "properties": {
+                    "media": {
+                        "$ref": "#/components/schemas/ProductMediaSchema"
+                    }
+                },
+                "type": "object",
+                "required": [
+                    "media"
+                ],
+                "title": "RetrieveMediaOut"
+            },
+            "RetrieveProductMediaOut": {
+                "properties": {
+                    "media": {
+                        "anyOf": [
+                            {
+                                "items": {
+                                    "$ref": "#/components/schemas/ProductMediaSchema"
+                                },
+                                "type": "array"
+                            },
+                            {
+                                "type": "null"
+                            }
+                        ],
+                        "title": "Media"
+                    }
+                },
+                "type": "object",
+                "title": "RetrieveProductMediaOut"
+            },
+            "RetrieveProductOut": {
+                "properties": {
+                    "product": {
+                        "$ref": "#/components/schemas/ProductSchema"
+                    }
+                },
+                "type": "object",
+                "required": [
+                    "product"
+                ],
+                "title": "RetrieveProductOut"
+            },
+            "RetrieveVariantOut": {
+                "properties": {
+                    "variant": {
+                        "$ref": "#/components/schemas/VariantSchema"
+                    }
+                },
+                "type": "object",
+                "required": [
+                    "variant"
+                ],
+                "title": "RetrieveVariantOut"
+            },
+            "UpdateMediaOut": {
+                "properties": {
+                    "media": {
+                        "$ref": "#/components/schemas/ProductMediaSchema"
+                    }
+                },
+                "type": "object",
+                "required": [
+                    "media"
+                ],
+                "title": "UpdateMediaOut"
+            },
+            "UpdateUserSchema": {
+                "properties": {
+                    "first_name": {
+                        "anyOf": [
+                            {
+                                "type": "string"
+                            },
+                            {
+                                "type": "null"
+                            }
+                        ],
+                        "title": "First Name"
+                    },
+                    "last_name": {
+                        "anyOf": [
+                            {
+                                "type": "string"
+                            },
+                            {
+                                "type": "null"
+                            }
+                        ],
+                        "title": "Last Name"
+                    }
+                },
+                "type": "object",
+                "required": [
+                    "first_name",
+                    "last_name"
+                ],
+                "title": "UpdateUserSchema"
+            },
+            "UpdateVariantIn": {
+                "properties": {
+                    "price": {
+                        "anyOf": [
+                            {
+                                "type": "number"
+                            },
+                            {
+                                "type": "null"
+                            }
+                        ],
+                        "title": "Price"
+                    },
+                    "stock": {
+                        "anyOf": [
+                            {
+                                "type": "integer"
+                            },
+                            {
+                                "type": "null"
+                            }
+                        ],
+                        "title": "Stock"
+                    }
+                },
+                "type": "object",
+                "title": "UpdateVariantIn"
+            },
+            "UpdateVariantOut": {
+                "properties": {
+                    "variant": {
+                        "$ref": "#/components/schemas/VariantSchema"
+                    }
+                },
+                "type": "object",
+                "required": [
+                    "variant"
+                ],
+                "title": "UpdateVariantOut"
+            },
+            "UserSchema": {
+                "properties": {
+                    "user_id": {
+                        "type": "integer",
+                        "title": "User Id"
+                    },
+                    "email": {
+                        "type": "string",
+                        "format": "email",
+                        "title": "Email"
+                    },
+                    "first_name": {
+                        "anyOf": [
+                            {
+                                "type": "string"
+                            },
+                            {
+                                "type": "null"
+                            }
+                        ],
+                        "title": "First Name"
+                    },
+                    "last_name": {
+                        "anyOf": [
+                            {
+                                "type": "string"
+                            },
+                            {
+                                "type": "null"
+                            }
+                        ],
+                        "title": "Last Name"
+                    },
+                    "is_verified_email": {
+                        "type": "boolean",
+                        "title": "Is Verified Email"
+                    },
+                    "date_joined": {
+                        "type": "string",
+                        "title": "Date Joined"
+                    },
+                    "updated_at": {
+                        "type": "string",
+                        "title": "Updated At"
+                    },
+                    "last_login": {
+                        "type": "string",
+                        "title": "Last Login"
+                    }
+                },
+                "type": "object",
+                "required": [
+                    "user_id",
+                    "email",
+                    "first_name",
+                    "last_name",
+                    "is_verified_email",
+                    "date_joined",
+                    "updated_at",
+                    "last_login"
+                ],
+                "title": "UserSchema"
+            },
+            "ValidationError": {
+                "properties": {
+                    "loc": {
+                        "items": {
+                            "anyOf": [
+                                {
+                                    "type": "string"
+                                },
+                                {
+                                    "type": "integer"
+                                }
+                            ]
+                        },
+                        "type": "array",
+                        "title": "Location"
+                    },
+                    "msg": {
+                        "type": "string",
+                        "title": "Message"
+                    },
+                    "type": {
+                        "type": "string",
+                        "title": "Error Type"
+                    }
+                },
+                "type": "object",
+                "required": [
+                    "loc",
+                    "msg",
+                    "type"
+                ],
+                "title": "ValidationError"
+            },
+            "VariantSchema": {
+                "properties": {
+                    "variant_id": {
+                        "type": "integer",
+                        "title": "Variant Id"
+                    },
+                    "product_id": {
+                        "type": "integer",
+                        "title": "Product Id"
+                    },
+                    "price": {
+                        "anyOf": [
+                            {
+                                "type": "number"
+                            },
+                            {
+                                "type": "null"
+                            }
+                        ],
+                        "title": "Price"
+                    },
+                    "stock": {
+                        "type": "integer",
+                        "title": "Stock"
+                    },
+                    "option1": {
+                        "anyOf": [
+                            {
+                                "type": "integer"
+                            },
+                            {
+                                "type": "null"
+                            }
+                        ],
+                        "title": "Option1"
+                    },
+                    "option2": {
+                        "anyOf": [
+                            {
+                                "type": "integer"
+                            },
+                            {
+                                "type": "null"
+                            }
+                        ],
+                        "title": "Option2"
+                    },
+                    "option3": {
+                        "anyOf": [
+                            {
+                                "type": "integer"
+                            },
+                            {
+                                "type": "null"
+                            }
+                        ],
+                        "title": "Option3"
+                    },
+                    "created_at": {
+                        "type": "string",
+                        "title": "Created At"
+                    },
+                    "updated_at": {
+                        "anyOf": [
+                            {
+                                "type": "string"
+                            },
+                            {
+                                "type": "null"
+                            }
+                        ],
+                        "title": "Updated At"
+                    }
+                },
+                "type": "object",
+                "required": [
+                    "variant_id",
+                    "product_id",
+                    "price",
+                    "stock",
+                    "option1",
+                    "option2",
+                    "option3",
+                    "created_at",
+                    "updated_at"
+                ],
+                "title": "VariantSchema"
+            }
+        },
+        "securitySchemes": {
+            "OAuth2PasswordBearer": {
+                "type": "oauth2",
+                "flows": {
+                    "password": {
+                        "scopes": {},
+                        "tokenUrl": "accounts/login"
+                    }
+                }
+            }
+        }
+    }
+}

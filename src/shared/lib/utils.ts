@@ -2,8 +2,14 @@ import { clsx, type ClassValue } from "clsx"
 import { twMerge } from "tailwind-merge"
 import { constraints, MAX_TAG_LENGTH, userFormConstraints } from "../constants/general"
 import { ERROR_MESSAGES, fieldApiNameToDisplayName, FIELDS } from "../constants/form";
-import { FIELD_NAMES, StartupFormFieldValue } from "../types/form";
+import { FIELD_API_NAMES, FIELD_NAMES, StartupFormFieldValue } from "../types/form";
 import { User } from "../types/user";
+
+export const getRandomInt = (min: number, max: number) => {
+    min = Math.ceil(min);
+    max = Math.floor(max);
+    return Math.floor(Math.random() * (max - min + 1)) + min;
+}
 
 export function cn(...inputs: ClassValue[]) {
   return twMerge(clsx(inputs))
@@ -24,9 +30,13 @@ export function getApiFormFieldNameFromFieldDisplayName(displayName: FIELD_NAMES
 export function formFieldErrors(apiFieldName: StartupFormFieldValue, value: string) {
   const errors = [];
   const fieldDescriptors = FIELDS.find(item => item.title === getFormFieldName(apiFieldName))
-
+  
   if (fieldDescriptors?.required && value.length <= 0) {
     errors.push(ERROR_MESSAGES.REQUIRED)
+  }
+
+  if (apiFieldName === FIELD_API_NAMES.tags && value.length < 2) {
+    errors.push(ERROR_MESSAGES.TOO_FEW_TAGS);
   }
 
   if (value.length > 0 && value.length < constraints[apiFieldName].MIN_SYMBOL_COUNT) {

@@ -1,3 +1,4 @@
+import { constraints } from "@/shared/constants/general";
 import { squishText } from "@/shared/lib/utils";
 import { useFormStore } from "@/shared/store/form";
 import { FIELD_API_NAMES, StartupForm } from "@/shared/types/form";
@@ -7,6 +8,7 @@ import { Icon } from "@/shared/ui/icon";
 import { Input } from "@/shared/ui/input"
 import { useFormikContext } from "formik";
 import { useRef, useState } from "react";
+import { toast } from "sonner";
 
 export const InputTags = ({ className }: {className?: string}) => {
   const { setFormValue } = useFormStore();
@@ -24,6 +26,10 @@ export const InputTags = ({ className }: {className?: string}) => {
         document.activeElement === inputRef.current &&
         !formik.values.tags.includes(value)
     ) {
+      if (value.length < constraints.tags.MIN_SYMBOL_COUNT || value.length > constraints.tags.MAX_SYMBOL_COUNT) {
+        toast.error(`Минимальная длина тега - ${constraints.tags.MIN_SYMBOL_COUNT}, максимальная - ${constraints.tags.MAX_SYMBOL_COUNT}`)
+        return;
+      }
       formik.setFieldValue(FIELD_API_NAMES.tags, [...formik.values.tags, value]);
       setFormValue(FIELD_API_NAMES.tags, [...formik.values.tags, value]);
       inputRef.current.value = '';

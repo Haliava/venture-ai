@@ -4,8 +4,8 @@ import { ReplyAPI } from "@/shared/types/analysis"
 import { axiosInstance } from "@/shared/api/axiosInstance"
 
 export const getAnalysis = (formValues: StartupFormFieldValues) => {
-  // return new Promise<string>((resolve) => {
-  //   setTimeout(() => resolve(`${Object.entries(formValues).map(([k, v]) => ''+k+v).join('\n')}\ **312321**`), 10000)
+  // return new Promise<ReplyAPI>((resolve) => {
+  //   setTimeout(() => resolve({ data: { summarize: `${Object.entries(formValues).map(([k, v]) => ''+k+v).join('\n')}\ **312321**` }}), 1000)
   // })
   return axiosInstance.post<ReplyAPI>('/projects', mapFormFieldsToAPI(formValues))
 }
