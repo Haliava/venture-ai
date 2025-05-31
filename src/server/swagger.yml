@@ -79,8 +79,11 @@ components:
           $ref: '#/components/schemas/UserResponse'
 
     TranscribeText:
-      type: string
-      description: Транскрибированный текст для перевода в описание проекта
+      type: object
+      properties:
+        transcribe_text:
+          type: string
+          example: Транскрибированный текст для перевода в описание проекта
     
     ProjectStatus:
       type: string
@@ -664,9 +667,16 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/ProjectResponse'
+        '400':
+          description: Плохой запрос, повтори
         '500':
           description: Внутренняя ошибка сервера
-              
+        '520':
+          description: Жесткий тупич от гигачата, разводим руками
+          
+          
+          
+          
   /feedback:
     post:
       summary: Отправка фидбека

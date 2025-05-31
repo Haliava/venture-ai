@@ -7,6 +7,7 @@ import { useMutation } from "@tanstack/react-query";
 import { transformTranscriptionToFormFields } from "@/entities/analyst/api";
 import { useFormikContext } from "formik";
 import { StartupForm } from "../types/form";
+import { defaultFormValues } from "../constants/form";
 
 export const useRecordAudio = () => {
   const { setValues } = useFormikContext<StartupForm>();
@@ -27,8 +28,11 @@ export const useRecordAudio = () => {
   const { mutate: transcribe, isPending: isLoadingTransription } = useMutation({
     mutationKey: ['transcribe'],
     mutationFn: (text: string) => transformTranscriptionToFormFields(text),
+    onError: () => {
+      setValues(defaultFormValues);
+    },
     onSuccess: data => {
-      setValues(data.data)
+      setValues(data.data);
     }
   })
 

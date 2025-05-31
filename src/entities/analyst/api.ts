@@ -11,5 +11,5 @@ export const getAnalysis = (formValues: StartupFormFieldValues) => {
 }
 
 export const transformTranscriptionToFormFields = (transcription: string) => {
-  return axiosInstance.post<StartupFormFieldValues>('/projects/transcribe', transcription);
+  return axiosInstance.post<StartupFormFieldValues>('/projects/transcribe', { transcribe_text: transcription });
 }
