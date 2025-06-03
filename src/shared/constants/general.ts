@@ -61,7 +61,7 @@ export const constraints:
     [Constraint.MAX_SYMBOL_COUNT]: 2000,
   },
   tags: {
-    [Constraint.MIN_SYMBOL_COUNT]: 10,
+    [Constraint.MIN_SYMBOL_COUNT]: 2,
     [Constraint.MAX_SYMBOL_COUNT]: 100,
   },
   team: {
@@ -106,7 +106,7 @@ export const userFormConstraints:
     [Constraint.APPROPRIATE_FORMAT]: undefined,
   }
 }
-export const MAX_TAG_LENGTH = 20;
+export const MAX_TAG_LENGTH = 100;
 export const MIN_SYMBOL_COUNT = 10;
 export const MAX_SYMBOL_COUNT = 1000;
 
