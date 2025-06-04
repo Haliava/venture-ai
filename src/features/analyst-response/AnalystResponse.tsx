@@ -5,6 +5,9 @@ import { useEffect, useRef } from "react";
 import Markdown from 'react-markdown';
 import remarkGfm from 'remark-gfm';
 import { generatePDF } from "@/shared/lib/utils";
+import remarkMath from "remark-math";
+import rehypeKatex from "rehype-katex";
+import "katex/dist/katex.min.css";
 
 export type AnalystResponseProps = {
   isLoading?: boolean;
@@ -31,7 +34,12 @@ const handleSavePDF = () => {
         <div className="flex flex-col bg-bg-grey gap-5">
           <p className="text-ai-xl font-semibold">Мнение AI-аналитика</p>
           <div ref={mdRef} className="bg-white rounded-[1.5rem] p-5 *:text-black">
-            <Markdown remarkPlugins={[remarkGfm]}>{analystReply || reply}</Markdown>
+            <Markdown
+              remarkPlugins={[remarkGfm, remarkMath]}
+              rehypePlugins={[rehypeKatex]}
+            >
+              {analystReply || reply}
+            </Markdown>
           </div>
           <Button variant="outline" className="border-2 px-5 py-3 self-end" onClick={handleSavePDF}>
             <p>Скачать анализ в PDF</p>

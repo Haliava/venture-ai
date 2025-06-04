@@ -1,7 +1,7 @@
 import { STATUS, TIMER_FOR_N_MINUTES } from "@/shared/constants/audio";
 import { useRecordAudio } from "@/shared/hooks/useRecordAudio";
 import { displayTimerTime } from "@/shared/lib/utils";
-import { Button } from "@/shared/ui/button"
+import { Button } from "@/shared/ui/button";
 import CircularProgress from "@/shared/ui/CircularProgress";
 import {
   Drawer,
@@ -10,9 +10,9 @@ import {
   DrawerHeader,
   DrawerTitle,
   DrawerTrigger,
-} from "@/shared/ui/drawer"
-import { Icon } from "@/shared/ui/icon"
-import { ReactMediaRecorder } from "react-media-recorder";
+} from "@/shared/ui/drawer";
+import { Icon } from "@/shared/ui/icon";
+import { useEffect, useState } from "react";
 
 export const RecordAudio = ({ className, disabled }: { className?: string; disabled?: boolean }) => {
   const {
@@ -21,16 +21,37 @@ export const RecordAudio = ({ className, disabled }: { className?: string; disab
     elapsedSeconds,
     hasMicAccess,
     isMicrophoneAvailable,
-    handleEndReording,
+    handleEndRecording,
     handlePauseRecording,
     handleResumeRecording,
     handleStartRecording,
     stopRecordingButton,
-    isLoadingTransription,
+    isLoadingTranscription,
+    recordingStatus,
+    mediaBlobUrl,
+    clearMediaBlobUrl,
   } = useRecordAudio();
 
+  // Управление состоянием Drawer
+  const [drawerOpen, setDrawerOpen] = useState(false);
+  
+  // Сброс записи при закрытии Drawer
+  useEffect(() => {
+    if (!drawerOpen) {
+      // Если запись активна - останавливаем
+      if (recordingStatus !== STATUS.IDLE && recordingStatus !== STATUS.STOPPED) {
+        handleEndRecording();
+      }
+      
+      // Очищаем медиа-ресурсы
+      if (mediaBlobUrl) {
+        clearMediaBlobUrl();
+      }
+    }
+  }, [drawerOpen, recordingStatus, mediaBlobUrl]);
+
   return (
-    <Drawer>
+    <Drawer open={drawerOpen} onOpenChange={setDrawerOpen}>
       <DrawerTrigger className={className} asChild>
         <Button
           className="flex items-center h-max justify-center gap-2.5 bg-none border-2 py-2.5 px-8 [&&]:pr-5 lg:[&&]:pr-1 lg:border-none bg-bg-grey hover:border-check hover:border-2 hover:bg-bg-grey"
@@ -51,7 +72,7 @@ export const RecordAudio = ({ className, disabled }: { className?: string; disab
             className="w-[12rem] h-[12rem] -rotate-90"
             strokeWidth={5}
             value={recordingProgress}
-            disabled={isLoadingTransription}
+            disabled={isLoadingTranscription}
           />
           <div className="absolute bottom-[6rem] *:font-medium *:text-ai-lg flex gap-1.5">
             <p>{displayTimerTime(elapsedSeconds)}</p>
@@ -59,66 +80,58 @@ export const RecordAudio = ({ className, disabled }: { className?: string; disab
             <p className="text-check">{TIMER_FOR_N_MINUTES}:00</p>
           </div>
         </DrawerHeader>
-        <div className="min-h-[15vmin]">
-          <ReactMediaRecorder
-            audio
-            render={({
-              status,
-              startRecording,
-              stopRecording,
-              pauseRecording,
-              resumeRecording,
-            }) => (
-              <div className="flex flex-col gap-5">
-                {(status === STATUS.IDLE || status === STATUS.STOPPED) && (
+        <div className="min-h-[15vmin] w-full flex flex-col items-center">
+          <div className="flex flex-col gap-5 w-full max-w-xs">
+            {(recordingStatus === STATUS.IDLE || recordingStatus === STATUS.STOPPED) && (
+              <Button
+                disabled={!hasMicAccess || !isMicrophoneAvailable}
+                onClick={handleStartRecording}
+                className="flex gap-2.5 min-h-fit [&&]:px-8 [&&]:py-2 bg-danger hover:bg-danger-secondary w-full"
+              >
+                <Icon type="circle" className="size-6" />
+                <p className="font-semibold text-ai-lg lg:font-medium">Начать запись</p>
+              </Button>
+            )}
+            {recordingStatus !== STATUS.IDLE && recordingStatus !== STATUS.STOPPED && (
+              <>
+                <Button
+                  ref={stopRecordingButton}
+                  onClick={handleEndRecording}
+                  variant="outline"
+                  className="flex h-max gap-2 border-2 bg-bg-accent active:bg-transparent [&&]:hover:bg-transparent active:text-white hover:text-white w-full"
+                >
+                  <Icon type="square" className="size-3.5" />
+                  <p className="font-semibold text-ai-lg lg:font-medium">Закончить запись</p>
+                </Button>
+                
+                {isLoadingTranscription && (
+                  <div className="text-white text-center w-full">
+                    Обработка аудио...
+                  </div>
+                )}
+                
+                {recordingStatus === STATUS.RECORDING && (
                   <Button
-                    disabled={!hasMicAccess || !isMicrophoneAvailable}
-                    onClick={() => handleStartRecording(startRecording)}
-                    className="flex gap-2.5 min-h-fit [&&]:px-8 [&&]:py-2 bg-danger hover:bg-danger-secondary"
+                    onClick={handlePauseRecording}
+                    className="flex h-max gap-2 border-2 bg-white active:bg-text-field-hint hover:bg-text-field-hint [&&]:px-8 [&&]:py-2 w-full"
                   >
-                    <Icon type="circle" className="size-6" />
-                    <p className="font-semibold text-ai-lg lg:font-medium">Начать запись</p>
+                    <Icon type="pause" className="size-5 fill-black" />
+                    <p className="text-black font-semibold text-ai-lg lg:font-medium">Пауза</p>
                   </Button>
                 )}
-                {status !== STATUS.IDLE && status !== STATUS.STOPPED && (
-                  <>
-                    <Button
-                      ref={stopRecordingButton}
-                      onClick={() => handleEndReording(stopRecording)}
-                      variant="outline"
-                      className="flex h-max gap-2 border-2 bg-bg-accent active:bg-transparent [&&]:hover:bg-transparent active:text-white hover:text-white"
-                    >
-                      <Icon type="square" className="size-3.5" />
-                      <p className="font-semibold text-ai-lg lg:font-medium">Закончить запись</p>
-                    </Button>
-                    {isLoadingTransription && (
-                      <div className="text-white text-center">
-                        Обработка аудио...
-                      </div>
-                    )}
-                    {status === STATUS.RECORDING && (
-                      <Button
-                        onClick={() => handlePauseRecording(pauseRecording)}
-                        className="flex h-max gap-2 border-2 bg-white active:bg-text-field-hint hover:bg-text-field-hint [&&]:px-8 [&&]:py-2"
-                      >
-                        <Icon type="pause" className="size-5 fill-black" />
-                        <p className="text-black font-semibold text-ai-lg lg:font-medium">Пауза</p>
-                      </Button>
-                    )}
-                    {status === STATUS.PAUSED && (
-                      <Button
-                        onClick={() => handleResumeRecording(resumeRecording)}
-                        className="flex h-max gap-2 border-2 bg-white [&&]:active:bg-text-field-hint [&&]:hover:bg-text-field-hint [&&]:px-8 [&&]:py-2"
-                      >
-                        <Icon type="triangle" className="size-5" />
-                        <p className="text-black font-semibold text-ai-lg lg:font-medium">Продолжить</p>
-                      </Button>
-                    )}
-                  </>
+                
+                {recordingStatus === STATUS.PAUSED && (
+                  <Button
+                    onClick={handleResumeRecording}
+                    className="flex h-max gap-2 border-2 bg-white [&&]:active:bg-text-field-hint [&&]:hover:bg-text-field-hint [&&]:px-8 [&&]:py-2 w-full"
+                  >
+                    <Icon type="triangle" className="size-5" />
+                    <p className="text-black font-semibold text-ai-lg lg:font-medium">Продолжить</p>
+                  </Button>
                 )}
-              </div>
+              </>
             )}
-          />
+          </div>
         </div>
       </DrawerContent>
     </Drawer>
