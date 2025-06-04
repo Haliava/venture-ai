@@ -42,7 +42,7 @@ export const InputTags = ({ className }: {className?: string}) => {
   }
 
   return (
-    <div className={`flex flex-col gap-4 px-[5vw] lg:px-2 ${formik.values.tags.length ? 'mb-5': ''} ${className} mb-0.5`}>
+    <div className={`flex flex-col gap-4 px-[5vw] lg:px-2 ${formik.values.tags?.length ? 'mb-5': ''} ${className} mb-0.5`}>
       <div className="flex items-center h-min gap-2">
         <span className="text-ai-lg font-semibold h-min flex">Теги:<p className="text-danger">*</p></span>
         <Input ref={inputRef} className="border-none" onKeyDown={handleEnterNewTag} />

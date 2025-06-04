@@ -8,6 +8,7 @@ import { transformTranscriptionToFormFields } from "@/entities/analyst/api";
 import { useFormikContext } from "formik";
 import { StartupForm } from "../types/form";
 import { defaultFormValues } from "../constants/form";
+import { mapApiToFormFields } from "@/entities/analyst/mappers";
 
 export const useRecordAudio = () => {
   const { setValues } = useFormikContext<StartupForm>();
@@ -15,14 +16,16 @@ export const useRecordAudio = () => {
   const [currentRecordingStatus, setCurrentRecordingStatus] = useState<STATUS>();
   const [recordingProgress, setRecordingProgress] = useState(0);
   const [elapsedSeconds, setElapsedSeconds] = useState(0);
-  const timerDisplayTimeInterval = useRef<NodeJS.Timeout | null>(null);
-  const timerInterval = useRef<NodeJS.Timeout | null>(null);
   const stopRecordingButton = useRef<HTMLButtonElement | null>(null);
   const [hasMicAccess, setHasMicAccess] = useState(true);
   const [isScreenLarge, setIsScreenLarge] = useState(currentWidth >= SCREEN_LG);
+  
   const {
     transcript,
+    resetTranscript,
+    finalTranscript,
     isMicrophoneAvailable,
+    browserSupportsSpeechRecognition,
   } = useSpeechRecognition();
 
   const { mutate: transcribe, isPending: isLoadingTransription } = useMutation({
@@ -32,19 +35,26 @@ export const useRecordAudio = () => {
       setValues(defaultFormValues);
     },
     onSuccess: data => {
-      setValues(data.data);
+      setValues({ ...defaultFormValues, ...mapApiToFormFields(data.data) });
     }
   })
 
   const handleStartRecording = async (startRecording: () => void) => {
-    if (!isMicrophoneAvailable) return;
+    if (!isMicrophoneAvailable || !browserSupportsSpeechRecognition) return;
     try {
       await navigator.mediaDevices.getUserMedia({ audio: true });
     } catch {
       setHasMicAccess(false);
       return;
     }
-    SpeechRecognition.startListening();
+    
+    resetTranscript();
+    SpeechRecognition.startListening({
+      continuous: true,
+      language: 'ru-RU',
+      interimResults: true
+    });
+    
     startRecording();
     setCurrentRecordingStatus(STATUS.RECORDING);
   }
@@ -57,14 +67,17 @@ export const useRecordAudio = () => {
   const handleEndReording = (stopRecording: () => void) => {
     SpeechRecognition.stopListening();
     stopRecording();
+    setElapsedSeconds(0);
+    setRecordingProgress(0);
     setCurrentRecordingStatus(STATUS.STOPPED);
     handleSendRecording();
   }
 
   const handleSendRecording = () => {
-    console.log(transcript);
-    if (transcript) {
-      transcribe(transcript);
+    const textToSend = finalTranscript || transcript;
+    if (textToSend) {
+      transcribe(textToSend);
+      console.log(textToSend)
     }
   }
 
@@ -74,41 +87,36 @@ export const useRecordAudio = () => {
   }
 
   useEffect(() => {
-    if ((!timerInterval.current || !timerDisplayTimeInterval.current) && currentRecordingStatus !== STATUS.RECORDING) {
-      return;
-    }
+    let progressInterval: NodeJS.Timeout | null = null;
+    let timeInterval: NodeJS.Timeout | null = null;
 
     if (currentRecordingStatus === STATUS.RECORDING) {
-      timerInterval.current = setInterval(() => setRecordingProgress(prev => prev + 1), TIMER_FOR_N_MINUTES * 60 * 1000 / 100)
-      timerDisplayTimeInterval.current = setInterval(() => setElapsedSeconds(prev => prev + 1), 1000)
-    }
+      progressInterval = setInterval(() => {
+        setRecordingProgress(prev => {
+          const newProgress = prev + (100 / (TIMER_FOR_N_MINUTES * 60));
+          return newProgress > 100 ? 100 : newProgress;
+        });
+      }, 1000);
 
-    if (currentRecordingStatus === STATUS.PAUSED) {
-      timerInterval.current && clearInterval(timerInterval.current);
-      timerDisplayTimeInterval.current && clearInterval(timerDisplayTimeInterval.current);
-    }
-
-    if (currentRecordingStatus === STATUS.STOPPED) {
-      timerInterval.current && clearInterval(timerInterval.current);
-      timerDisplayTimeInterval.current && clearInterval(timerDisplayTimeInterval.current);
-      setRecordingProgress(0);
-      setElapsedSeconds(0);
+      timeInterval = setInterval(() => {
+        setElapsedSeconds(prev => prev + 1);
+      }, 1000);
     }
 
     return () => {
-      timerInterval.current && clearInterval(timerInterval.current);
-      timerDisplayTimeInterval.current && clearInterval(timerDisplayTimeInterval.current);
-    }
-  }, [currentRecordingStatus])
+      if (progressInterval) clearInterval(progressInterval);
+      if (timeInterval) clearInterval(timeInterval);
+    };
+  }, [currentRecordingStatus]);
 
   useEffect(() => {
     if (elapsedSeconds >= TIMER_FOR_N_MINUTES * 60) {
-      stopRecordingButton.current?.click()
+      stopRecordingButton.current?.click();
     }
   }, [elapsedSeconds])
 
   useEffect(() => {
-    setIsScreenLarge(currentWidth >= SCREEN_LG)
+    setIsScreenLarge(currentWidth >= SCREEN_LG);
   }, [currentWidth])
 
   return {

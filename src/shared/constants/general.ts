@@ -33,31 +33,31 @@ export const constraints:
     Record<Constraint.MAX_SYMBOL_COUNT | Constraint.MIN_SYMBOL_COUNT, number>
   > = {
   compeition: {
-    [Constraint.MIN_SYMBOL_COUNT]: 300,
+    [Constraint.MIN_SYMBOL_COUNT]: 10,
     [Constraint.MAX_SYMBOL_COUNT]: 2000,
   },
   idea: {
-    [Constraint.MIN_SYMBOL_COUNT]: 300,
+    [Constraint.MIN_SYMBOL_COUNT]: 10,
     [Constraint.MAX_SYMBOL_COUNT]: 1500,
   },
   problem: {
-    [Constraint.MIN_SYMBOL_COUNT]: 300,
+    [Constraint.MIN_SYMBOL_COUNT]: 10,
     [Constraint.MAX_SYMBOL_COUNT]: 1500,
   },
   publications: {
-    [Constraint.MIN_SYMBOL_COUNT]: 200,
+    [Constraint.MIN_SYMBOL_COUNT]: 10,
     [Constraint.MAX_SYMBOL_COUNT]: 1500,
   },
   roadmap: {
-    [Constraint.MIN_SYMBOL_COUNT]: 500,
+    [Constraint.MIN_SYMBOL_COUNT]: 10,
     [Constraint.MAX_SYMBOL_COUNT]: 3000,
   },
   solution: {
-    [Constraint.MIN_SYMBOL_COUNT]: 300,
+    [Constraint.MIN_SYMBOL_COUNT]: 10,
     [Constraint.MAX_SYMBOL_COUNT]: 2000,
   },
   stategy: {
-    [Constraint.MIN_SYMBOL_COUNT]: 300,
+    [Constraint.MIN_SYMBOL_COUNT]: 10,
     [Constraint.MAX_SYMBOL_COUNT]: 2000,
   },
   tags: {
@@ -65,23 +65,23 @@ export const constraints:
     [Constraint.MAX_SYMBOL_COUNT]: 100,
   },
   team: {
-    [Constraint.MIN_SYMBOL_COUNT]: 200,
+    [Constraint.MIN_SYMBOL_COUNT]: 10,
     [Constraint.MAX_SYMBOL_COUNT]: 1500,
   },
   tech: {
-    [Constraint.MIN_SYMBOL_COUNT]: 500,
+    [Constraint.MIN_SYMBOL_COUNT]: 10,
     [Constraint.MAX_SYMBOL_COUNT]: 2500,
   },
   users: {
-    [Constraint.MIN_SYMBOL_COUNT]: 300,
+    [Constraint.MIN_SYMBOL_COUNT]: 10,
     [Constraint.MAX_SYMBOL_COUNT]: 1000,
   },
   utp: {
-    [Constraint.MIN_SYMBOL_COUNT]: 200,
+    [Constraint.MIN_SYMBOL_COUNT]: 10,
     [Constraint.MAX_SYMBOL_COUNT]: 800,
   },
   volume: {
-    [Constraint.MIN_SYMBOL_COUNT]: 300,
+    [Constraint.MIN_SYMBOL_COUNT]: 10,
     [Constraint.MAX_SYMBOL_COUNT]: 2000,
   },
 }

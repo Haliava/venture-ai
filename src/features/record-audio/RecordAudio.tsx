@@ -45,7 +45,7 @@ export const RecordAudio = ({ className, disabled }: { className?: string; disab
         <DrawerHeader className="relative flex items-center justify-center">
           <DrawerTitle className="font-semibold text-[1.5rem] text-white">Запись аудиоистории</DrawerTitle>
           <DrawerDescription className="font-medium text-[1rem] text-check text-center flex flex-col items-center justify-center gap-5 mb-5">
-            Автоматически остановится при достижении длительности 10 минут.
+            Автоматически остановится при достижении длительности {TIMER_FOR_N_MINUTES} минут.
           </DrawerDescription>
           <CircularProgress
             className="w-[12rem] h-[12rem] -rotate-90"
@@ -91,6 +91,11 @@ export const RecordAudio = ({ className, disabled }: { className?: string; disab
                       <Icon type="square" className="size-3.5" />
                       <p className="font-semibold text-ai-lg lg:font-medium">Закончить запись</p>
                     </Button>
+                    {isLoadingTransription && (
+                      <div className="text-white text-center">
+                        Обработка аудио...
+                      </div>
+                    )}
                     {status === STATUS.RECORDING && (
                       <Button
                         onClick={() => handlePauseRecording(pauseRecording)}
@@ -117,6 +122,5 @@ export const RecordAudio = ({ className, disabled }: { className?: string; disab
         </div>
       </DrawerContent>
     </Drawer>
-    
   )
 }

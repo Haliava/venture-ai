@@ -19,3 +19,21 @@ export const mapFormFieldsToAPI = (fields: StartupFormFieldValues): ReplyAPI => 
     solution: fields.solution,
   });
 }
+
+export const mapApiToFormFields = (fields: ReplyAPI): StartupFormFieldValues => {
+  return ({
+    idea: fields.idea,
+    tags: fields.keywords,
+    volume: fields.market_volume,
+    compeition: fields.oppontents,
+    problem: fields.problem,
+    roadmap: fields.roadmap,
+    publications: fields.social,
+    stategy: fields.strategy,
+    users: fields.target_audience,
+    team: fields.team,
+    utp: fields.uto,
+    tech: fields.implementation,
+    solution: fields.solution,
+  })
+}
