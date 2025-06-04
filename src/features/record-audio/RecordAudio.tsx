@@ -32,18 +32,14 @@ export const RecordAudio = ({ className, disabled }: { className?: string; disab
     clearMediaBlobUrl,
   } = useRecordAudio();
 
-  // Управление состоянием Drawer
   const [drawerOpen, setDrawerOpen] = useState(false);
   
-  // Сброс записи при закрытии Drawer
   useEffect(() => {
     if (!drawerOpen) {
-      // Если запись активна - останавливаем
       if (recordingStatus !== STATUS.IDLE && recordingStatus !== STATUS.STOPPED) {
         handleEndRecording();
       }
       
-      // Очищаем медиа-ресурсы
       if (mediaBlobUrl) {
         clearMediaBlobUrl();
       }
