@@ -24,7 +24,7 @@ export const InputTags = ({ className }: {className?: string}) => {
         e.key === 'Enter' &&
         inputRef.current &&
         document.activeElement === inputRef.current &&
-        !formik.values.tags.includes(value)
+        !formik.values.tags?.includes(value)
     ) {
       if (value.length < constraints.tags.MIN_SYMBOL_COUNT || value.length > constraints.tags.MAX_SYMBOL_COUNT) {
         toast.error(`Минимальная длина тега - ${constraints.tags.MIN_SYMBOL_COUNT}, максимальная - ${constraints.tags.MAX_SYMBOL_COUNT}`)
@@ -37,7 +37,7 @@ export const InputTags = ({ className }: {className?: string}) => {
   }
 
   const handleDeleteTag = (tagName: string) => {
-    formik.setFieldValue(FIELD_API_NAMES.tags, [...formik.values.tags.filter(tag => tag !== tagName)]);
+    formik.setFieldValue(FIELD_API_NAMES.tags, [...(formik.values.tags?.filter(tag => tag !== tagName) ?? [])]);
     setDisplayCross('');
   }
 
@@ -48,7 +48,7 @@ export const InputTags = ({ className }: {className?: string}) => {
         <Input ref={inputRef} className="border-none" onKeyDown={handleEnterNewTag} />
       </div>
       <div className="flex gap-2 flex-wrap">
-        {formik.values.tags.map((tag, i) => (
+        {formik.values.tags?.map((tag, i) => (
           <Badge
             key={`${tag}-${i}`}
             onMouseOver={() => setDisplayCross(tag)}
