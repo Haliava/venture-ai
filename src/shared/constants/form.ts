@@ -114,3 +114,8 @@ export const ERROR_MESSAGES = {
   REQUIRED: 'Поле обязательно к заполнению',
   WRONG_PHONE_FORMAT: 'Введите номер телефона в формате +7 953 123 45 67',
 }
+
+export enum SUBMIT_ACTIONS {
+  LOGIN = 'login',
+  REGISTER = 'register',
+}

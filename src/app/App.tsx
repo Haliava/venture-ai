@@ -16,6 +16,7 @@ const UnderConstructionPage = lazy(() => import('@/pages/under-construction'))
 const InstructionPage = lazy(() => import('@/pages/instruction'))
 const ProfilePage = lazy(() => import('@/pages/profile'))
 const LoginPage = lazy(() => import('@/pages/login'))
+const RegisterPage = lazy(() => import('@/pages/register'))
 
 function App() {
   return (
@@ -27,6 +28,7 @@ function App() {
               <Route path='*' element={<NotFoundPage />} />
               <Route path="subscribe" element={<UnderConstructionPage />} />
               <Route path="login" element={<LoginPage />} />
+              <Route path="register" element={<RegisterPage />} />
 
               <Route element={<ProtectedRoute />}>
                 <Route index element={<IndexPage />} />

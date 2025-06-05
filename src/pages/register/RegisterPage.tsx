@@ -1,9 +1,9 @@
 import { useAuth } from "@/shared/store/user"
-import LoginForm from "@/widgets/login-form"
+import RegisterForm from "@/widgets/register-form";
 import { useEffect } from "react";
 import { useNavigate } from "react-router";
 
-export const LoginPage = () => {
+export const RegisterPage = () => {
   const { isLoggedIn } = useAuth();
   const navigate = useNavigate();
 
@@ -13,8 +13,8 @@ export const LoginPage = () => {
 
   return (
     <div className="flex min-h-[75vmin] m-auto items-center justify-center p-6 md:p-10">
-      <div className="w-full md:max-w-sm">
-        <LoginForm />
+      <div className="w-full max-w-sm">
+        <RegisterForm />
       </div>
     </div>
   )
