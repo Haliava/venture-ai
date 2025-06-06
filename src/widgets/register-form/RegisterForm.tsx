@@ -1,9 +1,7 @@
-import { SUBMIT_ACTIONS } from "@/shared/constants/form";
 import { userFormConstraints } from "@/shared/constants/general";
 import { useUserActions } from "@/shared/hooks/useUserActions";
 import { cn } from "@/shared/lib/utils";
 import { useAuth } from "@/shared/store/user";
-import { RegisterUserFields } from "@/shared/types/user";
 import { Button } from "@/shared/ui/button";
 import { Card, CardHeader, CardTitle, CardContent } from "@/shared/ui/card";
 import { Input } from "@/shared/ui/input";
@@ -29,7 +27,7 @@ export const RegisterForm = ({
   const navigate = useNavigate()
 
   const handleSubmit = (values: RegisterFormValues, formikHelpers: FormikHelpers<RegisterFormValues>) => {
-    formikHelpers.validateForm().then(errors => {
+    formikHelpers.validateForm().then(() => {
       registerUser(values).then(data => {
         setToken(data.data.token)
         navigate('/')
