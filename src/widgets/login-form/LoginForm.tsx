@@ -65,6 +65,12 @@ export const LoginForm = ({
                 <Label htmlFor="password">Пароль</Label>
                 <Input id="password" name="password" type="password" minLength={12} required />
               </div>
+              {submitAction === SUBMIT_ACTIONS.REGISTER && (
+                <div className="grid gap-2">
+                  <Label htmlFor="repeat-password">Повторите пароль</Label>
+                  <Input id="repeat-password" name="repeat-password" type="password" minLength={12} required />
+                </div>
+              )}
               <Button type="submit" className="w-full" disabled={isLoggingIn || isRegistring}>
                 {submitAction === SUBMIT_ACTIONS.LOGIN ? 'Вход' : 'Регистрация'}
               </Button>

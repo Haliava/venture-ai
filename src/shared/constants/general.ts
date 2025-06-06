@@ -88,7 +88,7 @@ export const constraints:
 export const userFormConstraints:
   Record<
     keyof Omit<User, 'email' | 'avatar' | 'phone'>,
-    {[Key in Constraint.MAX_SYMBOL_COUNT | Constraint.MIN_SYMBOL_COUNT | Constraint.APPROPRIATE_FORMAT]: string | number | undefined}
+    {[Key in Constraint.MAX_SYMBOL_COUNT | Constraint.MIN_SYMBOL_COUNT | Constraint.APPROPRIATE_FORMAT]: string | number | undefined | RegExp}
   > = {
   name: {
     [Constraint.MIN_SYMBOL_COUNT]: 2,
@@ -102,8 +102,8 @@ export const userFormConstraints:
   },
   password: {
     [Constraint.MAX_SYMBOL_COUNT]: BIG_NUM,
-    [Constraint.MIN_SYMBOL_COUNT]: 8,
-    [Constraint.APPROPRIATE_FORMAT]: undefined,
+    [Constraint.MIN_SYMBOL_COUNT]: 12,
+    [Constraint.APPROPRIATE_FORMAT]: /[A-z\d]+/,
   }
 }
 export const MAX_TAG_LENGTH = 100;
