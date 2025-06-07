@@ -65,7 +65,7 @@ export const RegisterForm = ({
     <div className={cn("flex flex-col gap-6", className)} {...props}>
       <Card>
         <CardHeader>
-          <CardTitle className="text-2xl">Вход в аккаунт</CardTitle>
+          <CardTitle className="text-2xl">Регистрация</CardTitle>
         </CardHeader>
         <CardContent>
           <Formik
@@ -74,6 +74,7 @@ export const RegisterForm = ({
             validate={validate}
             validateOnBlur={false}
             validateOnChange={false}
+            validateOnMount={false}
             enableReinitialize
           >
             {(formik) => {
