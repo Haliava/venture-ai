@@ -26,6 +26,10 @@ export const RegisterForm = ({
   const { setToken } = useAuth();
   const navigate = useNavigate()
 
+  const handleLoginButtonClick = () => {
+    navigate('/login');
+  }
+
   const handleSubmit = (values: RegisterFormValues, formikHelpers: FormikHelpers<RegisterFormValues>) => {
     formikHelpers.validateForm().then(() => {
       registerUser(values).then(data => {
@@ -123,6 +127,12 @@ export const RegisterForm = ({
               )
             }}
           </Formik>
+          <div className="mt-4 text-center text-ai-regular">
+            Уже есть аккаунт?{" "}
+            <Button type="button" onClick={handleLoginButtonClick} className="underline underline-offset-4 bg-transparent text-black cursor-pointer shadow-none hover:bg-transparent">
+              Войти
+            </Button>
+          </div>
         </CardContent>
       </Card>
     </div>
