@@ -86,57 +86,24 @@ export function displayTimerTime(elapsedSeconds: number) {
 
 export const generatePDF = async (elem: HTMLElement) => {
   const canvas = await html2canvas(elem, { scale: 2 });
+  const imgData = canvas.toDataURL('image/png');
+  
+  const imgWidth = 210;
+  const pageHeight = 297;
+  const imgHeight = (canvas.height * imgWidth) / canvas.width;
+  
   const pdf = new jsPDF('p', 'mm', 'a4');
+  let heightLeft = imgHeight;
+  let position = 0;
   
-  const pageWidth = pdf.internal.pageSize.getWidth();
-  const pageHeight = pdf.internal.pageSize.getHeight();
-
-  const imgWidth = canvas.width;
-  const imgHeight = canvas.height;
-  const ratio = imgWidth / imgHeight;
+  pdf.addImage(imgData, 'PNG', 0, position, imgWidth, imgHeight);
+  heightLeft -= pageHeight;
   
-  const pagePixelHeight = (pageHeight * imgWidth) / pageWidth;
-
-  let currentY = 0;
-  let pageCount = 0;
-
-  while (currentY < imgHeight) {
-    const currentPageHeight = Math.min(pagePixelHeight, imgHeight - currentY);
-    
-    const pageCanvas = document.createElement('canvas');
-    pageCanvas.width = imgWidth;
-    pageCanvas.height = currentPageHeight;
-    const ctx = pageCanvas.getContext('2d');
-    
-    if (ctx) {
-      ctx.drawImage(
-        canvas,
-        0, currentY,
-        imgWidth, currentPageHeight,
-        0, 0,
-        imgWidth, currentPageHeight 
-      );
-      
-      const imgData = pageCanvas.toDataURL('image/jpeg', 0.85);
-      
-      if (pageCount > 0) {
-        pdf.addPage();
-      }
-      
-      const imgDisplayHeight = pageWidth / ratio;
-      pdf.addImage(
-        imgData,
-        'JPEG',
-        0,
-        (pageHeight - imgDisplayHeight * (currentPageHeight / pagePixelHeight)) / 2,
-        pageWidth,
-        imgDisplayHeight * (currentPageHeight / pagePixelHeight) 
-      );
-      
-      pageCount++;
-    }
-    
-    currentY += currentPageHeight;
+  while (heightLeft > 0) {
+    position = heightLeft - imgHeight;
+    pdf.addPage();
+    pdf.addImage(imgData, 'PNG', 0, position, imgWidth, imgHeight);
+    heightLeft -= pageHeight;
   }
 
   pdf.save('startup-analysis.pdf');
