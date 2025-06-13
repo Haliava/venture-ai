@@ -1,7 +1,6 @@
 import { userFormConstraints } from "@/shared/constants/general";
 import { useUserActions } from "@/shared/hooks/useUserActions";
 import { cn } from "@/shared/lib/utils";
-import { useAuth } from "@/shared/store/user";
 import { Button } from "@/shared/ui/button";
 import { Card, CardHeader, CardTitle, CardContent } from "@/shared/ui/card";
 import { Input } from "@/shared/ui/input";
