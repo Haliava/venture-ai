@@ -41,8 +41,8 @@ const handleSavePDF = () => {
               {analystReply || reply}
             </Markdown>
           </div>
-          <Button variant="outline" className="border-2 px-5 py-3 self-end" onClick={handleSavePDF}>
-            <p>Скачать анализ в PDF</p>
+          <Button variant="outline" className="cursor-pointer border-2 px-5 py-3 self-end [&&]:bg-transparent hover:[&&]:bg-bg-accent hover:[&&]:text-white" onClick={handleSavePDF}>
+            Скачать анализ в PDF
           </Button>
         </div>
       )}

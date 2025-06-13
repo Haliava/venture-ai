@@ -47,7 +47,7 @@ export const RecordAudio = ({ className, disabled }: { className?: string; disab
   }, [drawerOpen, recordingStatus, mediaBlobUrl]);
 
   return (
-    <Drawer open={drawerOpen} onOpenChange={setDrawerOpen}>
+    <Drawer open={drawerOpen} onOpenChange={setDrawerOpen} onClose={handleEndRecording}>
       <DrawerTrigger className={className} asChild>
         <Button
           className="flex items-center h-max justify-center gap-2.5 bg-none border-2 py-2.5 px-8 [&&]:pr-5 lg:[&&]:pr-1 lg:border-none bg-bg-grey hover:border-check hover:border-2 hover:bg-bg-grey"

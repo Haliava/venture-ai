@@ -8,6 +8,7 @@ import { BrowserRouter, Routes, Route } from "react-router";
 import { lazy } from 'react';
 import ProtectedRoute from '@/pages/protected-route';
 import { AxiosInterceptor } from '@/shared/api/AxiosInterceptor';
+import EmailVerificationPage from '@/pages/email-verification';
 
 export const queryClient = new QueryClient()
 
@@ -28,6 +29,7 @@ function App() {
               <Route path='*' element={<NotFoundPage />} />
               <Route path="login" element={<LoginPage />} />
               <Route path="register" element={<RegisterPage />} />
+              <Route path="verification" element={<EmailVerificationPage />} />
 
               <Route element={<ProtectedRoute />}>
                 <Route index element={<IndexPage />} />

@@ -1,6 +1,10 @@
 import { axiosInstance } from "@/shared/api/axiosInstance"
 import { RegisterUserFields, UserData } from "@/shared/types/user"
 
+export const verifyRegistration = (params: {token: string}) => {
+  return axiosInstance.get(`/verify-email?token=${params.token}`)
+}
+
 export const registerUser = (params: RegisterUserFields) => {
   return axiosInstance.post('/auth/register', params);
 }

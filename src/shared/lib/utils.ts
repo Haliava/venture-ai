@@ -90,10 +90,55 @@ export const generatePDF = async (elem: HTMLElement) => {
   const imgData = canvas.toDataURL('image/jpeg', 0.85);
   
   const pageWidth = pdf.internal.pageSize.getWidth();
-  const imgRatio = canvas.width / canvas.height;
-  const imgWidth = pageWidth;
-  const imgHeight = pageWidth / imgRatio;
+  const pageHeight = pdf.internal.pageSize.getHeight();
 
-  pdf.addImage(imgData, 'PNG', 0, 3, imgWidth, imgHeight);
+  const imgWidth = canvas.width;
+  const imgHeight = canvas.height;
+  const ratio = imgWidth / imgHeight;
+  
+  const pagePixelHeight = (pageHeight * imgWidth) / pageWidth;
+
+  let currentY = 0;
+  let pageCount = 0;
+
+  while (currentY < imgHeight) {
+    const currentPageHeight = Math.min(pagePixelHeight, imgHeight - currentY);
+    
+    const pageCanvas = document.createElement('canvas');
+    pageCanvas.width = imgWidth;
+    pageCanvas.height = currentPageHeight;
+    const ctx = pageCanvas.getContext('2d');
+    
+    if (ctx) {
+      ctx.drawImage(
+        canvas,
+        0, currentY,
+        imgWidth, currentPageHeight,
+        0, 0,
+        imgWidth, currentPageHeight 
+      );
+      
+      const imgData = pageCanvas.toDataURL('image/jpeg', 0.85);
+      
+      if (pageCount > 0) {
+        pdf.addPage();
+      }
+      
+      const imgDisplayHeight = pageWidth / ratio;
+      pdf.addImage(
+        imgData,
+        'JPEG',
+        0,
+        (pageHeight - imgDisplayHeight * (currentPageHeight / pagePixelHeight)) / 2,
+        pageWidth,
+        imgDisplayHeight * (currentPageHeight / pagePixelHeight) 
+      );
+      
+      pageCount++;
+    }
+    
+    currentY += currentPageHeight;
+  }
+
   pdf.save('startup-analysis.pdf');
 }

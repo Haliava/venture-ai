@@ -1,3 +1,4 @@
+import { TABS } from "@/shared/constants/general";
 import { useCurrentDevice } from "@/shared/hooks/useCurrentDevice";
 import { useTabs } from "@/shared/hooks/useTabs";
 import { useUserStore } from "@/shared/store/user";
@@ -15,13 +16,13 @@ export const Header = () => {
   const { user } = useUserStore();
 
   const handleSelectTab = (value: string) => {
-    navigate(value);
     updateActiveTab(value);
+    navigate(value);
   }
 
   return (
     <div className="sticky top-0 z-50 flex justify-between items-end bg-header mb-2 py-1 pt-2 px-5 md:py-3 md:px-20 md:gap-20 lg:px-10 md:items-center xl:mb-10">
-      <div onClick={() => navigate('/')} className="flex grow max-w-[50%] flex-row gap-3 items-center">
+      <div className="flex grow max-w-[50%] flex-row gap-3 items-center">
         <Icon type="briefcase" className="w-auto xs:h-9 sm:h-9 md:h-14 lg:h-8" />
         <Icon type="title" className="w-auto xs:h-5 sm:h-5 md:h-9 lg:h-5" />
       </div>
