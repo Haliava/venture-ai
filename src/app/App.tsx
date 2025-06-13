@@ -26,7 +26,6 @@ function App() {
         <BrowserRouter>
           <Routes>
             <Route element={<CommonLayout />}>
-              <Route path='*' element={<NotFoundPage />} />
               <Route path="login" element={<LoginPage />} />
               <Route path="register" element={<RegisterPage />} />
               <Route path="verification" element={<EmailVerificationPage />} />
@@ -39,6 +38,8 @@ function App() {
                 <Route path="profile" element={<ProfilePage />} />
                 <Route path="subscribe" element={<UnderConstructionPage />} />
               </Route>
+
+              <Route path='*' element={<NotFoundPage />} />
             </Route>
           </Routes>
         </BrowserRouter>
