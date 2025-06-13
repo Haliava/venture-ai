@@ -87,7 +87,6 @@ export function displayTimerTime(elapsedSeconds: number) {
 export const generatePDF = async (elem: HTMLElement) => {
   const canvas = await html2canvas(elem, { scale: 2 });
   const pdf = new jsPDF('p', 'mm', 'a4');
-  const imgData = canvas.toDataURL('image/jpeg', 0.85);
   
   const pageWidth = pdf.internal.pageSize.getWidth();
   const pageHeight = pdf.internal.pageSize.getHeight();

@@ -24,7 +24,6 @@ export const RegisterForm = ({
   ...props
 }: RegisterFormProps) => {
   const { registerUser, isRegistring } = useUserActions();
-  const { setToken } = useAuth();
   const navigate = useNavigate();
   const [step, setStep] = useState(0);
 

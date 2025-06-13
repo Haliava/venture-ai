@@ -1,4 +1,3 @@
-import { TABS } from "@/shared/constants/general";
 import { useCurrentDevice } from "@/shared/hooks/useCurrentDevice";
 import { useTabs } from "@/shared/hooks/useTabs";
 import { useUserStore } from "@/shared/store/user";
