@@ -1,6 +1,7 @@
 import { SUBMIT_ACTIONS } from "@/shared/constants/form";
 import { useUserActions } from "@/shared/hooks/useUserActions";
 import { cn } from "@/shared/lib/utils";
+import { useAuth } from "@/shared/store/user";
 import { RegisterUserFields } from "@/shared/types/user";
 import { Button } from "@/shared/ui/button";
 import { Card, CardHeader, CardTitle, CardContent } from "@/shared/ui/card";
@@ -19,6 +20,7 @@ export const LoginForm = ({
   ...props
 }: LoginFormProps) => {
   const { loginUser, registerUser, isLoggingIn, isRegistring } = useUserActions();
+  const { setToken } = useAuth();
   const navigate = useNavigate()
 
   const handleSubmit = (e: any) => {
@@ -30,7 +32,8 @@ export const LoginForm = ({
       [SUBMIT_ACTIONS.REGISTER]: registerUser,
     }
 
-    actionsMap[submitAction](formFieldsValues).then(() => {
+    actionsMap[submitAction](formFieldsValues).then(data => {
+      setToken(data.data.token)
       navigate('/')
     }).catch(e => toast.error(`${e?.response?.data?.message ?? 'ошибка входа/регистрации!'}`))
   }
