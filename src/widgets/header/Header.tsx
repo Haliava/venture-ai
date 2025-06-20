@@ -1,18 +1,25 @@
 import { useCurrentDevice } from "@/shared/hooks/useCurrentDevice";
 import { useTabs } from "@/shared/hooks/useTabs";
+import { useUserActions } from "@/shared/hooks/useUserActions";
 import { useUserStore } from "@/shared/store/user";
 import { Device } from "@/shared/types/general";
 import { Button } from "@/shared/ui/button";
 import { Icon } from "@/shared/ui/icon";
 import { Popover, PopoverContent, PopoverTrigger } from "@/shared/ui/popover";
 import { Tabs, TabsList, TabsTrigger } from "@/shared/ui/tabs";
+import { useEffect } from "react";
 import { useNavigate } from "react-router";
 
 export const Header = () => {
   const navigate = useNavigate();
   const { device: currentDevice } = useCurrentDevice();
   const { tabs, activeTab, updateActiveTab } = useTabs();
-  const { user } = useUserStore();
+  const { user, setUser } = useUserStore();
+  const { userData: userAPI, isLoadingUser} = useUserActions();
+
+  useEffect(() => {
+    setUser({ ...user, ...userAPI })
+  }, [isLoadingUser])
 
   const handleSelectTab = (value: string) => {
     updateActiveTab(value);
@@ -49,7 +56,7 @@ export const Header = () => {
               {user?.avatar && <img className="size-[35%]" src={user?.avatar} />}
               {!user?.avatar && <Icon className="size-[35%]" type="avatar" />}
               <div className="flex flex-col items-center gap-2">
-                <p className="font-bold text-ai-regular">{user.name}</p>
+                {/* <p className="font-bold text-ai-regular">{user.name}</p> */}
                 <p className="text-ai-regular">{user.email}</p>
               </div>
             </div>

@@ -5,6 +5,7 @@ import briefcase from './briefcase.svg?react';
 import checkmark from './checkmark.svg?react';
 import ellipsis from './ellipsis.svg?react';
 import triangle from './triangle.svg?react';
+import loading from './loading.svg?react';
 import circle from './circle.svg?react';
 import square from './square.svg?react';
 import avatar from './avatar.svg?react';
@@ -23,6 +24,7 @@ export default {
   checkmark,
   ellipsis,
   triangle,
+  loading,
   circle,
   square,
   person,

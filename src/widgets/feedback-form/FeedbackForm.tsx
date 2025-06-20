@@ -27,7 +27,18 @@ export const FeedbackForm = ({ className, starClassName }: {className?: string; 
       {step !== 2 && (
         <>
           <p className="font-semibold text-ai-lg">Вам нравится Venture AI?</p>
-          <p className="font-normal text-ai-regular">Будем рады узнать Ваше мнение о нашем сервисе.</p>
+          <p className="font-normal text-ai-regular px-3 text-center lg:max-w-[45%]">
+            {step === 0 && 'Будем рады узнать Ваше мнение о нашем сервисе.'}
+            {step === 1 && (
+              <>
+                Что именно Вам понравилось в работе нашего сервиса,
+                <br />
+                а что нет? Нам интересно узнать о Вашем опыте работы
+                <br />
+                с AI-аналитиком.
+              </>
+            )}
+          </p>
         </>
       )}
       {step === 0 && (
@@ -35,8 +46,10 @@ export const FeedbackForm = ({ className, starClassName }: {className?: string; 
           <StarsRating rating={rating} setRating={setRating} className={starClassName} />
           <Button
             disabled={rating < 0}
-            onClick={() => setStep(1)}
-            className={`mt-3 px-[40px] py-[7px] ${rating >= 0 ? 'bg-danger hover:bg-danger-secondary': 'bg-check hover:bg-[rgb(170,170,170)]'}`}
+            onClick={() => {
+              setStep(1);
+            }}
+            className={`rounded-2xl mt-3 px-8 py-4 ${rating >= 0 ? 'bg-danger hover:bg-danger-secondary': 'bg-check hover:bg-[rgb(170,170,170)]'}`}
           >
             <p className="text-ai-regular font-semibold">Отправить</p>
           </Button>
@@ -44,9 +57,9 @@ export const FeedbackForm = ({ className, starClassName }: {className?: string; 
       )}
       {step === 1 && (
         <>
-          <Textarea value={comment} onChange={(e) => setComment(e.target.value)} className="border-none m-auto min-h-30 w-[90vw] lg:w-[40vw]" />
-          <Button onClick={handleSendFeedback} className={`mt-3 px-[40px] py-[7px] ${rating >= 0 ? 'bg-danger hover:bg-danger-secondary': 'bg-check'}`}>
-            <p className="text-ai-regular font-semibold">Отправить отзыв</p>
+          <Textarea value={comment} onChange={(e) => setComment(e.target.value)} className="border-none m-auto min-h-30 w-[90vw] lg:w-[30vw]" />
+          <Button onClick={handleSendFeedback} className="rounded-2xl mt-3 px-10 py-6 bg-[rgba(104,135,181,1)] hover:bg-[rgba(77,98,130,1)]">
+            <p className="text-ai-regular font-semibold">Отправить</p>
           </Button>
         </> 
       )}

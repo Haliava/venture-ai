@@ -31,6 +31,9 @@
   --text-ai-md: 1rem;
   --text-ai-lg: 1.15rem;
   --text-ai-xl: 1.5rem;
+
+  --drop-shadow-blue-light-top: -.1rem -.1rem .75rem rgba(104,135,181,1);
+  --drop-shadow-blue-light-bottom: .1rem .1rem .75rem rgba(104,135,181,1);
 }
 
 @media (-webkit-min-device-pixel-ratio:0) {
